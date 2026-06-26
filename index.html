@@ -52,9 +52,9 @@
         header .logo h3 { color: #00aad5; font-family: 'geomanistmedium', sans-serif; font-size: 18px; }
 
         /* --- Interactive Search Overlay --- */
-        #searchOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 500; padding: 15px; box-sizing: border-box; display: none; }
+        #searchOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 500; padding: 15px; box-sizing: border-box; display: none; overflow-y: auto; }
         body.dark-mode #searchOverlay { background: #09191d; color: white; }
-        .search-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid #00aad5; padding-bottom: 5px; margin-bottom: 20px; }
+        .search-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid #00aad5; padding-bottom: 5px; margin-bottom: 20px; position: sticky; top: 0; background: inherit; z-index: 501;}
         .search-input-wrapper input { width: 100%; border: none; background: transparent; font-size: 18px; outline: none; font-family: 'geomanistregular', sans-serif; color: inherit; }
         .search-close { font-size: 24px; cursor: pointer; padding: 0 10px; color: #7F949A; }
         .overlay-section { margin-bottom: 25px; }
@@ -62,9 +62,11 @@
         .search-tag { display: inline-block; background: #eee; padding: 6px 14px; border-radius: 20px; margin: 5px; font-size: 13px; cursor: pointer; color: #333; }
         body.dark-mode .search-tag { background: #1f4e5a; color: white; }
         .live-results-list { display: flex; flex-direction: column; gap: 10px; }
-        .live-search-item { display: flex; align-items: center; gap: 15px; padding: 10px; border-radius: 8px; cursor: pointer; border-bottom: 1px solid #eee; }
+        .live-search-item { display: flex; align-items: center; gap: 15px; padding: 10px; border-radius: 8px; cursor: pointer; border-bottom: 1px solid #eee; transition: background 0.2s;}
+        .live-search-item:hover { background: #f5f5f5; }
         body.dark-mode .live-search-item { border-bottom: 1px solid #1f4e5a; }
-        .live-search-item img { width: 40px; height: 40px; border-radius: 8px; }
+        body.dark-mode .live-search-item:hover { background: #102c33; }
+        .live-search-item img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover;}
 
         /* --- Navigation Links Ribbon --- */
         nav.links { position: relative; margin-bottom: 10px; box-shadow: 0 10px 10px 0px rgba(0,0,0,0.03); background: white; }
@@ -101,7 +103,6 @@
         body.dark-mode .item .name { color: white; }
         .item .description { font-family: 'geomanistregular', sans-serif; color: #7F949A; font-size: 11px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 3px; }
 
-        /* Suspension Flag Design */
         .suspended-badge { background: #d32f2f; color: white; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-top: 4px; }
 
         .special .item { width: 230px; align-items: flex-start; text-align: left; }
@@ -125,7 +126,7 @@
         body.dark-mode .back-btn { background: #1f4e5a; color: white; }
         
         .app-header-block { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; }
-        .app-header-block img { width: 85px; height: 85px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .app-header-block img { width: 85px; height: 85px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); object-fit: cover;}
         .app-header-block h2 { margin: 0; font-size: 22px; font-family: 'geomanistmedium', sans-serif; }
         .app-header-block p { color: #7F949A; margin: 4px 0 0 0; font-size: 14px; }
         
@@ -164,9 +165,9 @@
         .post-btn { background: #00aad5; color: white; width: 100%; padding: 14px; border: none; border-radius: 8px; font-family: 'geomanistmedium', sans-serif; font-size: 15px; cursor: pointer; }
 
         /* Lightbox Overlay */
-        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999999; align-items: center; justify-content: center; }
-        #lightboxImg { max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px; cursor: pointer; font-size: 20px; border-radius: 50%; }
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999999; align-items: center; justify-content: center; flex-direction: column;}
+        #lightboxImg { max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;}
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px; cursor: pointer; font-size: 20px; border-radius: 50%; z-index: 1000000;}
         .lb-nav:hover { background: #00aad5; }
 
         /* --- Sticky Bottom Native Navigation Menu Bar --- */
@@ -189,7 +190,6 @@
         import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getRemoteConfig, fetchAndActivate, getString } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-remote-config.js";
 
-        // Verified Placeholder Config Object Structure Provided
         const firebaseConfig = {
             apiKey: "AIzaSyBFtAVBpkzjVkkI_Xnu9wfALxDwuG3LXAM",
             authDomain: "hgt-linkdify.firebaseapp.com",
@@ -200,14 +200,10 @@
             measurementId: "G-G3STNFS21P"
         };
 
-        // Execution Core Context Bootstrapping
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const remoteConfig = getRemoteConfig(app);
-
-        // Configure Remote Config parameters
         remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
-
         window.firebaseEngine = { db, remoteConfig, fetchAndActivate, getString, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment };
     </script>
 </head>
@@ -334,7 +330,6 @@
                     <div id="privacyDataContainer">
                         <p style="font-size:13px; font-weight:bold; margin:0 0 10px 0; color:#1F4E5A;">Data Collection Summary:</p>
                         <ul id="dataCollectedList" style="list-style:none; padding:0; margin:0; font-size:13px; color:#555;"></ul>
-                        <p style="margin-top:15px; font-size:12px;"><a id="privacyPolicyLink" href="#" target="_blank" style="color: #00aad5; text-decoration: underline;">View Developer Privacy Policy</a></p>
                     </div>
                 </div>
 
@@ -377,7 +372,7 @@
                     <h4>Trending Application Nodes</h4>
                     <span class="search-tag" onclick="injectSearchValue('Velocity')">Velocity Messenger</span>
                     <span class="search-tag" onclick="injectSearchValue('Guardian')">HGT Security</span>
-                    <span class="search-tag" onclick="injectSearchValue('Finance')">Wallet Ledger</span>
+                    <span class="search-tag" onclick="injectSearchValue('Ledger')">Wallet Ledger</span>
                 </div>
                 <div class="overlay-section">
                     <h4>Recent Query Logs</h4>
@@ -430,7 +425,7 @@
     </div>
 
     <div id="lightbox">
-        <span onclick="closeLightbox()" style="position:absolute; top:20px; right:20px; color:white; cursor:pointer; font-size:30px;">✕</span>
+        <span onclick="closeLightbox()" style="position:absolute; top:20px; right:20px; color:white; cursor:pointer; font-size:30px; z-index:1000001;">✕</span>
         <button class="lb-nav" onclick="changeScreenshot(-1)" style="left:10px;">◀</button>
         <img id="lightboxImg">
         <button class="lb-nav" onclick="changeScreenshot(1)" style="right:10px;">▶</button>
@@ -439,9 +434,9 @@
     <script>
         let appRepositoryState = [];
         let currentlySelectedAppId = null;
-        let activeRouteContext = 'home'; 
+        let downloadActiveInterval = null; 
 
-        // Lightbox state variables
+        // Lightbox state
         let currentGalleryImages = [];
         let currentGalleryIdx = 0;
 
@@ -453,7 +448,7 @@
             }, 1800);
 
             if (!localStorage.getItem('hgtSearchLogs')) {
-                localStorage.setItem('hgtSearchLogs', JSON.stringify(['Security', 'Messenger', 'Tools']));
+                localStorage.setItem('hgtSearchLogs', JSON.stringify(['Security', 'Messenger', 'Ledger']));
             }
             renderSearchLogsUI();
             checkDynamicDeepLinkRouting();
@@ -518,32 +513,34 @@
                 appRepositoryState = [];
                 snapshotQuery.forEach(record => {
                     const data = record.data();
-                    // THE KILL SWITCH
                     if (data.isPublished !== false) {
                         appRepositoryState.push({ id: record.id, ...data });
                     }
                 });
 
+                if(appRepositoryState.length === 0) throw new Error("Empty collection");
                 renderAppStoreInterfaceContent(appRepositoryState);
             } catch(e) {
-                console.warn("Database Connection Failed. Falling Back to Local Engine:", e);
+                console.warn("Database Connection Failed or Empty. Falling Back to Local Engine:", e);
                 populateMockFallbackDataStore();
             }
         }
 
         function populateMockFallbackDataStore() {
+            // MOCK DATA: Notice YouTube Url and Dev Email added to Velocity Messenger so it shows up instantly!
             appRepositoryState = [
                 {
                     id: "velocity-messenger", name: "Velocity Messenger", description: "Secure, real-time cryptographic enterprise messaging array platform node application tool setup.", category: "utilities", version: "2.4.0", logo: "https://picsum.photos/100/100?random=11", downloadUrl: "#", isSpecial: true, isSuspended: false,
-                    screenshots: ["https://picsum.photos/300/500?random=1", "https://picsum.photos/300/500?random=2"], downloads: 1542, reviewCount: 89, isSecured: true, linkdifyId: "HGT_FO76084936_users", ageRating: "12+", dataCollected: ["email", "device info", "contacts"], tags: ["chat", "messenger", "secure"]
+                    screenshots: ["https://picsum.photos/300/500?random=1", "https://picsum.photos/300/500?random=2", "https://picsum.photos/300/500?random=10"], downloads: 1542, reviewCount: 89, isSecured: true, linkdifyId: "HGT_FO76084936_users", ageRating: "12+", dataCollected: ["email", "device info", "contacts"], tags: ["chat", "messenger", "secure", "velocity"],
+                    youtubeUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", devEmail: "developer@velocity.hgt", devWebsite: "https://henryglobal.com"
                 },
                 {
                     id: "hgt-guardian-mobile", name: "HGT Guardian Authenticator", description: "Hardware level endpoint validation security firewall token matrix management deployment asset system.", category: "utilities", version: "1.0.8", logo: "https://picsum.photos/100/100?random=12", downloadUrl: "#", isSpecial: false, isSuspended: true, suspensionReason: "Requires emergency patch for CCPA compliance module.",
-                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", tags: ["security", "firewall", "tools"]
+                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", tags: ["security", "firewall", "tools", "guardian"]
                 },
                 {
                     id: "alpha-wallet", name: "Alpha Ledger Protocol", description: "Next-gen smart contract balance asset tracking accounting ledger solution framework system.", category: "finance", version: "3.1.2", logo: "https://picsum.photos/100/100?random=13", downloadUrl: "#", isSpecial: true, isSuspended: false,
-                    screenshots: ["https://picsum.photos/300/500?random=5"], downloads: 8900, reviewCount: 120, isSecured: true, linkdifyId: "HGT_FIN112233_users", ageRating: "18+", dataCollected: ["financial info", "email"], tags: ["finance", "wallet", "crypto"]
+                    screenshots: ["https://picsum.photos/300/500?random=5"], downloads: 8900, reviewCount: 120, isSecured: true, linkdifyId: "HGT_FIN112233_users", ageRating: "18+", dataCollected: ["financial info", "email"], tags: ["finance", "wallet", "crypto", "ledger"]
                 }
             ];
             renderAppStoreInterfaceContent(appRepositoryState);
@@ -558,7 +555,6 @@
             standardRow.innerHTML = '';
             featuredRow.innerHTML = '';
 
-            // Admin Control: Sort Suspended Apps to the top
             let sortedApps = [...appsList].sort((a, b) => (b.isSuspended ? 1 : 0) - (a.isSuspended ? 1 : 0));
 
             sortedApps.forEach(app => {
@@ -567,7 +563,7 @@
                 if(app.isSpecial) {
                     featuredRow.innerHTML += `
                         <div class="carousel-item" onclick="routeToDetails('${app.id}')">
-                            <img class="feature-image" src="${app.screenshots ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}" alt="App Banner">
+                            <img class="feature-image" src="${app.screenshots && app.screenshots.length > 0 ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}" alt="App Banner">
                             <span class="tag-1">Featured Node</span>
                             <div class="text">
                                 <p class="title">${app.name}</p>
@@ -579,7 +575,7 @@
                     specialRow.innerHTML += `
                         <div class="item" onclick="routeToDetails('${app.id}')">
                             <div class="auto">
-                                <img class="feature" src="${app.screenshots ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}">
+                                <img class="feature" src="${app.screenshots && app.screenshots.length > 0 ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}">
                                 <img class="app-mini-icon" src="${app.logo}">
                             </div>
                             <div class="name">${app.name}</div>
@@ -603,13 +599,19 @@
         function routeToDetails(applicationId) {
             currentlySelectedAppId = applicationId;
             
+            // Clean up intervals
+            if (downloadActiveInterval) {
+                clearInterval(downloadActiveInterval);
+                downloadActiveInterval = null;
+            }
+
             const structuralHistoryStateUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?appId=${applicationId}`;
             window.history.pushState({ path: structuralHistoryStateUrl }, '', structuralHistoryStateUrl);
 
             const app = appRepositoryState.find(element => element.id === applicationId);
             if(!app) return;
 
-            // Header & Basic Info
+            // Details Injection
             document.getElementById('detailAppName').innerText = app.name;
             document.getElementById('detailAppIcon').src = app.logo;
             document.getElementById('detailAppVersion').innerText = `Version: ${app.version || '1.0.1'}`;
@@ -617,7 +619,7 @@
             document.getElementById('descriptionDisplay').innerText = app.description || "No description provided.";
             document.getElementById('linkdifyIdDisplay').innerText = app.linkdifyId || "N/A";
 
-            // Professional Stats
+            // Stats
             document.getElementById('statDownloadCount').innerText = app.downloads || 0;
             document.getElementById('statReviewCount').innerText = app.reviewCount || 0;
             const secStatus = document.getElementById('securityStatus');
@@ -627,18 +629,19 @@
                 secStatus.innerText = "Unverified"; secStatus.style.color = "#d32f2f";
             }
 
-            // Suspension Check & Button Logic
+            // Bind Download Action precisely
             const downloadBtn = document.getElementById('detailDownloadBtn');
             const noticeBox = document.getElementById('suspensionNoticeContainer');
             noticeBox.innerHTML = '';
             
-            // Re-bind click event cleanly
-            downloadBtn.onclick = (e) => startDownloadAnimation(e, app.id);
+            // Overwrite old click listener to prevent stacking
+            downloadBtn.onclick = (e) => startDownloadEngine(e, app.id);
             
             if (app.isSuspended) {
                 document.getElementById('btnText').innerText = "APP SUSPENDED";
                 downloadBtn.style.backgroundColor = "#d32f2f";
                 downloadBtn.style.pointerEvents = "none";
+                document.getElementById('progressBar').style.display = 'none';
                 noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ALERT: ${app.suspensionReason || "Suspended for compliance violation."}</div>`;
             } else {
                 document.getElementById('btnText').innerText = "Download APK";
@@ -648,10 +651,10 @@
                 document.getElementById('progressBar').style.display = 'none';
             }
 
-            // YouTube Integrator
+            // YouTube Integrator (Dynamic detection)
             const videoPlayer = document.getElementById('appVideoPlayer');
             const videoContainer = document.getElementById('videoContainer');
-            if (app.youtubeUrl) {
+            if (app.youtubeUrl && app.youtubeUrl.trim() !== "") {
                 videoPlayer.src = app.youtubeUrl;
                 videoContainer.style.display = 'block';
             } else {
@@ -659,7 +662,7 @@
                 videoContainer.style.display = 'none';
             }
 
-            // Lightbox Gallery Integrator
+            // Screenshots Gallery
             currentGalleryImages = app.screenshots || [];
             const screenshotsArea = document.getElementById('detailScreenshotsContainer');
             screenshotsArea.innerHTML = '';
@@ -670,96 +673,114 @@
                 screenshotsArea.appendChild(img);
             });
 
-            // Privacy Data Checkmarks
+            // Privacy List
             const dataList = document.getElementById('dataCollectedList');
             dataList.innerHTML = '';
-            if (app.dataCollected && app.dataCollected.length > 0) {
+            if (app.dataCollected && Array.isArray(app.dataCollected) && app.dataCollected.length > 0) {
                 app.dataCollected.forEach(item => {
                     dataList.innerHTML += `<li style="margin-bottom:6px;">✅ ${item}</li>`;
                 });
             } else {
-                dataList.innerHTML = "<li>None</li>";
+                dataList.innerHTML = "<li>None specified</li>";
             }
-            document.getElementById('privacyPolicyLink').href = app.privacyPolicyUrl || "#";
 
-            // Developer Contact Injection
+            // Developer Dynamic Contact Injection
             const devLinksBox = document.getElementById('contactLinks');
             devLinksBox.innerHTML = '';
+            
+            // Dynamic check: It looks exactly for these properties
             const contacts = [
                 { label: "Email", val: app.devEmail, icon: "✉️" },
                 { label: "Website", val: app.devWebsite, icon: "🌐" },
                 { label: "Facebook", val: app.devFacebook, icon: "📘" },
                 { label: "TikTok", val: app.devTikTok, icon: "🎵" }
             ];
+            
             contacts.forEach(c => {
-                if(c.val) {
-                    devLinksBox.innerHTML += `<a href="${c.val}" target="_blank" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">${c.icon} ${c.label}</a>`;
+                if(c.val && c.val.trim() !== "") {
+                    const linkType = c.label === "Email" ? `mailto:${c.val}` : c.val;
+                    devLinksBox.innerHTML += `<a href="${linkType}" target="_blank" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">${c.icon} ${c.label}</a>`;
                 }
             });
-            document.getElementById('devContactSection').style.display = devLinksBox.innerHTML ? 'block' : 'none';
+            document.getElementById('devContactSection').style.display = devLinksBox.innerHTML !== '' ? 'block' : 'none';
 
-            // Render Related Apps
+            // Related
             renderRelatedApps(app);
 
+            // View Switch
             document.getElementById('homeView').classList.add('hidden');
             document.getElementById('detailView').classList.remove('hidden');
             window.scrollTo(0, 0);
             renderReviewsListUI();
         }
 
-        // --- 1.0.1 15-Second Download Animation Engine ---
-        async function startDownloadAnimation(event, appId) {
+        // --- HARDENED DOWNLOAD ANIMATION & NOTIFICATION ENGINE ---
+        async function startDownloadEngine(event, appId) {
             event.preventDefault();
             const app = appRepositoryState.find(e => e.id === appId);
-            if(app.isSuspended) return;
+            if(!app || app.isSuspended) return;
 
             const btn = document.getElementById('detailDownloadBtn');
             const btnText = document.getElementById('btnText');
             const progressBar = document.getElementById('progressBar');
 
+            // Reset state
+            if(downloadActiveInterval) clearInterval(downloadActiveInterval);
+            
             btn.style.pointerEvents = 'none';
             progressBar.style.display = 'block';
-            btnText.innerText = "Downloading... 15s";
+            progressBar.style.width = '0%';
+            btnText.innerText = "Initiating... 15s";
 
-            // Browser Notification Trigger
-            if (Notification.permission === "granted") {
-                new Notification("Download Initiated", { body: `${app.name} is being prepared for secure download.` });
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission();
+            // Trigger notification permission request (Requires User Gesture, which the click provides)
+            if ("Notification" in window && Notification.permission === "default") {
+                await Notification.requestPermission();
             }
 
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
+            let progressValue = 0;
+            // Target: 100% in 15 seconds. (15000ms / 100 steps = 150ms per step)
+            downloadActiveInterval = setInterval(() => {
+                progressValue += 1;
+                progressBar.style.width = progressValue + "%";
+                
+                const secondsLeft = Math.ceil(15 - (progressValue * 0.15));
+                btnText.innerText = `Downloading... ${secondsLeft}s`;
+
+                if (progressValue >= 100) {
+                    clearInterval(downloadActiveInterval);
                     btnText.innerText = "Download Ready!";
                     
-                    // Increment logic for Firestore (if connected)
+                    // Trigger Native Notification immediately when hitting 100%
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        new Notification("Download Complete", { 
+                            body: `${app.name} is ready for installation.`,
+                            icon: app.logo
+                        });
+                    }
+
+                    // Increment backend stats safely
                     if(window.firebaseEngine && window.firebaseEngine.increment) {
                         try {
                             const { db, doc, updateDoc, increment } = window.firebaseEngine;
                             updateDoc(doc(db, "live_apps", appId), { downloads: increment(1) });
-                        } catch(e) { console.warn("Increment failed."); }
+                        } catch(e) { console.warn("Stat update skipped."); }
                     }
-                    
+
+                    // Release UI lock and route to file
+                    btn.style.pointerEvents = 'auto';
                     window.location.href = app.downloadUrl || "#"; 
-                } else {
-                    width++;
-                    progressBar.style.width = width + "%";
-                    const secondsLeft = Math.ceil(15 - (width * 0.15));
-                    btnText.innerText = `Downloading... ${secondsLeft}s`;
                 }
-            }, 150); // 150ms * 100 = 15 Seconds
+            }, 150);
         }
 
-        // --- Screenshot Lightbox Engine ---
+        // --- LIGHTBOX ENGINE ---
         function openLightbox(index) {
             currentGalleryIdx = index;
             document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
             document.getElementById('lightbox').style.display = 'flex';
         }
         function changeScreenshot(direction) {
-            if(currentGalleryImages.length === 0) return;
+            if(!currentGalleryImages || currentGalleryImages.length === 0) return;
             currentGalleryIdx = (currentGalleryIdx + direction + currentGalleryImages.length) % currentGalleryImages.length;
             document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
         }
@@ -767,13 +788,21 @@
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        // --- Related Apps Engine ---
+        // --- RELATED APPS ---
         function renderRelatedApps(currentApp) {
             const container = document.getElementById('relatedAppsContainer');
             container.innerHTML = '';
-            if(!currentApp.tags || currentApp.tags.length === 0) return;
+            
+            if(!currentApp.tags || !Array.isArray(currentApp.tags) || currentApp.tags.length === 0) {
+                document.getElementById('relatedAppsSection').style.display = 'none';
+                return;
+            }
 
-            const related = appRepositoryState.filter(a => a.id !== currentApp.id && a.tags && a.tags.some(t => currentApp.tags.includes(t)) && !a.isSuspended);
+            const related = appRepositoryState.filter(a => {
+                if(a.id === currentApp.id || a.isSuspended || !a.tags || !Array.isArray(a.tags)) return false;
+                // If they share at least one tag
+                return a.tags.some(t => currentApp.tags.map(ct=>ct.toLowerCase()).includes(t.toLowerCase()));
+            });
             
             if(related.length === 0) {
                 document.getElementById('relatedAppsSection').style.display = 'none';
@@ -792,10 +821,15 @@
 
         function routeToHome() {
             currentlySelectedAppId = null;
+            if(downloadActiveInterval) {
+                clearInterval(downloadActiveInterval);
+                downloadActiveInterval = null;
+            }
+
             const rootCleanPathUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.pushState({ path: rootCleanPathUrl }, '', rootCleanPathUrl);
 
-            document.getElementById('videoContainer').innerHTML = ''; // Stop video
+            document.getElementById('appVideoPlayer').src = ""; // Cut video audio
             document.getElementById('detailView').classList.add('hidden');
             document.getElementById('homeView').classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -814,10 +848,13 @@
             }
         }
 
+        // --- OPTIMIZED SEARCH ENGINE ---
         function toggleSearchOverlay(visibleState) {
             const overlay = document.getElementById('searchOverlay');
             overlay.style.display = visibleState ? 'block' : 'none';
             if(visibleState) {
+                document.getElementById('liveSearchInput').value = '';
+                evaluateSearchInput(); // Reset view
                 document.getElementById('liveSearchInput').focus();
                 renderSearchLogsUI();
             }
@@ -836,20 +873,26 @@
 
             statesBox.style.display = 'none';
             
-            // Search checks name, category, and tags array
-            const filteredResults = appRepositoryState.filter(item => 
-                (item.name.toLowerCase().includes(queryValue) || 
-                item.category.toLowerCase().includes(queryValue) ||
-                (item.tags && item.tags.some(t => t.toLowerCase().includes(queryValue)))) && 
-                !item.isSuspended
-            );
+            const filteredResults = appRepositoryState.filter(item => {
+                if(item.isSuspended) return false;
+                
+                const nameMatch = item.name.toLowerCase().includes(queryValue);
+                const catMatch = item.category.toLowerCase().includes(queryValue);
+                let tagMatch = false;
+                
+                if(item.tags && Array.isArray(item.tags)) {
+                    tagMatch = item.tags.some(t => t.toLowerCase().includes(queryValue));
+                }
+                
+                return nameMatch || catMatch || tagMatch;
+            });
 
             if(filteredResults.length === 0) {
                 resultsGrid.innerHTML = `
                     <div style="text-align:center; padding: 40px 20px;">
                         <div style="font-size:40px; margin-bottom:10px;">🔍</div>
                         <h3 style="color:#1F4E5A; margin:0;">No Apps Found</h3>
-                        <p style="color:#7F949A; font-size:14px;">Try searching for tags like 'flashlight', 'finance', etc.</p>
+                        <p style="color:#7F949A; font-size:14px;">Try searching for tags like 'finance', 'security', or 'messenger'.</p>
                         <button onclick="toggleSearchOverlay(false)" style="margin-top:15px; padding:10px 20px; background:#00aad5; color:white; border:none; border-radius:8px; cursor:pointer;">Back to Home</button>
                     </div>`;
                 return;
