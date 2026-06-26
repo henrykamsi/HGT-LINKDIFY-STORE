@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>HGT LINKDFY STORE | Get The World Best Apps</title>
+    <title>HGT LINKDIFY STORE | Get The World Best Apps</title>
     
     <link rel="preconnect" href="https://img.utdstc.com">
     <link rel="preconnect" href="https://stc.utdstc.com">
@@ -34,11 +34,10 @@
         body > .content { max-width: 1396px; min-height: 100vh; margin: auto; background: white; position: relative; box-sizing: border-box; padding-bottom: 70px; }
         body.dark-mode > .content { background: #0f292f; }
 
-        /* --- Splash Screen --- */
+        /* --- Splash Screen & Gatekeeper --- */
         #splashScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #00aad5; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.5s ease; }
         #splashScreen h2 { color: white; font-family: 'geomanistmedium', sans-serif; font-size: 28px; margin: 0; }
         
-        /* --- HGT Guardian & Biometric Lock Gate --- */
         #hgtGatekeeper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #09191d; z-index: 9999; display: flex; justify-content: center; align-items: center; color: white; text-align: center; font-family: 'geomanistmedium', sans-serif; padding: 20px; box-sizing: border-box; }
         .gate-card { background: #0f292f; border: 1px solid #1f4e5a; padding: 30px; border-radius: 16px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .gate-btn { background: #00aad5; color: white; border: none; padding: 14px 28px; font-size: 16px; font-family: 'geomanistmedium', sans-serif; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; }
@@ -52,7 +51,7 @@
         header .logo { margin: 0 auto 0 0; padding-left: 10px; }
         header .logo h3 { color: #00aad5; font-family: 'geomanistmedium', sans-serif; font-size: 18px; }
 
-        /* --- Interactive Search Overlay (Google Play Style) --- */
+        /* --- Interactive Search Overlay --- */
         #searchOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 500; padding: 15px; box-sizing: border-box; display: none; }
         body.dark-mode #searchOverlay { background: #09191d; color: white; }
         .search-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid #00aad5; padding-bottom: 5px; margin-bottom: 20px; }
@@ -74,7 +73,7 @@
         nav.links ul li { font-size: 11px; display: inline-block; margin-right: 20px; cursor: pointer; text-transform: uppercase; color:#7F949A; }
         nav.links ul li.active { font-family: 'geomanistmedium', sans-serif; color: #00aad5; border-bottom: 2px solid #00aad5; }
 
-        /* --- Side Menu Drawer (Hamburger) --- */
+        /* --- Side Menu Drawer --- */
         .nav-main { position: fixed; top: 0; bottom: 0; left: -260px; width: 260px; height: 100%; z-index: 2000; background: white; overflow-y: auto; transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 5px 0 15px rgba(0,0,0,0.1); padding: 20px; box-sizing: border-box; }
         body.dark-mode .nav-main { background: #0f292f; color: white; }
         .nav-main.active { left: 0; }
@@ -89,29 +88,28 @@
         h1 { padding: 8px 10px; margin: 0; font-size: 10px; text-transform: uppercase; font-weight: 300; color: white; background: #00aad5; text-align: center; font-family: 'geomanistregular', sans-serif; }
         h1 b { font-family: 'geomanistmedium', sans-serif; }
         
-        /* Layout Grid System & Rows */
         .item-row { padding: 15px 10px; position: relative; }
         section .title { font-family: 'geomanistmedium', sans-serif; color: #1f4e5a; font-size: 17px; margin-bottom: 12px; }
         body.dark-mode section .title { color: white; }
         
         .item-row .content { width: 100%; overflow-x: auto; display: flex; gap: 14px; padding-bottom: 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         
-        /* Cards UI */
         .item { min-width: 100px; width: 100px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
-        .item figure { width: 100px; height: 100px; margin-bottom: 8px; }
+        .item figure { width: 100px; height: 100px; margin-bottom: 8px; margin-top: 0; }
         .item figure img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
         .item .name { font-family: 'geomanistmedium', sans-serif; color: #1F4E5A; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
         body.dark-mode .item .name { color: white; }
         .item .description { font-family: 'geomanistregular', sans-serif; color: #7F949A; font-size: 11px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 3px; }
 
-        /* Special / Large Horizontal Row Modifiers */
+        /* Suspension Flag Design */
+        .suspended-badge { background: #d32f2f; color: white; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-top: 4px; }
+
         .special .item { width: 230px; align-items: flex-start; text-align: left; }
         .special .item .auto { width: 230px; height: 115px; background: #eee; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 8px; }
         .special .item .auto .feature { width: 100%; height: 100%; object-fit: cover; }
         .special .item .auto .app-mini-icon { position: absolute; bottom: 8px; left: 8px; width: 36px; height: 36px; border-radius: 8px; border: 2px solid white; }
         .special .item .name { -webkit-line-clamp: 1; font-size: 13px; }
         
-        /* Hero Carousel Banner Section */
         .feature .container { width: 100%; overflow: hidden; display: flex; padding: 10px; box-sizing: border-box; }
         .feature .carousel { display: flex; gap: 12px; width: 100%; overflow-x: auto; scrollbar-width: none; }
         .feature .carousel-item { position: relative; width: 85vw; max-width: 600px; height: 180px; border-radius: 14px; overflow: hidden; flex-shrink: 0; cursor: pointer; }
@@ -120,7 +118,7 @@
         .feature .text { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); color: white; padding: 15px 12px; box-sizing: border-box; }
         .feature .text .title { font-family: 'geomanistmedium', sans-serif; font-size: 16px; margin: 0; }
 
-        /* --- Inside App Structure (Dynamic DetailView Viewport) --- */
+        /* --- Inside App Structure (Detail View) --- */
         #detailView { background: white; min-height: 100vh; padding: 20px; box-sizing: border-box; }
         body.dark-mode #detailView { background: #0f292f; color: white; }
         .back-btn { background: #eee; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-family: 'geomanistmedium', sans-serif; margin-bottom: 20px; color: #333; }
@@ -131,18 +129,31 @@
         .app-header-block h2 { margin: 0; font-size: 22px; font-family: 'geomanistmedium', sans-serif; }
         .app-header-block p { color: #7F949A; margin: 4px 0 0 0; font-size: 14px; }
         
-        .action-bar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
-        .download-btn { background: #00aad5; color: white; text-align: center; padding: 15px; border-radius: 12px; font-family: 'geomanistmedium', sans-serif; font-size: 16px; font-weight: bold; }
+        .action-bar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px; }
+        .download-btn { display:block; background: #00aad5; color: white; text-align: center; padding: 15px; border-radius: 12px; font-family: 'geomanistmedium', sans-serif; font-size: 16px; font-weight: bold; cursor: pointer; position: relative; overflow: hidden; }
         .secondary-btns { display: flex; gap: 12px; }
         .secondary-btns button { flex: 1; padding: 12px; border: 1px solid #ddd; background: white; border-radius: 8px; font-family: 'geomanistmedium', sans-serif; cursor: pointer; color: #333; }
         body.dark-mode .secondary-btns button { background: #1f4e5a; border: 1px solid #1f4e5a; color: white; }
 
-        .media-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
-        .media-scroll img, .media-scroll video { height: 200px; border-radius: 12px; flex-shrink: 0; background: #eee; }
+        /* Professional Stats Bar */
+        #statsBar { display: flex; justify-content: space-between; padding: 15px; background: #f9f9f9; border-radius: 8px; margin: 20px 0; border: 1px solid #eee; }
+        body.dark-mode #statsBar { background: #102c33; border-color: #1f4e5a; }
+        .stat-block { text-align: center; }
+        .stat-val { font-family: 'geomanistmedium', sans-serif; font-weight: bold; color: #1F4E5A; font-size: 15px; }
+        body.dark-mode .stat-val { color: white; }
+        .stat-label { font-size: 10px; color: #7F949A; text-transform: uppercase; margin-top: 4px; }
+
+        .media-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; margin-top: 20px; scrollbar-width: none; }
+        .media-scroll img { height: 200px; border-radius: 12px; flex-shrink: 0; background: #eee; cursor: pointer; object-fit: cover; }
         
-        .dev-info { background: #fdfdfd; padding: 15px; border-radius: 12px; border: 1px solid #eee; margin-top: 25px; }
-        body.dark-mode .dev-info { background: #102c33; border: 1px solid #1f4e5a; }
-        .dev-info h3 { margin-top: 0; font-family: 'geomanistmedium', sans-serif; color: #00aad5; }
+        /* Privacy & Description Section */
+        .privacy-section { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+        body.dark-mode .privacy-section { border-color: #1f4e5a; }
+        .privacy-section h3 { font-family: 'geomanistmedium', sans-serif; color: #00aad5; margin-bottom: 15px; }
+        #descriptionDisplay { margin-bottom: 20px; font-size: 14px; color: #555; line-height: 1.6; }
+        body.dark-mode #descriptionDisplay { color: #ccc; }
+        #privacyDataContainer { background: #fdfdfd; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
+        body.dark-mode #privacyDataContainer { background: #102c33; border-color: #1f4e5a; }
         
         /* Verification Form Engine */
         .review-box { margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
@@ -151,6 +162,12 @@
         input, textarea, select { width: 100%; padding: 12px; margin: 6px 0 14px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: inherit; background: white; color: inherit; }
         body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background: #1f4e5a; border: 1px solid #1f4e5a; }
         .post-btn { background: #00aad5; color: white; width: 100%; padding: 14px; border: none; border-radius: 8px; font-family: 'geomanistmedium', sans-serif; font-size: 15px; cursor: pointer; }
+
+        /* Lightbox Overlay */
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999999; align-items: center; justify-content: center; }
+        #lightboxImg { max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px; cursor: pointer; font-size: 20px; border-radius: 50%; }
+        .lb-nav:hover { background: #00aad5; }
 
         /* --- Sticky Bottom Native Navigation Menu Bar --- */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: white; border-top: 1px solid #eee; display: flex; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
@@ -165,17 +182,11 @@
         footer p { font-size: 13px; color: #cddce0; margin: 0 0 15px 0; }
         footer .copyright { font-size: 11px; color: #7F949A; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
 
-        @media (min-width: 1024px) {
-            header { height: 70px; }
-            header .logo h3 { font-size: 24px; }
-            header .menu-button, header .search, header .theme-toggle { width: 70px; height: 70px; }
-            .feature .carousel-item { width: 450px; height: 220px; }
-        }
     </style>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getRemoteConfig, fetchAndActivate, getString } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-remote-config.js";
 
         // Verified Placeholder Config Object Structure Provided
@@ -195,9 +206,9 @@
         const remoteConfig = getRemoteConfig(app);
 
         // Configure Remote Config parameters
-        remoteConfig.settings.minimumFetchIntervalMillis = 3600000; // 1 Hour Cache
+        remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
 
-        window.firebaseEngine = { db, remoteConfig, fetchAndActivate, getString, collection, getDocs, doc, getDoc, addDoc, query, where };
+        window.firebaseEngine = { db, remoteConfig, fetchAndActivate, getString, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment };
     </script>
 </head>
 <body>
@@ -251,21 +262,18 @@
 
                 <div class="feature">
                     <div class="container">
-                        <div class="carousel" id="featuredAppsContainer">
-                            </div>
+                        <div class="carousel" id="featuredAppsContainer"></div>
                     </div>
                 </div>
 
                 <section class="item-row special">
                     <div class="title"><h2>HGT Special Category</h2></div>
-                    <div class="content" id="specialRowContainer">
-                        </div>
+                    <div class="content" id="specialRowContainer"></div>
                 </section>
 
                 <section class="item-row">
                     <div class="title"><h2>Standard Category</h2></div>
-                    <div class="content" id="standardRowContainer">
-                        </div>
+                    <div class="content" id="standardRowContainer"></div>
                 </section>
             </div>
 
@@ -276,27 +284,69 @@
                     <img id="detailAppIcon" src="https://stc.utdstc.com/img/no-img.png" alt="App Icon">
                     <div>
                         <h2 id="detailAppName">App Loading...</h2>
-                        <p id="detailAppVersion">Version 1.0.0</p>
+                        <p id="detailAppVersion" style="color: #00aad5; font-family:'geomanistmedium';">Version 1.0.1</p>
+                        <div id="ageRatingDisplay" style="display:inline-block; margin-top:5px; background: #eee; color: #555; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">Age: NR</div>
                     </div>
                 </div>
 
                 <div class="action-bar">
-                    <a id="detailDownloadBtn" href="#" class="download-btn" download>Download APK</a>
+                    <div id="suspensionNoticeContainer"></div>
+                    <a id="detailDownloadBtn" class="download-btn">
+                        <span id="btnText">Download APK</span>
+                        <div id="progressBar" style="display:none; height:4px; background:rgba(255,255,255,0.8); width:0%; margin-top:8px; border-radius:2px; transition: width 0.15s linear;"></div>
+                    </a>
+                    
                     <div class="secondary-btns">
                         <button onclick="executeClipboardCopy()">Copy Link</button>
                         <button onclick="executeNativeShare()">Share App</button>
                     </div>
                 </div>
 
-                <div class="media-scroll" id="detailScreenshotsContainer">
+                <div id="statsBar">
+                    <div class="stat-block">
+                        <div class="stat-val" id="statDownloadCount">0</div>
+                        <div class="stat-label">Downloads</div>
                     </div>
-
-                <div class="dev-info">
-                    <h3>Developer Architecture Details</h3>
-                    <p><strong>Publisher:</strong> Henry Global Tech Industry</p>
-                    <p><a href="YOUR_PRIVACY_POLICY_LINK_HERE" style="color: #00aad5; text-decoration: underline;">Privacy Compliance Verification Policy</a></p>
-                    <p><strong>Support Architecture:</strong> support@henryglobal.com</p>
+                    <div class="stat-block">
+                        <div class="stat-val" id="statReviewCount">0</div>
+                        <div class="stat-label">Reviews</div>
+                    </div>
+                    <div class="stat-block">
+                        <div id="securityStatus" class="stat-val" style="color: #2e7d32;">✓ Secured</div>
+                        <div class="stat-label">Security</div>
+                    </div>
                 </div>
+
+                <div style="font-size: 12px; color: #7F949A; margin-bottom: 20px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <strong>Linkdify ID:</strong> <span id="linkdifyIdDisplay">Loading...</span>
+                </div>
+
+                <div id="videoContainer" style="margin: 20px 0; display:none;">
+                    <iframe id="appVideoPlayer" width="100%" height="220" style="border-radius:12px;" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="media-scroll" id="detailScreenshotsContainer"></div>
+
+                <div class="privacy-section">
+                    <h3>LINKDIFY PRIVACY DATA</h3>
+                    <div id="descriptionDisplay"></div>
+                    
+                    <div id="privacyDataContainer">
+                        <p style="font-size:13px; font-weight:bold; margin:0 0 10px 0; color:#1F4E5A;">Data Collection Summary:</p>
+                        <ul id="dataCollectedList" style="list-style:none; padding:0; margin:0; font-size:13px; color:#555;"></ul>
+                        <p style="margin-top:15px; font-size:12px;"><a id="privacyPolicyLink" href="#" target="_blank" style="color: #00aad5; text-decoration: underline;">View Developer Privacy Policy</a></p>
+                    </div>
+                </div>
+
+                <div id="devContactSection" style="margin-top: 30px; display: none;">
+                    <h3 style="font-family: 'geomanistmedium'; color: #00aad5;">DEVELOPER CONTACT</h3>
+                    <div id="contactLinks" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;"></div>
+                </div>
+
+                <section class="item-row" id="relatedAppsSection" style="margin-top:20px; border-top: 1px solid #eee;">
+                    <div class="title" style="font-size:15px; color:#7F949A;">Similar Apps</div>
+                    <div class="content" id="relatedAppsContainer"></div>
+                </section>
 
                 <div class="review-box">
                     <h3>Platform Authenticated Reviews</h3>
@@ -351,11 +401,7 @@
                 <li><a href="#" onclick="triggerDrawerCategory('finance')">Financial Engines</a></li>
                 <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
                 <li class="section-title">Developer Hub Portal</li>
-                <li><a href="YOUR_DEVELOPER_PORTAL_LINK_HERE" target="_blank" style="color: #00aad5; font-weight: bold;">Upload Your App Module</a></li>
-                <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-                <li class="section-title">Legal Governance Compliance</li>
-                <li><a href="YOUR_PRIVACY_POLICY_LINK_HERE" target="_blank">Privacy Policy Registry</a></li>
-                <li style="font-size: 12px; color: #7F949A;">Compliance Node Contact: henryglobal@email.com</li>
+                <li><a href="#" style="color: #00aad5; font-weight: bold;">Upload Your App Module</a></li>
             </ul>
         </nav>
 
@@ -381,25 +427,31 @@
                 &copy; 2026 Henry Global Tech Industry. All rights reserved.
             </div>
         </footer>
+    </div>
 
+    <div id="lightbox">
+        <span onclick="closeLightbox()" style="position:absolute; top:20px; right:20px; color:white; cursor:pointer; font-size:30px;">✕</span>
+        <button class="lb-nav" onclick="changeScreenshot(-1)" style="left:10px;">◀</button>
+        <img id="lightboxImg">
+        <button class="lb-nav" onclick="changeScreenshot(1)" style="right:10px;">▶</button>
     </div>
 
     <script>
-        // Central Repository App State Store Core Configuration Management
         let appRepositoryState = [];
         let currentlySelectedAppId = null;
         let activeRouteContext = 'home'; 
 
-        // 1. Initial Orchestration Engine
+        // Lightbox state variables
+        let currentGalleryImages = [];
+        let currentGalleryIdx = 0;
+
         window.addEventListener('DOMContentLoaded', () => {
-            // Control Presentation Fading of Native Splash Node
             setTimeout(() => {
                 const splash = document.getElementById('splashScreen');
                 splash.style.opacity = '0';
                 setTimeout(() => splash.style.display = 'none', 500);
             }, 1800);
 
-            // Establish Local Query Storage Log Registry
             if (!localStorage.getItem('hgtSearchLogs')) {
                 localStorage.setItem('hgtSearchLogs', JSON.stringify(['Security', 'Messenger', 'Tools']));
             }
@@ -407,27 +459,19 @@
             checkDynamicDeepLinkRouting();
         });
 
-        // 2. Masterpiece Security Infrastructure Integration Layer (HGT Guardian + WebAuthn Biometrics)
         async function executeSecurityVerification() {
             const container = document.getElementById('guardianChallengeContainer');
             container.innerHTML = `<p style="color:#00aad5;">Initiating Asynchronous Security Challenge Module...</p>`;
             
             try {
-                // Instantiating standard secure constructor implementation mapping
                 if (typeof HGTGuardian !== 'undefined') {
-                    const guardianInstance = new HGTGuardian({
-                        projectId: "hgt-linkdify",
-                        mode: "production"
-                    });
-                    
-                    // Trigger asynchronous operational verification criteria question challenge
+                    const guardianInstance = new HGTGuardian({ projectId: "hgt-linkdify", mode: "production" });
                     const challengePassed = await guardianInstance.verifySession();
                     if (!challengePassed) throw new Error("Guardian Session Security Rejection.");
                 }
 
                 container.innerHTML = `<p style="color:#4caf50;">Guardian Validation Cleared. Triggering Hardware Cryptographic Handshake...</p>`;
                 
-                // Native WebAuthn Biometric API Pipeline Integration Step
                 const systemChallengeResponse = new Uint8Array(32);
                 window.crypto.getRandomValues(systemChallengeResponse);
                 
@@ -435,11 +479,7 @@
                     publicKey: {
                         challenge: systemChallengeResponse,
                         rp: { name: "HGT Linkdify Store" },
-                        user: {
-                            id: new Uint8Array([16, 32, 48, 64]),
-                            name: "authenticated@henryglobal.internal",
-                            displayName: "Verified Store Handshake"
-                        },
+                        user: { id: new Uint8Array([16, 32, 48, 64]), name: "authenticated@henryglobal.internal", displayName: "Verified Store Handshake" },
                         pubKeyCredParams: [{ type: "public-key", alg: -7 }],
                         timeout: 60000,
                         authenticatorSelection: { userVerification: "required" }
@@ -447,7 +487,6 @@
                 });
 
                 if (biometricCredential) {
-                    // Unlock Protected UI Matrix Structure Content Viewport Layout
                     document.getElementById('hgtGatekeeper').style.transition = "opacity 0.5s ease";
                     document.getElementById('hgtGatekeeper').style.opacity = "0";
                     setTimeout(() => {
@@ -461,79 +500,55 @@
             }
         }
 
-        // 3. Secure Core Firebase and Remote Config Data Connection Setup Function
         async function initializeFirebaseDatabaseConnection() {
             if (!window.firebaseEngine) return populateMockFallbackDataStore();
             
             const { db, remoteConfig, fetchAndActivate, getString, collection, getDocs } = window.firebaseEngine;
             
             try {
-                // Initialize Remote Config Color Palette System Custom Dynamic Branding Feature
                 await fetchAndActivate(remoteConfig);
                 const hgtAccentBrandColor = getString(remoteConfig, 'brand_accent_color');
                 if (hgtAccentBrandColor) {
-                    document.querySelectorAll('h1, .download-btn, .post-btn, .gate-btn').forEach(el => {
-                        el.style.backgroundColor = hgtAccentBrandColor;
-                    });
+                    document.querySelectorAll('h1, .download-btn, .post-btn, .gate-btn').forEach(el => el.style.backgroundColor = hgtAccentBrandColor);
                 }
 
-                // Query Live Production Applications Node Data Structure Collection
                 const liveAppsRef = collection(db, "live_apps");
                 const snapshotQuery = await getDocs(liveAppsRef);
                 
                 appRepositoryState = [];
                 snapshotQuery.forEach(record => {
-                    appRepositoryState.push({ id: record.id, ...record.data() });
+                    const data = record.data();
+                    // THE KILL SWITCH
+                    if (data.isPublished !== false) {
+                        appRepositoryState.push({ id: record.id, ...data });
+                    }
                 });
 
                 renderAppStoreInterfaceContent(appRepositoryState);
             } catch(e) {
-                console.warn("Database IO Restructured Target Exception Falling Back to Local Core Storage Engine:", e);
+                console.warn("Database Connection Failed. Falling Back to Local Engine:", e);
                 populateMockFallbackDataStore();
             }
         }
 
-        // High Availability Fallback Local In-Memory Data Management Store
         function populateMockFallbackDataStore() {
             appRepositoryState = [
                 {
-                    id: "velocity-messenger",
-                    name: "Velocity Messenger",
-                    description: "Secure, real-time cryptographic enterprise messaging array platform node application tool setup.",
-                    category: "utilities",
-                    version: "2.4.0",
-                    logo: "https://picsum.photos/100/100?random=11",
-                    downloadUrl: "#",
-                    isSpecial: true,
-                    screenshots: ["https://picsum.photos/300/500?random=1", "https://picsum.photos/300/500?random=2"]
+                    id: "velocity-messenger", name: "Velocity Messenger", description: "Secure, real-time cryptographic enterprise messaging array platform node application tool setup.", category: "utilities", version: "2.4.0", logo: "https://picsum.photos/100/100?random=11", downloadUrl: "#", isSpecial: true, isSuspended: false,
+                    screenshots: ["https://picsum.photos/300/500?random=1", "https://picsum.photos/300/500?random=2"], downloads: 1542, reviewCount: 89, isSecured: true, linkdifyId: "HGT_FO76084936_users", ageRating: "12+", dataCollected: ["email", "device info", "contacts"], tags: ["chat", "messenger", "secure"]
                 },
                 {
-                    id: "hgt-guardian-mobile",
-                    name: "HGT Guardian Authenticator",
-                    description: "Hardware level endpoint validation security firewall token matrix management deployment asset system.",
-                    category: "utilities",
-                    version: "1.0.8",
-                    logo: "https://picsum.photos/100/100?random=12",
-                    downloadUrl: "#",
-                    isSpecial: false,
-                    screenshots: ["https://picsum.photos/300/500?random=3", "https://picsum.photos/300/500?random=4"]
+                    id: "hgt-guardian-mobile", name: "HGT Guardian Authenticator", description: "Hardware level endpoint validation security firewall token matrix management deployment asset system.", category: "utilities", version: "1.0.8", logo: "https://picsum.photos/100/100?random=12", downloadUrl: "#", isSpecial: false, isSuspended: true, suspensionReason: "Requires emergency patch for CCPA compliance module.",
+                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", tags: ["security", "firewall", "tools"]
                 },
                 {
-                    id: "alpha-wallet",
-                    name: "Alpha Ledger Protocol",
-                    description: "Next-gen smart contract balance asset tracking accounting ledger solution framework system.",
-                    category: "finance",
-                    version: "3.1.2",
-                    logo: "https://picsum.photos/100/100?random=13",
-                    downloadUrl: "#",
-                    isSpecial: true,
-                    screenshots: ["https://picsum.photos/300/500?random=5"]
+                    id: "alpha-wallet", name: "Alpha Ledger Protocol", description: "Next-gen smart contract balance asset tracking accounting ledger solution framework system.", category: "finance", version: "3.1.2", logo: "https://picsum.photos/100/100?random=13", downloadUrl: "#", isSpecial: true, isSuspended: false,
+                    screenshots: ["https://picsum.photos/300/500?random=5"], downloads: 8900, reviewCount: 120, isSecured: true, linkdifyId: "HGT_FIN112233_users", ageRating: "18+", dataCollected: ["financial info", "email"], tags: ["finance", "wallet", "crypto"]
                 }
             ];
             renderAppStoreInterfaceContent(appRepositoryState);
         }
 
-        // 4. Data Dom Rendering Engine Architecture
         function renderAppStoreInterfaceContent(appsList) {
             const specialRow = document.getElementById('specialRowContainer');
             const standardRow = document.getElementById('standardRowContainer');
@@ -543,28 +558,24 @@
             standardRow.innerHTML = '';
             featuredRow.innerHTML = '';
 
-            appsList.forEach(app => {
-                // Carousel Injection
+            // Admin Control: Sort Suspended Apps to the top
+            let sortedApps = [...appsList].sort((a, b) => (b.isSuspended ? 1 : 0) - (a.isSuspended ? 1 : 0));
+
+            sortedApps.forEach(app => {
+                const suspensionTag = app.isSuspended ? `<div class="suspended-badge">SUSPENDED</div>` : '';
+
                 if(app.isSpecial) {
                     featuredRow.innerHTML += `
                         <div class="carousel-item" onclick="routeToDetails('${app.id}')">
                             <img class="feature-image" src="${app.screenshots ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}" alt="App Banner">
                             <span class="tag-1">Featured Node</span>
-                            <div class="text"><p class="title">${app.name}</p></div>
+                            <div class="text">
+                                <p class="title">${app.name}</p>
+                                ${suspensionTag}
+                            </div>
                         </div>
                     `;
-                }
 
-                // Grid Dynamic Injections
-                const layoutCardString = `
-                    <div class="item" onclick="routeToDetails('${app.id}')">
-                        <figure><img src="${app.logo}" alt="App Branding Frame"></figure>
-                        <div class="name">${app.name}</div>
-                        <div class="description">${app.description}</div>
-                    </div>
-                `;
-
-                if(app.isSpecial) {
                     specialRow.innerHTML += `
                         <div class="item" onclick="routeToDetails('${app.id}')">
                             <div class="auto">
@@ -573,15 +584,236 @@
                             </div>
                             <div class="name">${app.name}</div>
                             <div class="description">${app.description}</div>
+                            ${suspensionTag}
                         </div>
                     `;
                 } else {
-                    standardRow.innerHTML += layoutCardString;
+                    standardRow.innerHTML += `
+                        <div class="item" onclick="routeToDetails('${app.id}')">
+                            <figure><img src="${app.logo}" alt="App Branding Frame"></figure>
+                            <div class="name">${app.name}</div>
+                            <div class="description">${app.description}</div>
+                            ${suspensionTag}
+                        </div>
+                    `;
                 }
             });
         }
 
-        // 5. Google Play Style Intelligent Overlay Search Logic Processing Framework
+        function routeToDetails(applicationId) {
+            currentlySelectedAppId = applicationId;
+            
+            const structuralHistoryStateUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?appId=${applicationId}`;
+            window.history.pushState({ path: structuralHistoryStateUrl }, '', structuralHistoryStateUrl);
+
+            const app = appRepositoryState.find(element => element.id === applicationId);
+            if(!app) return;
+
+            // Header & Basic Info
+            document.getElementById('detailAppName').innerText = app.name;
+            document.getElementById('detailAppIcon').src = app.logo;
+            document.getElementById('detailAppVersion').innerText = `Version: ${app.version || '1.0.1'}`;
+            document.getElementById('ageRatingDisplay').innerText = `Age: ${app.ageRating || 'NR'}`;
+            document.getElementById('descriptionDisplay').innerText = app.description || "No description provided.";
+            document.getElementById('linkdifyIdDisplay').innerText = app.linkdifyId || "N/A";
+
+            // Professional Stats
+            document.getElementById('statDownloadCount').innerText = app.downloads || 0;
+            document.getElementById('statReviewCount').innerText = app.reviewCount || 0;
+            const secStatus = document.getElementById('securityStatus');
+            if (app.isSecured !== false) {
+                secStatus.innerText = "✓ 100% Secured"; secStatus.style.color = "#2e7d32";
+            } else {
+                secStatus.innerText = "Unverified"; secStatus.style.color = "#d32f2f";
+            }
+
+            // Suspension Check & Button Logic
+            const downloadBtn = document.getElementById('detailDownloadBtn');
+            const noticeBox = document.getElementById('suspensionNoticeContainer');
+            noticeBox.innerHTML = '';
+            
+            // Re-bind click event cleanly
+            downloadBtn.onclick = (e) => startDownloadAnimation(e, app.id);
+            
+            if (app.isSuspended) {
+                document.getElementById('btnText').innerText = "APP SUSPENDED";
+                downloadBtn.style.backgroundColor = "#d32f2f";
+                downloadBtn.style.pointerEvents = "none";
+                noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ALERT: ${app.suspensionReason || "Suspended for compliance violation."}</div>`;
+            } else {
+                document.getElementById('btnText').innerText = "Download APK";
+                downloadBtn.style.backgroundColor = "#00aad5";
+                downloadBtn.style.pointerEvents = "auto";
+                document.getElementById('progressBar').style.width = '0%';
+                document.getElementById('progressBar').style.display = 'none';
+            }
+
+            // YouTube Integrator
+            const videoPlayer = document.getElementById('appVideoPlayer');
+            const videoContainer = document.getElementById('videoContainer');
+            if (app.youtubeUrl) {
+                videoPlayer.src = app.youtubeUrl;
+                videoContainer.style.display = 'block';
+            } else {
+                videoPlayer.src = "";
+                videoContainer.style.display = 'none';
+            }
+
+            // Lightbox Gallery Integrator
+            currentGalleryImages = app.screenshots || [];
+            const screenshotsArea = document.getElementById('detailScreenshotsContainer');
+            screenshotsArea.innerHTML = '';
+            currentGalleryImages.forEach((srcUrl, idx) => {
+                const img = document.createElement('img');
+                img.src = srcUrl;
+                img.onclick = () => openLightbox(idx);
+                screenshotsArea.appendChild(img);
+            });
+
+            // Privacy Data Checkmarks
+            const dataList = document.getElementById('dataCollectedList');
+            dataList.innerHTML = '';
+            if (app.dataCollected && app.dataCollected.length > 0) {
+                app.dataCollected.forEach(item => {
+                    dataList.innerHTML += `<li style="margin-bottom:6px;">✅ ${item}</li>`;
+                });
+            } else {
+                dataList.innerHTML = "<li>None</li>";
+            }
+            document.getElementById('privacyPolicyLink').href = app.privacyPolicyUrl || "#";
+
+            // Developer Contact Injection
+            const devLinksBox = document.getElementById('contactLinks');
+            devLinksBox.innerHTML = '';
+            const contacts = [
+                { label: "Email", val: app.devEmail, icon: "✉️" },
+                { label: "Website", val: app.devWebsite, icon: "🌐" },
+                { label: "Facebook", val: app.devFacebook, icon: "📘" },
+                { label: "TikTok", val: app.devTikTok, icon: "🎵" }
+            ];
+            contacts.forEach(c => {
+                if(c.val) {
+                    devLinksBox.innerHTML += `<a href="${c.val}" target="_blank" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">${c.icon} ${c.label}</a>`;
+                }
+            });
+            document.getElementById('devContactSection').style.display = devLinksBox.innerHTML ? 'block' : 'none';
+
+            // Render Related Apps
+            renderRelatedApps(app);
+
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('detailView').classList.remove('hidden');
+            window.scrollTo(0, 0);
+            renderReviewsListUI();
+        }
+
+        // --- 1.0.1 15-Second Download Animation Engine ---
+        async function startDownloadAnimation(event, appId) {
+            event.preventDefault();
+            const app = appRepositoryState.find(e => e.id === appId);
+            if(app.isSuspended) return;
+
+            const btn = document.getElementById('detailDownloadBtn');
+            const btnText = document.getElementById('btnText');
+            const progressBar = document.getElementById('progressBar');
+
+            btn.style.pointerEvents = 'none';
+            progressBar.style.display = 'block';
+            btnText.innerText = "Downloading... 15s";
+
+            // Browser Notification Trigger
+            if (Notification.permission === "granted") {
+                new Notification("Download Initiated", { body: `${app.name} is being prepared for secure download.` });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission();
+            }
+
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    btnText.innerText = "Download Ready!";
+                    
+                    // Increment logic for Firestore (if connected)
+                    if(window.firebaseEngine && window.firebaseEngine.increment) {
+                        try {
+                            const { db, doc, updateDoc, increment } = window.firebaseEngine;
+                            updateDoc(doc(db, "live_apps", appId), { downloads: increment(1) });
+                        } catch(e) { console.warn("Increment failed."); }
+                    }
+                    
+                    window.location.href = app.downloadUrl || "#"; 
+                } else {
+                    width++;
+                    progressBar.style.width = width + "%";
+                    const secondsLeft = Math.ceil(15 - (width * 0.15));
+                    btnText.innerText = `Downloading... ${secondsLeft}s`;
+                }
+            }, 150); // 150ms * 100 = 15 Seconds
+        }
+
+        // --- Screenshot Lightbox Engine ---
+        function openLightbox(index) {
+            currentGalleryIdx = index;
+            document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function changeScreenshot(direction) {
+            if(currentGalleryImages.length === 0) return;
+            currentGalleryIdx = (currentGalleryIdx + direction + currentGalleryImages.length) % currentGalleryImages.length;
+            document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // --- Related Apps Engine ---
+        function renderRelatedApps(currentApp) {
+            const container = document.getElementById('relatedAppsContainer');
+            container.innerHTML = '';
+            if(!currentApp.tags || currentApp.tags.length === 0) return;
+
+            const related = appRepositoryState.filter(a => a.id !== currentApp.id && a.tags && a.tags.some(t => currentApp.tags.includes(t)) && !a.isSuspended);
+            
+            if(related.length === 0) {
+                document.getElementById('relatedAppsSection').style.display = 'none';
+                return;
+            }
+            document.getElementById('relatedAppsSection').style.display = 'block';
+            
+            related.slice(0, 5).forEach(r => {
+                container.innerHTML += `
+                    <div class="item" onclick="routeToDetails('${r.id}')">
+                        <figure><img src="${r.logo}"></figure>
+                        <div class="name">${r.name}</div>
+                    </div>`;
+            });
+        }
+
+        function routeToHome() {
+            currentlySelectedAppId = null;
+            const rootCleanPathUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.pushState({ path: rootCleanPathUrl }, '', rootCleanPathUrl);
+
+            document.getElementById('videoContainer').innerHTML = ''; // Stop video
+            document.getElementById('detailView').classList.add('hidden');
+            document.getElementById('homeView').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function checkDynamicDeepLinkRouting() {
+            const urlSearchParametersEngine = new URLSearchParams(window.location.search);
+            const explicitParamIdMatch = urlSearchParametersEngine.get('appId');
+            if(explicitParamIdMatch) {
+                const interceptorCheckLoop = setInterval(() => {
+                    if(appRepositoryState.length > 0) {
+                        routeToDetails(explicitParamIdMatch);
+                        clearInterval(interceptorCheckLoop);
+                    }
+                }, 200);
+            }
+        }
+
         function toggleSearchOverlay(visibleState) {
             const overlay = document.getElementById('searchOverlay');
             overlay.style.display = visibleState ? 'block' : 'none';
@@ -604,14 +836,22 @@
 
             statesBox.style.display = 'none';
             
-            // Local In-Memory Autocomplete Pattern Processing
+            // Search checks name, category, and tags array
             const filteredResults = appRepositoryState.filter(item => 
-                item.name.toLowerCase().includes(queryValue) || 
-                item.category.toLowerCase().includes(queryValue)
+                (item.name.toLowerCase().includes(queryValue) || 
+                item.category.toLowerCase().includes(queryValue) ||
+                (item.tags && item.tags.some(t => t.toLowerCase().includes(queryValue)))) && 
+                !item.isSuspended
             );
 
             if(filteredResults.length === 0) {
-                resultsGrid.innerHTML = `<p style="padding:20px; color:#7F949A; text-align:center;">No matching system registry nodes located.</p>`;
+                resultsGrid.innerHTML = `
+                    <div style="text-align:center; padding: 40px 20px;">
+                        <div style="font-size:40px; margin-bottom:10px;">🔍</div>
+                        <h3 style="color:#1F4E5A; margin:0;">No Apps Found</h3>
+                        <p style="color:#7F949A; font-size:14px;">Try searching for tags like 'flashlight', 'finance', etc.</p>
+                        <button onclick="toggleSearchOverlay(false)" style="margin-top:15px; padding:10px 20px; background:#00aad5; color:white; border:none; border-radius:8px; cursor:pointer;">Back to Home</button>
+                    </div>`;
                 return;
             }
 
@@ -644,65 +884,9 @@
             container.innerHTML = logs.map(log => `<span class="search-tag" onclick="injectSearchValue('${log}')">${log}</span>`).join('');
         }
 
-        // 6. Navigation Routing & Deep Linking Architecture System
-        function routeToDetails(applicationId) {
-            currentlySelectedAppId = applicationId;
-            
-            // Dynamically synchronize state tracking view address params (Dynamic URL Generation)
-            const structuralHistoryStateUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?appId=${applicationId}`;
-            window.history.pushState({ path: structuralHistoryStateUrl }, '', structuralHistoryStateUrl);
-
-            const activeTargetObject = appRepositoryState.find(element => element.id === applicationId);
-            if(!activeTargetObject) return;
-
-            // Mapping Object State to Data Document Layout Components
-            document.getElementById('detailAppName').innerText = activeTargetObject.name;
-            document.getElementById('detailAppIcon').src = activeTargetObject.logo;
-            document.getElementById('detailAppVersion').innerText = `Version Node Context: ${activeTargetObject.version || '1.0.0'}`;
-            document.getElementById('detailDownloadBtn').href = activeTargetObject.downloadUrl;
-
-            const screenshotsArea = document.getElementById('detailScreenshotsContainer');
-            screenshotsArea.innerHTML = '';
-            if(activeTargetObject.screenshots) {
-                activeTargetObject.screenshots.forEach(srcUrl => {
-                    screenshotsArea.innerHTML += `<img src="${srcUrl}" alt="Display Frame Capture Node">`;
-                });
-            }
-
-            document.getElementById('homeView').classList.add('hidden');
-            document.getElementById('detailView').classList.remove('hidden');
-            window.scrollTo(0, 0);
-            renderReviewsListUI();
-        }
-
-        function routeToHome() {
-            currentlySelectedAppId = null;
-            const rootCleanPathUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            window.history.pushState({ path: rootCleanPathUrl }, '', rootCleanPathUrl);
-
-            document.getElementById('detailView').classList.add('hidden');
-            document.getElementById('homeView').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-
-        function checkDynamicDeepLinkRouting() {
-            const urlSearchParametersEngine = new URLSearchParams(window.location.search);
-            const explicitParamIdMatch = urlSearchParametersEngine.get('appId');
-            if(explicitParamIdMatch) {
-                // Wait for the asynchronous authentication flow to complete before updating context views
-                const interceptorCheckLoop = setInterval(() => {
-                    if(appRepositoryState.length > 0) {
-                        routeToDetails(explicitParamIdMatch);
-                        clearInterval(interceptorCheckLoop);
-                    }
-                }, 200);
-            }
-        }
-
-        // 7. Share API Integrations
         function executeClipboardCopy() {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                alert("Deep Link String Copied to Cryptographic System Clipboard Allocation Buffer Ledger.");
+                alert("Deep Link Copied successfully.");
             });
         }
 
@@ -711,18 +895,15 @@
                 try {
                     await navigator.share({
                         title: `HGT Linkdify Store - ${document.getElementById('detailAppName').innerText}`,
-                        text: 'Verify this high integrity security application module build download deployment.',
+                        text: 'Download this verified app from the HGT Store.',
                         url: window.location.href
                     });
-                } catch (error) {
-                    console.warn("Share operations aborted by parent thread subsystem contextual pipeline:", error);
-                }
+                } catch (error) { console.warn("Share operations aborted:", error); }
             } else {
                 executeClipboardCopy();
             }
         }
 
-        // 8. Dynamic Categorization Categorized Filters Engine Logic
         function filterCategory(categoryTypeKey, uiElementReference) {
             document.querySelectorAll('#categoriesTabRibbon li').forEach(li => li.classList.remove('active'));
             if(uiElementReference) uiElementReference.classList.add('active');
@@ -742,7 +923,6 @@
             filterCategory(categoryTypeKey, correspondingTabElement);
         }
 
-        // 9. Side Menu Drawer Interaction Controllers
         function toggleSidebar(openDrawerStateFlag) {
             const leftPanelMenuContainer = document.getElementById('leftNavigationDrawer');
             if(openDrawerStateFlag) {
@@ -752,12 +932,10 @@
             }
         }
 
-        // 10. Integrated Dynamic Application Theme System Controller
         function toggleThemeMode() {
             const contextBodyShellElement = document.body;
             const contextIconButtonLabel = document.getElementById('themeBtnIcon');
             contextBodyShellElement.classList.toggle('dark-mode');
-            
             if(contextBodyShellElement.classList.contains('dark-mode')) {
                 contextIconButtonLabel.innerText = "☀️";
             } else {
@@ -765,14 +943,13 @@
             }
         }
 
-        // 11. Structured Review Submission Management Framework Layer
         async function commitAppReview() {
             const starsValue = document.getElementById('starsInput').value;
             const headingTitleString = document.getElementById('reviewTitleInput').value.trim();
             const logContentDescriptionString = document.getElementById('reviewDescriptionInput').value.trim();
 
             if(!headingTitleString || !logContentDescriptionString) {
-                return alert("Data Entry Error: Ensure both Title and Description fields contain programmatic entries.");
+                return alert("Please enter both a title and description for your review.");
             }
 
             const payloadReviewDataStructureObject = {
@@ -783,22 +960,17 @@
                 timestamp: Date.now()
             };
 
-            // Network Layer Authentication Validation with Firebase Engine Context Integration
             if(window.firebaseEngine) {
                 const { db, collection, addDoc } = window.firebaseEngine;
                 try {
                     await addDoc(collection(db, "app_reviews"), payloadReviewDataStructureObject);
-                } catch(e) {
-                    console.error("Firebase Storage Failure Writing External Comments Array Logs Event:", e);
-                }
+                } catch(e) { console.error("Firebase review write failed:", e); }
             }
 
-            // Local Session Cache Fallback Pipeline Update
             let internalCacheLogs = JSON.parse(localStorage.getItem(`reviews_${currentlySelectedAppId}`)) || [];
             internalCacheLogs.unshift(payloadReviewDataStructureObject);
             localStorage.setItem(`reviews_${currentlySelectedAppId}`, JSON.stringify(internalCacheLogs));
 
-            // Reset Field Elements UI Target Variables Context Parameters
             document.getElementById('reviewTitleInput').value = '';
             document.getElementById('reviewDescriptionInput').value = '';
             renderReviewsListUI();
@@ -811,7 +983,7 @@
             let databaseFetchedArrayLogs = JSON.parse(localStorage.getItem(`reviews_${currentlySelectedAppId}`)) || [];
             
             if(databaseFetchedArrayLogs.length === 0) {
-                renderBoxContainer.innerHTML = `<p style='font-size:13px; color:#7F949A;'>No authenticated database feedback records are registered to this profile module node node.</p>`;
+                renderBoxContainer.innerHTML = `<p style='font-size:13px; color:#7F949A;'>No reviews yet. Be the first to review!</p>`;
                 return;
             }
 
