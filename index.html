@@ -86,13 +86,13 @@
         body.dark-mode .nav-main ul li { border-bottom: 1px solid #1f4e5a; }
         .nav-main ul li.section-title { font-family: 'geomanistmedium', sans-serif; color: #00aad5; border: none; padding-top: 20px; font-size: 12px; text-transform: uppercase; }
 
-        /* --- Modern Layout Content Components --- */
+        /* --- Layout Content Components --- */
         h1 { padding: 8px 10px; margin: 0; font-size: 10px; text-transform: uppercase; font-weight: 300; color: white; background: #00aad5; text-align: center; font-family: 'geomanistregular', sans-serif; }
         h1 b { font-family: 'geomanistmedium', sans-serif; }
         
         .item-row { padding: 15px 10px; position: relative; }
-        section .title { font-family: 'geomanistmedium', sans-serif; color: #1f4e5a; font-size: 17px; margin-bottom: 12px; }
-        body.dark-mode section .title { color: white; }
+        .item-row .title h2 { font-family: 'geomanistmedium', sans-serif; color: #1f4e5a; font-size: 17px; margin: 0 0 12px 0; }
+        body.dark-mode .item-row .title h2 { color: white; }
         
         .item-row .content { width: 100%; overflow-x: auto; display: flex; gap: 14px; padding-bottom: 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         
@@ -104,20 +104,20 @@
         .item .description { font-family: 'geomanistregular', sans-serif; color: #7F949A; font-size: 11px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 3px; }
 
         .suspended-badge { background: #d32f2f; color: white; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-top: 4px; }
-
-        .special .item { width: 230px; align-items: flex-start; text-align: left; }
-        .special .item .auto { width: 230px; height: 115px; background: #eee; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 8px; }
-        .special .item .auto .feature { width: 100%; height: 100%; object-fit: cover; }
-        .special .item .auto .app-mini-icon { position: absolute; bottom: 8px; left: 8px; width: 36px; height: 36px; border-radius: 8px; border: 2px solid white; }
-        .special .item .name { -webkit-line-clamp: 1; font-size: 13px; }
         
-        .feature .container { width: 100%; overflow: hidden; display: flex; padding: 10px; box-sizing: border-box; }
-        .feature .carousel { display: flex; gap: 12px; width: 100%; overflow-x: auto; scrollbar-width: none; }
+        /* Carousel Container and Track Configuration */
+        .feature .container { width: 100%; overflow: hidden; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; }
+        .feature .carousel { display: flex; gap: 12px; width: 100%; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         .feature .carousel-item { position: relative; width: 85vw; max-width: 600px; height: 180px; border-radius: 14px; overflow: hidden; flex-shrink: 0; cursor: pointer; }
         .feature .feature-image { width: 100%; height: 100%; object-fit: cover; }
-        .feature .tag-1 { position: absolute; top: 12px; left: 12px; background: #00aad5; color: white; font-family: 'geomanistmedium', sans-serif; font-size: 10px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
-        .feature .text { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); color: white; padding: 15px 12px; box-sizing: border-box; }
+        .feature .tag-1 { position: absolute; top: 12px; left: 12px; background: #00aad5; color: white; font-family: 'geomanistmedium', sans-serif; font-size: 10px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; z-index: 5; }
+        .feature .text { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); color: white; padding: 15px 12px; box-sizing: border-box; z-index: 5; }
         .feature .text .title { font-family: 'geomanistmedium', sans-serif; font-size: 16px; margin: 0; }
+
+        /* Carousel Dot Controls Styles */
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; transition: background 0.3s; cursor: pointer; }
+        .dot.active { background: #00aad5; }
 
         /* --- Inside App Structure (Detail View) --- */
         #detailView { background: white; min-height: 100vh; padding: 20px; box-sizing: border-box; }
@@ -170,14 +170,14 @@
         .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px; cursor: pointer; font-size: 20px; border-radius: 50%; z-index: 1000000;}
         .lb-nav:hover { background: #00aad5; }
 
-        /* --- Sticky Bottom Native Navigation Menu Bar --- */
+        /* --- Bottom Navigation Menu Bar --- */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: white; border-top: 1px solid #eee; display: flex; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
         body.dark-mode .bottom-nav { background: #0f292f; border-top: 1px solid #1f4e5a; }
         .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #7F949A; font-size: 11px; font-family: 'geomanistmedium', sans-serif; cursor: pointer; }
         .bottom-nav-item.active { color: #00aad5; }
         .bottom-nav-item svg { width: 22px; height: 22px; margin-bottom: 2px; fill: currentColor; }
 
-        /* --- Universal Styled Production Footer --- */
+        /* --- Universal Production Footer --- */
         footer { background: #1f4e5a; color: white; padding: 30px 20px; text-align: center; font-family: 'geomanistregular', sans-serif; margin-top: 40px; border-radius: 16px 16px 0 0; }
         footer .footer-brand { font-family: 'geomanistmedium', sans-serif; font-size: 18px; color: #00aad5; margin-bottom: 8px; }
         footer p { font-size: 13px; color: #cddce0; margin: 0 0 15px 0; }
@@ -259,18 +259,11 @@
                 <div class="feature">
                     <div class="container">
                         <div class="carousel" id="featuredAppsContainer"></div>
+                        <div id="carouselDots" class="carousel-dots"></div>
                     </div>
                 </div>
 
-                <section class="item-row special">
-                    <div class="title"><h2>HGT Special Category</h2></div>
-                    <div class="content" id="specialRowContainer"></div>
-                </section>
-
-                <section class="item-row">
-                    <div class="title"><h2>Standard Category</h2></div>
-                    <div class="content" id="standardRowContainer"></div>
-                </section>
+                <div id="dynamicSectionsWrapper"></div>
             </div>
 
             <div id="detailView" class="hidden">
@@ -289,7 +282,6 @@
                     <div id="suspensionNoticeContainer"></div>
                     <a id="detailDownloadBtn" class="download-btn">
                         <span id="btnText">Download APK</span>
-                        <div id="progressBar" style="display:none; height:4px; background:rgba(255,255,255,0.8); width:0%; margin-top:8px; border-radius:2px; transition: width 0.15s linear;"></div>
                     </a>
                     
                     <div class="secondary-btns">
@@ -328,7 +320,7 @@
                     <div id="descriptionDisplay"></div>
                     
                     <div id="privacyDataContainer">
-                        <p style="font-size:13px; font-weight:bold; margin:0 0 10px 0; color:#1F4E5A;">Data Collection Summary:</p>
+                        <p style="font-size:13px; font-weight:bold; margin:0 0 10px 0; color:#1F4E5A;">Data Policy Summary:</p>
                         <ul id="dataCollectedList" style="list-style:none; padding:0; margin:0; font-size:13px; color:#555;"></ul>
                     </div>
                 </div>
@@ -434,7 +426,7 @@
     <script>
         let appRepositoryState = [];
         let currentlySelectedAppId = null;
-        let downloadActiveInterval = null; 
+        let carouselIntervalTimer = null;
 
         // Lightbox state
         let currentGalleryImages = [];
@@ -527,91 +519,136 @@
         }
 
         function populateMockFallbackDataStore() {
-            // MOCK DATA: Notice YouTube Url and Dev Email added to Velocity Messenger so it shows up instantly!
+            // MOCK REPOSITORY DATA SYSTEM
             appRepositoryState = [
                 {
-                    id: "velocity-messenger", name: "Velocity Messenger", description: "Secure, real-time cryptographic enterprise messaging array platform node application tool setup.", category: "utilities", version: "2.4.0", logo: "https://picsum.photos/100/100?random=11", downloadUrl: "#", isSpecial: true, isSuspended: false,
-                    screenshots: ["https://picsum.photos/300/500?random=1", "https://picsum.photos/300/500?random=2", "https://picsum.photos/300/500?random=10"], downloads: 1542, reviewCount: 89, isSecured: true, linkdifyId: "HGT_FO76084936_users", ageRating: "12+", dataCollected: ["email", "device info", "contacts"], tags: ["chat", "messenger", "secure", "velocity"],
-                    youtubeUrl: "https://www.youtube.com/embed/tgbNymZ7vqY", devEmail: "developer@velocity.hgt", devWebsite: "https://henryglobal.com"
+                    id: "velocity-messenger", name: "Velocity Messenger", description: "Secure, real-time cryptographic enterprise messaging array platform node application tool setup.", category: "utilities", collection: "System Tools", version: "2.4.0", logo: "https://picsum.photos/100/100?random=11", downloadUrl: "https://example.com/velocity.apk", isSpecial: true, isSuspended: false,
+                    screenshots: ["https://picsum.photos/600/180?random=1", "https://picsum.photos/300/500?random=2"], downloads: 1542, reviewCount: 89, isSecured: true, linkdifyId: "HGT_FO76084936_users", ageRating: "12+", privacyData: ["Email authentication verified", "End-to-End messaging array structure standard encryption", "No location data storage arrays active"], tags: ["chat", "messenger", "secure", "velocity"],
+                    youtubeEnabled: true, youtubeUrl: "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&loop=1&playlist=tgbNymZ7vqY", devEmail: "developer@velocity.hgt", devWebsite: "https://henryglobal.com"
                 },
                 {
-                    id: "hgt-guardian-mobile", name: "HGT Guardian Authenticator", description: "Hardware level endpoint validation security firewall token matrix management deployment asset system.", category: "utilities", version: "1.0.8", logo: "https://picsum.photos/100/100?random=12", downloadUrl: "#", isSpecial: false, isSuspended: true, suspensionReason: "Requires emergency patch for CCPA compliance module.",
-                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", tags: ["security", "firewall", "tools", "guardian"]
+                    id: "hgt-guardian-mobile", name: "HGT Guardian Authenticator", description: "Hardware level endpoint validation security firewall token matrix management deployment asset system.", category: "utilities", collection: "System Tools", version: "1.0.8", logo: "https://picsum.photos/100/100?random=12", downloadUrl: "https://example.com/guardian.apk", isSpecial: false, isSuspended: true, suspensionReason: "Requires emergency patch for CCPA compliance module.",
+                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", privacyData: ["Hardware device identifier checks", "Encrypted logs locally stored only"], tags: ["security", "firewall", "tools", "guardian"]
                 },
                 {
-                    id: "alpha-wallet", name: "Alpha Ledger Protocol", description: "Next-gen smart contract balance asset tracking accounting ledger solution framework system.", category: "finance", version: "3.1.2", logo: "https://picsum.photos/100/100?random=13", downloadUrl: "#", isSpecial: true, isSuspended: false,
-                    screenshots: ["https://picsum.photos/300/500?random=5"], downloads: 8900, reviewCount: 120, isSecured: true, linkdifyId: "HGT_FIN112233_users", ageRating: "18+", dataCollected: ["financial info", "email"], tags: ["finance", "wallet", "crypto", "ledger"]
+                    id: "alpha-wallet", name: "Alpha Ledger Protocol", description: "Next-gen smart contract balance asset tracking accounting ledger solution framework system.", category: "finance", collection: "Financial Engines", version: "3.1.2", logo: "https://picsum.photos/100/100?random=13", downloadUrl: "https://example.com/alpha.apk", isSpecial: true, isSuspended: false,
+                    screenshots: ["https://picsum.photos/600/180?random=5"], downloads: 8900, reviewCount: 120, isSecured: true, linkdifyId: "HGT_FIN112233_users", ageRating: "18+", privacyData: ["No banking credential access logs collected", "Cryptographic balance tracking layers active"], tags: ["finance", "wallet", "crypto", "ledger"],
+                    youtubeEnabled: false, youtubeUrl: ""
                 }
             ];
             renderAppStoreInterfaceContent(appRepositoryState);
         }
 
+        // --- DYNAMIC CAROUSEL AND COLLECTION SYSTEM MATRIX ---
         function renderAppStoreInterfaceContent(appsList) {
-            const specialRow = document.getElementById('specialRowContainer');
-            const standardRow = document.getElementById('standardRowContainer');
             const featuredRow = document.getElementById('featuredAppsContainer');
-
-            specialRow.innerHTML = '';
-            standardRow.innerHTML = '';
+            const dotsContainer = document.getElementById('carouselDots');
+            const sectionsWrapper = document.getElementById('dynamicSectionsWrapper');
+            
             featuredRow.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            sectionsWrapper.innerHTML = '';
 
-            let sortedApps = [...appsList].sort((a, b) => (b.isSuspended ? 1 : 0) - (a.isSuspended ? 1 : 0));
-
-            sortedApps.forEach(app => {
-                const suspensionTag = app.isSuspended ? `<div class="suspended-badge">SUSPENDED</div>` : '';
-
-                if(app.isSpecial) {
-                    featuredRow.innerHTML += `
-                        <div class="carousel-item" onclick="routeToDetails('${app.id}')">
+            // 1. FILTER AND BUILD INTERACTIVE AUTO MULTIMEDIA CAROUSEL
+            const featuredApps = appsList.filter(app => app.isSpecial && !app.isSuspended);
+            
+            featuredApps.forEach((app, index) => {
+                const isVideo = app.youtubeEnabled === true && app.youtubeUrl;
+                
+                featuredRow.innerHTML += `
+                    <div class="carousel-item" onclick="routeToDetails('${app.id}')">
+                        ${isVideo ? `
+                            <iframe src="${app.youtubeUrl}" style="width:100%; height:100%; pointer-events:none; border:none;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        ` : `
                             <img class="feature-image" src="${app.screenshots && app.screenshots.length > 0 ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}" alt="App Banner">
-                            <span class="tag-1">Featured Node</span>
-                            <div class="text">
-                                <p class="title">${app.name}</p>
-                                ${suspensionTag}
-                            </div>
+                        `}
+                        <span class="tag-1">Featured Node</span>
+                        <div class="text">
+                            <p class="title">${app.name}</p>
                         </div>
-                    `;
+                    </div>
+                `;
 
-                    specialRow.innerHTML += `
-                        <div class="item" onclick="routeToDetails('${app.id}')">
-                            <div class="auto">
-                                <img class="feature" src="${app.screenshots && app.screenshots.length > 0 ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}">
-                                <img class="app-mini-icon" src="${app.logo}">
-                            </div>
-                            <div class="name">${app.name}</div>
-                            <div class="description">${app.description}</div>
-                            ${suspensionTag}
-                        </div>
-                    `;
-                } else {
-                    standardRow.innerHTML += `
-                        <div class="item" onclick="routeToDetails('${app.id}')">
-                            <figure><img src="${app.logo}" alt="App Branding Frame"></figure>
-                            <div class="name">${app.name}</div>
-                            <div class="description">${app.description}</div>
-                            ${suspensionTag}
-                        </div>
-                    `;
-                }
+                // Build Carousel Track Indicator Dots
+                const indicatorDot = document.createElement('div');
+                indicatorDot.className = `dot ${index === 0 ? 'active' : ''}`;
+                indicatorDot.onclick = (e) => {
+                    e.stopPropagation();
+                    executeCarouselShift(index, featuredApps.length);
+                };
+                dotsContainer.appendChild(indicatorDot);
             });
+
+            // Start 5-second automatic carousel routine loop
+            if (carouselIntervalTimer) clearInterval(carouselIntervalTimer);
+            let activeCarouselIdx = 0;
+            if (featuredApps.length > 1) {
+                carouselIntervalTimer = setInterval(() => {
+                    activeCarouselIdx = (activeCarouselIdx + 1) % featuredApps.length;
+                    executeCarouselShift(activeCarouselIdx, featuredApps.length);
+                }, 5000);
+            }
+
+            // 2. COMPILE DYNAMIC COLLECTION SECTIONS ENGINE
+            // Groups items dynamically based on administrative database collection fields
+            const groupedCollections = appsList.reduce((accumulator, app) => {
+                const sectionKeyName = (app.collection && app.collection.trim() !== "") ? app.collection : "All Apps";
+                if (!accumulator[sectionKeyName]) accumulator[sectionKeyName] = [];
+                accumulator[sectionKeyName].push(app);
+                return accumulator;
+            }, {});
+
+            // Sort arrays to push operational items ahead of suspended nodes
+            for (const sectionTitle in groupedCollections) {
+                groupedCollections[sectionTitle].sort((a, b) => (b.isSuspended ? -1 : 1) - (a.isSuspended ? -1 : 1));
+
+                const sectionStructureHTML = document.createElement('section');
+                sectionStructureHTML.className = 'item-row';
+                sectionStructureHTML.innerHTML = `
+                    <div class="title"><h2>${sectionTitle}</h2></div>
+                    <div class="content"></div>
+                `;
+                
+                const contentTrackRow = sectionStructureHTML.querySelector('.content');
+                
+                groupedCollections[sectionTitle].forEach(app => {
+                    const suspendedBadge = app.isSuspended ? `<div class="suspended-badge">SUSPENDED</div>` : '';
+                    contentTrackRow.innerHTML += `
+                        <div class="item" onclick="routeToDetails('${app.id}')">
+                            <figure><img src="${app.logo}" alt="App branding graphic"></figure>
+                            <div class="name">${app.name}</div>
+                            <div class="description">${app.description}</div>
+                            ${suspendedBadge}
+                        </div>
+                    `;
+                });
+                
+                sectionsWrapper.appendChild(sectionStructureHTML);
+            }
         }
 
+        function executeCarouselShift(targetIndex, totalSize) {
+            const trackElement = document.getElementById('featuredAppsContainer');
+            const cardItems = trackElement.getElementsByClassName('carousel-item');
+            if (cardItems[targetIndex]) {
+                trackElement.scrollTo({ left: cardItems[targetIndex].offsetLeft, behavior: 'smooth' });
+                document.querySelectorAll('.dot').forEach((dotEl, dotIdx) => {
+                    dotEl.classList.toggle('active', dotIdx === targetIndex);
+                });
+            }
+        }
+
+        // --- APPS ROUTING CONTROL LAYERS ---
         function routeToDetails(applicationId) {
             currentlySelectedAppId = applicationId;
             
-            // Clean up intervals
-            if (downloadActiveInterval) {
-                clearInterval(downloadActiveInterval);
-                downloadActiveInterval = null;
-            }
-
             const structuralHistoryStateUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?appId=${applicationId}`;
             window.history.pushState({ path: structuralHistoryStateUrl }, '', structuralHistoryStateUrl);
 
             const app = appRepositoryState.find(element => element.id === applicationId);
             if(!app) return;
 
-            // Details Injection
+            // Header Elements Injection
             document.getElementById('detailAppName').innerText = app.name;
             document.getElementById('detailAppIcon').src = app.logo;
             document.getElementById('detailAppVersion').innerText = `Version: ${app.version || '1.0.1'}`;
@@ -619,7 +656,7 @@
             document.getElementById('descriptionDisplay').innerText = app.description || "No description provided.";
             document.getElementById('linkdifyIdDisplay').innerText = app.linkdifyId || "N/A";
 
-            // Stats
+            // Numeric Statistics
             document.getElementById('statDownloadCount').innerText = app.downloads || 0;
             document.getElementById('statReviewCount').innerText = app.reviewCount || 0;
             const secStatus = document.getElementById('securityStatus');
@@ -629,29 +666,26 @@
                 secStatus.innerText = "Unverified"; secStatus.style.color = "#d32f2f";
             }
 
-            // Bind Download Action precisely
+            // Action download configurations
             const downloadBtn = document.getElementById('detailDownloadBtn');
             const noticeBox = document.getElementById('suspensionNoticeContainer');
             noticeBox.innerHTML = '';
             
-            // Overwrite old click listener to prevent stacking
-            downloadBtn.onclick = (e) => startDownloadEngine(e, app.id);
+            // Re-assign explicit instant download event operations mapping
+            downloadBtn.onclick = (e) => triggerInstantDownloadOperation(e, app.id);
             
             if (app.isSuspended) {
                 document.getElementById('btnText').innerText = "APP SUSPENDED";
                 downloadBtn.style.backgroundColor = "#d32f2f";
                 downloadBtn.style.pointerEvents = "none";
-                document.getElementById('progressBar').style.display = 'none';
                 noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ALERT: ${app.suspensionReason || "Suspended for compliance violation."}</div>`;
             } else {
                 document.getElementById('btnText').innerText = "Download APK";
                 downloadBtn.style.backgroundColor = "#00aad5";
                 downloadBtn.style.pointerEvents = "auto";
-                document.getElementById('progressBar').style.width = '0%';
-                document.getElementById('progressBar').style.display = 'none';
             }
 
-            // YouTube Integrator (Dynamic detection)
+            // In-page video detection logic engine controls
             const videoPlayer = document.getElementById('appVideoPlayer');
             const videoContainer = document.getElementById('videoContainer');
             if (app.youtubeUrl && app.youtubeUrl.trim() !== "") {
@@ -662,7 +696,7 @@
                 videoContainer.style.display = 'none';
             }
 
-            // Screenshots Gallery
+            // Screenshots Gallery Rendering 
             currentGalleryImages = app.screenshots || [];
             const screenshotsArea = document.getElementById('detailScreenshotsContainer');
             screenshotsArea.innerHTML = '';
@@ -673,107 +707,76 @@
                 screenshotsArea.appendChild(img);
             });
 
-            // Privacy List
-            const dataList = document.getElementById('dataCollectedList');
-            dataList.innerHTML = '';
-            if (app.dataCollected && Array.isArray(app.dataCollected) && app.dataCollected.length > 0) {
-                app.dataCollected.forEach(item => {
-                    dataList.innerHTML += `<li style="margin-bottom:6px;">✅ ${item}</li>`;
+            // --- SYSTEM DYNAMIC PRIVACY DISCLOSURE MATRIX ENGINE ---
+            const privacyListContainer = document.getElementById('dataCollectedList');
+            privacyListContainer.innerHTML = '';
+            
+            if (app.privacyData && Array.isArray(app.privacyData) && app.privacyData.length > 0) {
+                app.privacyData.forEach(policyItem => {
+                    privacyListContainer.innerHTML += `<li style="margin-bottom:6px;">✅ ${policyItem}</li>`;
+                });
+            } else if (app.dataCollected && Array.isArray(app.dataCollected) && app.dataCollected.length > 0) {
+                app.dataCollected.forEach(policyItem => {
+                    privacyListContainer.innerHTML += `<li style="margin-bottom:6px;">✅ ${policyItem}</li>`;
                 });
             } else {
-                dataList.innerHTML = "<li>None specified</li>";
+                privacyListContainer.innerHTML = "<li>No operational data privacy disclosure tracking logs mapped to this node.</li>";
             }
 
-            // Developer Dynamic Contact Injection
+            // Developer Core Contact Injection Mapping
             const devLinksBox = document.getElementById('contactLinks');
             devLinksBox.innerHTML = '';
             
-            // Dynamic check: It looks exactly for these properties
-            const contacts = [
-                { label: "Email", val: app.devEmail, icon: "✉️" },
-                { label: "Website", val: app.devWebsite, icon: "🌐" },
-                { label: "Facebook", val: app.devFacebook, icon: "📘" },
-                { label: "TikTok", val: app.devTikTok, icon: "🎵" }
+            const contactChannels = [
+                { label: "Email", val: app.devEmail, schemePrefix: "mailto:" },
+                { label: "Website", val: app.devWebsite, schemePrefix: "" },
+                { label: "Facebook", val: app.devFacebook, schemePrefix: "" },
+                { label: "TikTok", val: app.devTikTok, schemePrefix: "" }
             ];
             
-            contacts.forEach(c => {
-                if(c.val && c.val.trim() !== "") {
-                    const linkType = c.label === "Email" ? `mailto:${c.val}` : c.val;
-                    devLinksBox.innerHTML += `<a href="${linkType}" target="_blank" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">${c.icon} ${c.label}</a>`;
+            contactChannels.forEach(channel => {
+                if(channel.val && channel.val.trim() !== "") {
+                    const anchorLinkDestination = channel.label === "Email" ? `${channel.schemePrefix}${channel.val}` : channel.val;
+                    devLinksBox.innerHTML += `<a href="${anchorLinkDestination}" target="_blank" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">${channel.label}</a>`;
                 }
             });
             document.getElementById('devContactSection').style.display = devLinksBox.innerHTML !== '' ? 'block' : 'none';
 
-            // Related
             renderRelatedApps(app);
 
-            // View Switch
+            // Interface Mode Flip Operations
             document.getElementById('homeView').classList.add('hidden');
             document.getElementById('detailView').classList.remove('hidden');
             window.scrollTo(0, 0);
             renderReviewsListUI();
         }
 
-        // --- HARDENED DOWNLOAD ANIMATION & NOTIFICATION ENGINE ---
-        async function startDownloadEngine(event, appId) {
-            event.preventDefault();
-            const app = appRepositoryState.find(e => e.id === appId);
-            if(!app || app.isSuspended) return;
+        // --- INSTANT DOWNLOAD REDIRECT & AUTO STATS UPDATE MODULE ---
+        function triggerInstantDownloadOperation(clickEvent, appId) {
+            clickEvent.preventDefault();
+            const targetedApp = appRepositoryState.find(element => element.id === appId);
+            if(!targetedApp || targetedApp.isSuspended) return;
 
-            const btn = document.getElementById('detailDownloadBtn');
-            const btnText = document.getElementById('btnText');
-            const progressBar = document.getElementById('progressBar');
-
-            // Reset state
-            if(downloadActiveInterval) clearInterval(downloadActiveInterval);
-            
-            btn.style.pointerEvents = 'none';
-            progressBar.style.display = 'block';
-            progressBar.style.width = '0%';
-            btnText.innerText = "Initiating... 15s";
-
-            // Trigger notification permission request (Requires User Gesture, which the click provides)
-            if ("Notification" in window && Notification.permission === "default") {
-                await Notification.requestPermission();
+            // 1. UPDATE DB STATS ARRAY LOGS IN THE BACKGROUND
+            if(window.firebaseEngine && window.firebaseEngine.increment) {
+                try {
+                    const { db, doc, updateDoc, increment } = window.firebaseEngine;
+                    // Safely triggers atomic increment pipeline node inside Firebase database document
+                    updateDoc(doc(db, "live_apps", appId), { downloads: increment(1) });
+                } catch(databaseWriteError) { 
+                    console.warn("Background Firebase stats analytics payload skipped:", databaseWriteError); 
+                }
             }
 
-            let progressValue = 0;
-            // Target: 100% in 15 seconds. (15000ms / 100 steps = 150ms per step)
-            downloadActiveInterval = setInterval(() => {
-                progressValue += 1;
-                progressBar.style.width = progressValue + "%";
-                
-                const secondsLeft = Math.ceil(15 - (progressValue * 0.15));
-                btnText.innerText = `Downloading... ${secondsLeft}s`;
+            // Local cache increment fallback for instant interface display speed correction
+            targetedApp.downloads = (targetedApp.downloads || 0) + 1;
+            document.getElementById('statDownloadCount').innerText = targetedApp.downloads;
 
-                if (progressValue >= 100) {
-                    clearInterval(downloadActiveInterval);
-                    btnText.innerText = "Download Ready!";
-                    
-                    // Trigger Native Notification immediately when hitting 100%
-                    if ("Notification" in window && Notification.permission === "granted") {
-                        new Notification("Download Complete", { 
-                            body: `${app.name} is ready for installation.`,
-                            icon: app.logo
-                        });
-                    }
-
-                    // Increment backend stats safely
-                    if(window.firebaseEngine && window.firebaseEngine.increment) {
-                        try {
-                            const { db, doc, updateDoc, increment } = window.firebaseEngine;
-                            updateDoc(doc(db, "live_apps", appId), { downloads: increment(1) });
-                        } catch(e) { console.warn("Stat update skipped."); }
-                    }
-
-                    // Release UI lock and route to file
-                    btn.style.pointerEvents = 'auto';
-                    window.location.href = app.downloadUrl || "#"; 
-                }
-            }, 150);
+            // 2. IMMEDIATE REDIRECT ROUTING EXECUTION
+            window.location.href = targetedApp.downloadUrl || "#";
         }
 
-        // --- LIGHTBOX ENGINE ---
+        // --- LIGHTBOX GALLERY VIEWPORT SYSTEMS ---
         function openLightbox(index) {
             currentGalleryIdx = index;
             document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
@@ -788,7 +791,7 @@
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        // --- RELATED APPS ---
+        // --- RELATED APPLICATION LOGIC MATRICES ---
         function renderRelatedApps(currentApp) {
             const container = document.getElementById('relatedAppsContainer');
             container.innerHTML = '';
@@ -798,38 +801,32 @@
                 return;
             }
 
-            const related = appRepositoryState.filter(a => {
-                if(a.id === currentApp.id || a.isSuspended || !a.tags || !Array.isArray(a.tags)) return false;
-                // If they share at least one tag
-                return a.tags.some(t => currentApp.tags.map(ct=>ct.toLowerCase()).includes(t.toLowerCase()));
+            const matchingApps = appRepositoryState.filter(item => {
+                if(item.id === currentApp.id || item.isSuspended || !item.tags || !Array.isArray(item.tags)) return false;
+                return item.tags.some(tagElement => currentApp.tags.map(t=>t.toLowerCase()).includes(tagElement.toLowerCase()));
             });
             
-            if(related.length === 0) {
+            if(matchingApps.length === 0) {
                 document.getElementById('relatedAppsSection').style.display = 'none';
                 return;
             }
             document.getElementById('relatedAppsSection').style.display = 'block';
             
-            related.slice(0, 5).forEach(r => {
+            matchingApps.slice(0, 5).forEach(relatedAppItem => {
                 container.innerHTML += `
-                    <div class="item" onclick="routeToDetails('${r.id}')">
-                        <figure><img src="${r.logo}"></figure>
-                        <div class="name">${r.name}</div>
+                    <div class="item" onclick="routeToDetails('${relatedAppItem.id}')">
+                        <figure><img src="${relatedAppItem.logo}"></figure>
+                        <div class="name">${relatedAppItem.name}</div>
                     </div>`;
             });
         }
 
         function routeToHome() {
             currentlySelectedAppId = null;
-            if(downloadActiveInterval) {
-                clearInterval(downloadActiveInterval);
-                downloadActiveInterval = null;
-            }
-
             const rootCleanPathUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.pushState({ path: rootCleanPathUrl }, '', rootCleanPathUrl);
 
-            document.getElementById('appVideoPlayer').src = ""; // Cut video audio
+            document.getElementById('appVideoPlayer').src = ""; // Force disconnect active embedded players audio pipelines
             document.getElementById('detailView').classList.add('hidden');
             document.getElementById('homeView').classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -848,13 +845,13 @@
             }
         }
 
-        // --- OPTIMIZED SEARCH ENGINE ---
+        // --- OPTIMIZED SEARCH ENGINE LAYERS ---
         function toggleSearchOverlay(visibleState) {
             const overlay = document.getElementById('searchOverlay');
             overlay.style.display = visibleState ? 'block' : 'none';
             if(visibleState) {
                 document.getElementById('liveSearchInput').value = '';
-                evaluateSearchInput(); // Reset view
+                evaluateSearchInput(); 
                 document.getElementById('liveSearchInput').focus();
                 renderSearchLogsUI();
             }
@@ -878,13 +875,14 @@
                 
                 const nameMatch = item.name.toLowerCase().includes(queryValue);
                 const catMatch = item.category.toLowerCase().includes(queryValue);
+                const collectionMatch = item.collection && item.collection.toLowerCase().includes(queryValue);
                 let tagMatch = false;
                 
                 if(item.tags && Array.isArray(item.tags)) {
                     tagMatch = item.tags.some(t => t.toLowerCase().includes(queryValue));
                 }
                 
-                return nameMatch || catMatch || tagMatch;
+                return nameMatch || catMatch || tagMatch || collectionMatch;
             });
 
             if(filteredResults.length === 0) {
@@ -892,8 +890,7 @@
                     <div style="text-align:center; padding: 40px 20px;">
                         <div style="font-size:40px; margin-bottom:10px;">🔍</div>
                         <h3 style="color:#1F4E5A; margin:0;">No Apps Found</h3>
-                        <p style="color:#7F949A; font-size:14px;">Try searching for tags like 'finance', 'security', or 'messenger'.</p>
-                        <button onclick="toggleSearchOverlay(false)" style="margin-top:15px; padding:10px 20px; background:#00aad5; color:white; border:none; border-radius:8px; cursor:pointer;">Back to Home</button>
+                        <p style="color:#7F949A; font-size:14px;">Try checking related node collection fields.</p>
                     </div>`;
                 return;
             }
@@ -903,7 +900,7 @@
                     <img src="${item.logo}">
                     <div>
                         <strong style="display:block;">${item.name}</strong>
-                        <span style="font-size:12px; color:#7F949A;">Category: ${item.category}</span>
+                        <span style="font-size:12px; color:#7F949A;">Collection: ${item.collection || 'General Repository'}</span>
                     </div>
                 </div>
             `).join('');
@@ -929,7 +926,7 @@
 
         function executeClipboardCopy() {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                alert("Deep Link Copied successfully.");
+                alert("App sharing architecture deep link copied.");
             });
         }
 
@@ -937,11 +934,11 @@
             if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: `HGT Linkdify Store - ${document.getElementById('detailAppName').innerText}`,
-                        text: 'Download this verified app from the HGT Store.',
+                        title: `HGT Linkdify Store Node - ${document.getElementById('detailAppName').innerText}`,
+                        text: 'Review authenticated application layer module.',
                         url: window.location.href
                     });
-                } catch (error) { console.warn("Share operations aborted:", error); }
+                } catch (err) { console.warn("Share operation cancelled safely:", err); }
             } else {
                 executeClipboardCopy();
             }
@@ -954,36 +951,29 @@
             if(categoryTypeKey === 'all') {
                 renderAppStoreInterfaceContent(appRepositoryState);
             } else {
-                const segregatedListSubset = appRepositoryState.filter(app => app.category.toLowerCase() === categoryTypeKey.toLowerCase());
-                renderAppStoreInterfaceContent(segregatedListSubset);
+                const segregatedSubset = appRepositoryState.filter(app => app.category.toLowerCase() === categoryTypeKey.toLowerCase());
+                renderAppStoreInterfaceContent(segregatedSubset);
             }
         }
 
         function triggerDrawerCategory(categoryTypeKey) {
             routeToHome();
             toggleSidebar(false);
-            const correspondingTabElement = Array.from(document.querySelectorAll('#categoriesTabRibbon li')).find(li => li.innerText.toLowerCase().includes(categoryTypeKey.toLowerCase()));
-            filterCategory(categoryTypeKey, correspondingTabElement);
+            const targetRibbonElement = Array.from(document.querySelectorAll('#categoriesTabRibbon li')).find(li => li.innerText.toLowerCase().includes(categoryTypeKey.toLowerCase()));
+            filterCategory(categoryTypeKey, targetRibbonElement);
         }
 
         function toggleSidebar(openDrawerStateFlag) {
-            const leftPanelMenuContainer = document.getElementById('leftNavigationDrawer');
-            if(openDrawerStateFlag) {
-                leftPanelMenuContainer.classList.add('active');
-            } else {
-                leftPanelMenuContainer.classList.remove('active');
-            }
+            const drawer = document.getElementById('leftNavigationDrawer');
+            if(openDrawerStateFlag) drawer.classList.add('active');
+            else drawer.classList.remove('active');
         }
 
         function toggleThemeMode() {
             const contextBodyShellElement = document.body;
             const contextIconButtonLabel = document.getElementById('themeBtnIcon');
             contextBodyShellElement.classList.toggle('dark-mode');
-            if(contextBodyShellElement.classList.contains('dark-mode')) {
-                contextIconButtonLabel.innerText = "☀️";
-            } else {
-                contextIconButtonLabel.innerText = "🌙";
-            }
+            contextIconButtonLabel.innerText = contextBodyShellElement.classList.contains('dark-mode') ? "☀️" : "🌙";
         }
 
         async function commitAppReview() {
@@ -1007,7 +997,7 @@
                 const { db, collection, addDoc } = window.firebaseEngine;
                 try {
                     await addDoc(collection(db, "app_reviews"), payloadReviewDataStructureObject);
-                } catch(e) { console.error("Firebase review write failed:", e); }
+                } catch(e) { console.error("Firebase database review write exception:", e); }
             }
 
             let internalCacheLogs = JSON.parse(localStorage.getItem(`reviews_${currentlySelectedAppId}`)) || [];
@@ -1026,7 +1016,7 @@
             let databaseFetchedArrayLogs = JSON.parse(localStorage.getItem(`reviews_${currentlySelectedAppId}`)) || [];
             
             if(databaseFetchedArrayLogs.length === 0) {
-                renderBoxContainer.innerHTML = `<p style='font-size:13px; color:#7F949A;'>No reviews yet. Be the first to review!</p>`;
+                renderBoxContainer.innerHTML = `<p style='font-size:13px; color:#7F949A;'>No validated system platform reviews stored.</p>`;
                 return;
             }
 
