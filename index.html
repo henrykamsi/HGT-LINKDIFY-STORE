@@ -675,10 +675,10 @@
             downloadBtn.onclick = (e) => triggerInstantDownloadOperation(e, app.id);
             
             if (app.isSuspended) {
-                document.getElementById('btnText').innerText = "APP SUSPENDED";
+                document.getElementById('btnText').innerText = "MAINTENACE MODE";
                 downloadBtn.style.backgroundColor = "#d32f2f";
                 downloadBtn.style.pointerEvents = "none";
-                noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ALERT: ${app.suspensionReason || "Suspended for compliance violation."}</div>`;
+                noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ALERT: ${app.suspensionReason || "THIS APPLICATION IS UNDERGOING SCHEDULE INTERNAL SYSTEM MAINTENACE/UPDATE."}</div>`;
             } else {
                 document.getElementById('btnText').innerText = "Download APK";
                 downloadBtn.style.backgroundColor = "#00aad5";
