@@ -9,8 +9,6 @@
     <link rel="preconnect" href="https://stc.utdstc.com">
     <link rel="preload" crossorigin="anonymous" href="https://stc.utdstc.com/fonts/geomanist-medium-webfont.woff2" as="font" type="font/woff2">
     <link rel="preload" crossorigin="anonymous" href="https://stc.utdstc.com/fonts/geomanist-regular-webfont.woff2" as="font" type="font/woff2">
-    
-    <script src="https://henrykamsi.github.io/hgt-guardian/hgt-guardian.js"></script>
 
     <style>
         @font-face {
@@ -34,13 +32,9 @@
         body > .content { max-width: 1396px; min-height: 100vh; margin: auto; background: white; position: relative; box-sizing: border-box; padding-bottom: 70px; }
         body.dark-mode > .content { background: #0f292f; }
 
-        /* --- Splash Screen & Gatekeeper --- */
+        /* --- Splash Screen --- */
         #splashScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #00aad5; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.5s ease; }
         #splashScreen h2 { color: white; font-family: 'geomanistmedium', sans-serif; font-size: 28px; margin: 0; }
-        
-        #hgtGatekeeper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #09191d; z-index: 9999; display: flex; justify-content: center; align-items: center; color: white; text-align: center; font-family: 'geomanistmedium', sans-serif; padding: 20px; box-sizing: border-box; }
-        .gate-card { background: #0f292f; border: 1px solid #1f4e5a; padding: 30px; border-radius: 16px; max-width: 400px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .gate-btn { background: #00aad5; color: white; border: none; padding: 14px 28px; font-size: 16px; font-family: 'geomanistmedium', sans-serif; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; }
 
         /* --- Header Configuration --- */
         header { display: flex; position: sticky; top: 0; height: 50px; width: 100%; z-index: 100; background: white; justify-content: space-between; border-bottom: 1px solid #eee; }
@@ -51,12 +45,25 @@
         header .logo { margin: 0 auto 0 0; padding-left: 10px; }
         header .logo h3 { color: #00aad5; font-family: 'geomanistmedium', sans-serif; font-size: 18px; }
 
-        /* --- Interactive Search Overlay --- */
+        /* --- Interactive Search Overlay & Animation --- */
         #searchOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 500; padding: 15px; box-sizing: border-box; display: none; overflow-y: auto; }
         body.dark-mode #searchOverlay { background: #09191d; color: white; }
-        .search-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid #00aad5; padding-bottom: 5px; margin-bottom: 20px; position: sticky; top: 0; background: inherit; z-index: 501;}
+        
+        .search-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid #00aad5; padding: 5px; margin-bottom: 20px; position: sticky; top: 0; background: inherit; z-index: 501; transition: all 0.3s ease; }
         .search-input-wrapper input { width: 100%; border: none; background: transparent; font-size: 18px; outline: none; font-family: 'geomanistregular', sans-serif; color: inherit; }
         .search-close { font-size: 24px; cursor: pointer; padding: 0 10px; color: #7F949A; }
+        
+        @keyframes shineEffect {
+            0% { box-shadow: 0 0 2px #00aad5; }
+            50% { box-shadow: 0 0 15px #00aad5, 0 0 5px #00aad5 inset; border-color: #00aad5; }
+            100% { box-shadow: 0 0 2px #00aad5; }
+        }
+        .shining-active {
+            animation: shineEffect 1.2s infinite alternate;
+            border-radius: 6px;
+            border: 1px solid #00aad5;
+        }
+
         .overlay-section { margin-bottom: 25px; }
         .overlay-section h4 { font-family: 'geomanistmedium', sans-serif; color: #00aad5; margin-bottom: 10px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
         .search-tag { display: inline-block; background: #eee; padding: 6px 14px; border-radius: 20px; margin: 5px; font-size: 13px; cursor: pointer; color: #333; }
@@ -129,6 +136,7 @@
         .app-header-block img { width: 85px; height: 85px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); object-fit: cover;}
         .app-header-block h2 { margin: 0; font-size: 22px; font-family: 'geomanistmedium', sans-serif; }
         .app-header-block p { color: #7F949A; margin: 4px 0 0 0; font-size: 14px; }
+        .app-header-block .updated-text { font-size: 11px; color: #00aad5; font-family: 'geomanistmedium', sans-serif; margin-top: 6px; }
         
         .action-bar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px; }
         .download-btn { display:block; background: #00aad5; color: white; text-align: center; padding: 15px; border-radius: 12px; font-family: 'geomanistmedium', sans-serif; font-size: 16px; font-weight: bold; cursor: pointer; position: relative; overflow: hidden; }
@@ -160,9 +168,6 @@
         .review-box { margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
         body.dark-mode .review-box { border-top: 1px solid #1f4e5a; }
         .review-box h3 { font-family: 'geomanistmedium', sans-serif; margin-bottom: 15px; }
-        input, textarea, select { width: 100%; padding: 12px; margin: 6px 0 14px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: inherit; background: white; color: inherit; }
-        body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background: #1f4e5a; border: 1px solid #1f4e5a; }
-        .post-btn { background: #00aad5; color: white; width: 100%; padding: 14px; border: none; border-radius: 8px; font-family: 'geomanistmedium', sans-serif; font-size: 15px; cursor: pointer; }
 
         /* Lightbox Overlay */
         #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999999; align-items: center; justify-content: center; flex-direction: column;}
@@ -182,10 +187,10 @@
         footer .footer-brand { font-family: 'geomanistmedium', sans-serif; font-size: 18px; color: #00aad5; margin-bottom: 8px; }
         footer p { font-size: 13px; color: #cddce0; margin: 0 0 15px 0; }
         footer .copyright { font-size: 11px; color: #7F949A; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
-
     </style>
 
     <script type="module">
+        //<![CDATA[
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getRemoteConfig, fetchAndActivate, getString } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-remote-config.js";
@@ -205,6 +210,7 @@
         const remoteConfig = getRemoteConfig(app);
         remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
         window.firebaseEngine = { db, remoteConfig, fetchAndActivate, getString, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment };
+        //]]>
     </script>
 </head>
 <body>
@@ -212,17 +218,6 @@
     <div id="splashScreen">
         <h2>HENRY GLOBAL</h2>
         <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 5px; letter-spacing: 2px;">LINKDIFY APPS</p>
-    </div>
-
-    <div id="hgtGatekeeper">
-        <div class="gate-card">
-            <h2 style="margin: 0 0 10px 0; color: #00aad5;">HGT GUARDIAN</h2>
-            <p style="font-size: 14px; color: #cddce0; line-height: 1.5; margin-bottom: 20px;">Hardware Level Identity Handshake Required to Access Public Database Systems Node.</p>
-            <div id="guardianChallengeContainer">
-                <p style="font-size: 13px; color: #7F949A;">Awaiting Device Handshake Authorization...</p>
-            </div>
-            <button class="gate-btn" onclick="executeSecurityVerification()">Verify Biometrics</button>
-        </div>
     </div>
 
     <div class="content">
@@ -273,8 +268,9 @@
                     <img id="detailAppIcon" src="https://stc.utdstc.com/img/no-img.png" alt="App Icon">
                     <div>
                         <h2 id="detailAppName">App Loading...</h2>
-                        <p id="detailAppVersion" style="color: #00aad5; font-family:'geomanistmedium';">Version 1.0.1</p>
+                        <p id="detailAppVersion" style="color: #00aad5; font-family:'geomanistmedium'; margin-bottom: 2px;">Version 1.0.1</p>
                         <div id="ageRatingDisplay" style="display:inline-block; margin-top:5px; background: #eee; color: #555; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">Age: NR</div>
+                        <div id="detailAppUpdated" class="updated-text">Last Updated: Loading...</div>
                     </div>
                 </div>
 
@@ -306,7 +302,7 @@
                 </div>
 
                 <div style="font-size: 12px; color: #7F949A; margin-bottom: 20px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                    <strong>Linkdify ID:</strong> <span id="linkdifyIdDisplay"HGT_34713471.COM</span>
+                    <strong>Linkdify ID:</strong> <span id="linkdifyIdDisplay">HGT_34713471.COM</span>
                 </div>
 
                 <div id="videoContainer" style="margin: 20px 0; display:none;">
@@ -336,22 +332,20 @@
                 </section>
 
                 <div class="review-box" style="margin-top: 25px;">
-    <h3 style="font-family: 'geomanistmedium'; color: #333; margin-bottom: 15px; font-size: 16px;">Technical Compliance Details</h3>
-    
-    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #00aad5;">
-        <p style="margin: 5px 0; font-size: 13px; color: #555;"><strong>Deployment Scope:</strong> Internal Corporate Use Only</p>
-        <p style="margin: 5px 0; font-size: 13px; color: #555;"><strong>Encryption Layer:</strong> HGT Guardian Protected</p>
-        <p style="margin: 5px 0; font-size: 13px; color: #555;"><strong>System Integrity:</strong> Verified Production Build</p>
-    </div>
-</div>
-
+                    <h3 style="font-family: 'geomanistmedium'; color: #333; margin-bottom: 15px; font-size: 16px;">Technical Compliance Details</h3>
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #00aad5;">
+                        <p style="margin: 5px 0; font-size: 13px; color: #555;"><strong>Deployment Scope:</strong> Internal Corporate Use Only</p>
+                        <p style="margin: 5px 0; font-size: 13px; color: #555;"><strong>Encryption Layer:</strong> HGT Guardian Protected</p>
+                        <p style="margin: 5px 0; font-size: 13px; color: #555;"><strong>System Integrity:</strong> Verified Production Build</p>
+                    </div>
                 </div>
+
             </div>
         </main>
 
         <div id="searchOverlay">
             <div class="search-input-wrapper">
-                <input type="text" id="liveSearchInput" placeholder="Search verified application nodes..." oninput="evaluateSearchInput()">
+                <input type="text" id="liveSearchInput" placeholder="Search verified application nodes..." oninput="triggerDebouncedSearch()">
                 <div class="search-close" onclick="toggleSearchOverlay(false)">✕</div>
             </div>
             
@@ -382,9 +376,14 @@
                 <li><a href="#" onclick="triggerDrawerCategory('games')">Games Collection</a></li>
                 <li><a href="#" onclick="triggerDrawerCategory('utilities')">System Utilities</a></li>
                 <li><a href="#" onclick="triggerDrawerCategory('finance')">Financial Engines</a></li>
+                
+                <li class="section-title">Legal Documentation</li>
+                <li><a href="https://henrykamsi.github.io/HGT-Privacy-Policy-Pro-/?policy=BG80HYdncDKs9G28qj6G" target="_blank">Privacy Policy</a></li>
+                <li><a href="https://henrykamsi.github.io/HGT-ABOUT-US-PAGE/" target="_blank">About Us</a></li>
+                
                 <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-                <li class="section-title"Upload You App Manually</li>
-                <li><a href="#" style="color: #00aad5; font-weight: bold;"Contact The Team To Upload Your App(kamsih924@gmail.com)</a></li>
+                <li class="section-title">Upload You App Manually</li>
+                <li><a href="#" style="color: #00aad5; font-weight: bold;">Contact The Team To Upload Your App(kamsih924@gmail.com)</a></li>
             </ul>
         </nav>
 
@@ -405,7 +404,7 @@
 
         <footer>
             <div class="footer-brand">HENRY GLOBAL TECH INDUSTRY</div>
-            <p>High-integrity verified decentralized distribution repository platform layer.(A PRIVATE STORE FOR HGT.</p>
+            <p>High-integrity verified decentralized distribution repository platform layer.(A PRIVATE STORE FOR HGT).</p>
             <div class="copyright">
                 &copy; 2026 Henry Global Tech Industry. All rights reserved.
             </div>
@@ -419,20 +418,31 @@
         <button class="lb-nav" onclick="changeScreenshot(1)" style="right:10px;">▶</button>
     </div>
 
-    <script>
+    <script type="text/javascript">
+        //<![CDATA[
+        
+        // --- GLOBAL CONFIGURATION OBJECT ---
+        const CONFIG = {
+            useMockData: true // TRUE to use the fallback offline data, FALSE to connect to Firebase
+        };
+
         let appRepositoryState = [];
         let currentlySelectedAppId = null;
         let carouselIntervalTimer = null;
-
-        // Lightbox state
         let currentGalleryImages = [];
         let currentGalleryIdx = 0;
+        let searchTimeout = null; // Used for Debouncing search input
 
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splashScreen');
-                splash.style.opacity = '0';
-                setTimeout(() => splash.style.display = 'none', 500);
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                        initializeFirebaseDatabaseConnection(); 
+                    }, 500);
+                }
             }, 1800);
 
             if (!localStorage.getItem('hgtSearchLogs')) {
@@ -442,49 +452,12 @@
             checkDynamicDeepLinkRouting();
         });
 
-        async function executeSecurityVerification() {
-            const container = document.getElementById('guardianChallengeContainer');
-            container.innerHTML = `<p style="color:#00aad5;">Initiating Asynchronous Security Challenge Module...</p>`;
-            
-            try {
-                if (typeof HGTGuardian !== 'undefined') {
-                    const guardianInstance = new HGTGuardian({ projectId: "hgt-linkdify", mode: "production" });
-                    const challengePassed = await guardianInstance.verifySession();
-                    if (!challengePassed) throw new Error("Guardian Session Security Rejection.");
-                }
-
-                container.innerHTML = `<p style="color:#4caf50;">Guardian Validation Cleared. Triggering Hardware Cryptographic Handshake...</p>`;
-                
-                const systemChallengeResponse = new Uint8Array(32);
-                window.crypto.getRandomValues(systemChallengeResponse);
-                
-                const biometricCredential = await navigator.credentials.create({
-                    publicKey: {
-                        challenge: systemChallengeResponse,
-                        rp: { name: "HGT Linkdify Store" },
-                        user: { id: new Uint8Array([16, 32, 48, 64]), name: "authenticated@henryglobal.internal", displayName: "Verified Store Handshake" },
-                        pubKeyCredParams: [{ type: "public-key", alg: -7 }],
-                        timeout: 60000,
-                        authenticatorSelection: { userVerification: "required" }
-                    }
-                });
-
-                if (biometricCredential) {
-                    document.getElementById('hgtGatekeeper').style.transition = "opacity 0.5s ease";
-                    document.getElementById('hgtGatekeeper').style.opacity = "0";
-                    setTimeout(() => {
-                        document.getElementById('hgtGatekeeper').style.display = "none";
-                        initializeFirebaseDatabaseConnection();
-                    }, 500);
-                }
-            } catch (error) {
-                console.error("Security Core Error Event Stack:", error);
-                container.innerHTML = `<p style="color:#f44336;">Security Check Rejection: User Authentication Refused.<br><span style='font-size:11px;'>${error.message}</span></p>`;
-            }
-        }
-
         async function initializeFirebaseDatabaseConnection() {
-            if (!window.firebaseEngine) return populateMockFallbackDataStore();
+            // Check global config before attempting database fetch
+            if (CONFIG.useMockData || !window.firebaseEngine) {
+                console.log("Mock Data Mode Enabled. Skipping Firebase connection.");
+                return populateMockFallbackDataStore();
+            }
             
             const { db, remoteConfig, fetchAndActivate, getString, collection, getDocs } = window.firebaseEngine;
             
@@ -515,27 +488,27 @@
         }
 
         function populateMockFallbackDataStore() {
-            // MOCK REPOSITORY DATA SYSTEM
+            const currentDate = new Date().toISOString(); 
+            
             appRepositoryState = [
                 {
                     id: "velocity-messenger", name: "Velocity Messenger", description: "Secure, real-time cryptographic enterprise messaging array platform node application tool setup.", category: "utilities", collection: "System Tools", version: "2.4.0", logo: "https://picsum.photos/100/100?random=11", downloadUrl: "https://example.com/velocity.apk", isSpecial: true, isSuspended: false,
                     screenshots: ["https://picsum.photos/600/180?random=1", "https://picsum.photos/300/500?random=2"], downloads: 1542, reviewCount: 89, isSecured: true, linkdifyId: "HGT_FO76084936_users", ageRating: "12+", privacyData: ["Email authentication verified", "End-to-End messaging array structure standard encryption", "No location data storage arrays active"], tags: ["chat", "messenger", "secure", "velocity"],
-                    youtubeEnabled: true, youtubeUrl: "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&loop=1&playlist=tgbNymZ7vqY", devEmail: "developer@velocity.hgt", devWebsite: "https://henryglobal.com"
+                    youtubeEnabled: true, youtubeUrl: "https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1" + "&" + "mute=1" + "&" + "loop=1" + "&" + "playlist=tgbNymZ7vqY", devEmail: "developer@velocity.hgt", devWebsite: "https://henryglobal.com", lastUpdated: currentDate
                 },
                 {
                     id: "hgt-guardian-mobile", name: "HGT Guardian Authenticator", description: "Hardware level endpoint validation security firewall token matrix management deployment asset system.", category: "utilities", collection: "System Tools", version: "1.0.8", logo: "https://picsum.photos/100/100?random=12", downloadUrl: "https://example.com/guardian.apk", isSpecial: false, isSuspended: true, suspensionReason: "Requires emergency patch for CCPA compliance module.",
-                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", privacyData: ["Hardware device identifier checks", "Encrypted logs locally stored only"], tags: ["security", "firewall", "tools", "guardian"]
+                    screenshots: ["https://picsum.photos/300/500?random=3"], downloads: 423, reviewCount: 15, isSecured: true, linkdifyId: "HGT_SEC999000_admin", ageRating: "18+", privacyData: ["Hardware device identifier checks", "Encrypted logs locally stored only"], tags: ["security", "firewall", "tools", "guardian"], lastUpdated: currentDate
                 },
                 {
                     id: "alpha-wallet", name: "Alpha Ledger Protocol", description: "Next-gen smart contract balance asset tracking accounting ledger solution framework system.", category: "finance", collection: "Financial Engines", version: "3.1.2", logo: "https://picsum.photos/100/100?random=13", downloadUrl: "https://example.com/alpha.apk", isSpecial: true, isSuspended: false,
                     screenshots: ["https://picsum.photos/600/180?random=5"], downloads: 8900, reviewCount: 120, isSecured: true, linkdifyId: "HGT_FIN112233_users", ageRating: "18+", privacyData: ["No banking credential access logs collected", "Cryptographic balance tracking layers active"], tags: ["finance", "wallet", "crypto", "ledger"],
-                    youtubeEnabled: false, youtubeUrl: ""
+                    youtubeEnabled: false, youtubeUrl: "", lastUpdated: currentDate
                 }
             ];
             renderAppStoreInterfaceContent(appRepositoryState);
         }
 
-        // --- DYNAMIC CAROUSEL AND COLLECTION SYSTEM MATRIX ---
         function renderAppStoreInterfaceContent(appsList) {
             const featuredRow = document.getElementById('featuredAppsContainer');
             const dotsContainer = document.getElementById('carouselDots');
@@ -545,7 +518,6 @@
             dotsContainer.innerHTML = '';
             sectionsWrapper.innerHTML = '';
 
-            // 1. FILTER AND BUILD INTERACTIVE AUTO MULTIMEDIA CAROUSEL
             const featuredApps = appsList.filter(app => app.isSpecial && !app.isSuspended);
             
             featuredApps.forEach((app, index) => {
@@ -565,7 +537,6 @@
                     </div>
                 `;
 
-                // Build Carousel Track Indicator Dots
                 const indicatorDot = document.createElement('div');
                 indicatorDot.className = `dot ${index === 0 ? 'active' : ''}`;
                 indicatorDot.onclick = (e) => {
@@ -575,7 +546,6 @@
                 dotsContainer.appendChild(indicatorDot);
             });
 
-            // Start 5-second automatic carousel routine loop
             if (carouselIntervalTimer) clearInterval(carouselIntervalTimer);
             let activeCarouselIdx = 0;
             if (featuredApps.length > 1) {
@@ -585,8 +555,6 @@
                 }, 5000);
             }
 
-            // 2. COMPILE DYNAMIC COLLECTION SECTIONS ENGINE
-            // Groups items dynamically based on administrative database collection fields
             const groupedCollections = appsList.reduce((accumulator, app) => {
                 const sectionKeyName = (app.collection && app.collection.trim() !== "") ? app.collection : "All Apps";
                 if (!accumulator[sectionKeyName]) accumulator[sectionKeyName] = [];
@@ -594,7 +562,6 @@
                 return accumulator;
             }, {});
 
-            // Sort arrays to push operational items ahead of suspended nodes
             for (const sectionTitle in groupedCollections) {
                 groupedCollections[sectionTitle].sort((a, b) => (b.isSuspended ? -1 : 1) - (a.isSuspended ? -1 : 1));
 
@@ -634,27 +601,27 @@
             }
         }
 
-        // --- APPS ROUTING CONTROL LAYERS ---
         function routeToDetails(applicationId) {
             currentlySelectedAppId = applicationId;
-            
             const structuralHistoryStateUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?appId=${applicationId}`;
             window.history.pushState({ path: structuralHistoryStateUrl }, '', structuralHistoryStateUrl);
-
             const app = appRepositoryState.find(element => element.id === applicationId);
             if(!app) return;
 
-            // Header Elements Injection
             document.getElementById('detailAppName').innerText = app.name;
             document.getElementById('detailAppIcon').src = app.logo;
             document.getElementById('detailAppVersion').innerText = `Version: ${app.version || '1.0.1'}`;
             document.getElementById('ageRatingDisplay').innerText = `Age: ${app.ageRating || 'NR'}`;
             document.getElementById('descriptionDisplay').innerText = app.description || "No description provided.";
             document.getElementById('linkdifyIdDisplay').innerText = app.linkdifyId || "N/A";
+            
+            // Render the Dynamic Timestamp Update
+            const dateFormatted = app.lastUpdated ? new Date(app.lastUpdated).toLocaleDateString() : new Date().toLocaleDateString();
+            document.getElementById('detailAppUpdated').innerText = `Last Updated: ${dateFormatted}`;
 
-            // Numeric Statistics
             document.getElementById('statDownloadCount').innerText = app.downloads || 0;
             document.getElementById('statReviewCount').innerText = app.reviewCount || 0;
+            
             const secStatus = document.getElementById('securityStatus');
             if (app.isSecured !== false) {
                 secStatus.innerText = "✓ 100% Secured"; secStatus.style.color = "#2e7d32";
@@ -662,16 +629,13 @@
                 secStatus.innerText = "Unverified"; secStatus.style.color = "#d32f2f";
             }
 
-            // Action download configurations
             const downloadBtn = document.getElementById('detailDownloadBtn');
             const noticeBox = document.getElementById('suspensionNoticeContainer');
             noticeBox.innerHTML = '';
-            
-            // Re-assign explicit instant download event operations mapping
             downloadBtn.onclick = (e) => triggerInstantDownloadOperation(e, app.id);
             
             if (app.isSuspended) {
-                document.getElementById('btnText').innerText = "MAINTENACE MODE";
+                document.getElementById('btnText').innerText = "MAINTENANCE MODE";
                 downloadBtn.style.backgroundColor = "#d32f2f";
                 downloadBtn.style.pointerEvents = "none";
                 noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ALERT: ${app.suspensionReason || "THIS APPLICATION IS UNDERGOING SCHEDULE INTERNAL SYSTEM MAINTENACE/UPDATE."}</div>`;
@@ -681,7 +645,6 @@
                 downloadBtn.style.pointerEvents = "auto";
             }
 
-            // In-page video detection logic engine controls
             const videoPlayer = document.getElementById('appVideoPlayer');
             const videoContainer = document.getElementById('videoContainer');
             if (app.youtubeUrl && app.youtubeUrl.trim() !== "") {
@@ -692,7 +655,6 @@
                 videoContainer.style.display = 'none';
             }
 
-            // Screenshots Gallery Rendering 
             currentGalleryImages = app.screenshots || [];
             const screenshotsArea = document.getElementById('detailScreenshotsContainer');
             screenshotsArea.innerHTML = '';
@@ -703,76 +665,46 @@
                 screenshotsArea.appendChild(img);
             });
 
-            // --- SYSTEM DYNAMIC PRIVACY DISCLOSURE MATRIX ENGINE ---
             const privacyListContainer = document.getElementById('dataCollectedList');
             privacyListContainer.innerHTML = '';
-            
             if (app.privacyData && Array.isArray(app.privacyData) && app.privacyData.length > 0) {
                 app.privacyData.forEach(policyItem => {
-                    privacyListContainer.innerHTML += `<li style="margin-bottom:6px;">✅ ${policyItem}</li>`;
-                });
-            } else if (app.dataCollected && Array.isArray(app.dataCollected) && app.dataCollected.length > 0) {
-                app.dataCollected.forEach(policyItem => {
                     privacyListContainer.innerHTML += `<li style="margin-bottom:6px;">✅ ${policyItem}</li>`;
                 });
             } else {
                 privacyListContainer.innerHTML = "<li>No operational data privacy disclosure tracking logs mapped to this node.</li>";
             }
 
-            // Developer Core Contact Injection Mapping
             const devLinksBox = document.getElementById('contactLinks');
             devLinksBox.innerHTML = '';
-            
-            const contactChannels = [
-                { label: "Email", val: app.devEmail, schemePrefix: "mailto:" },
-                { label: "Website", val: app.devWebsite, schemePrefix: "" },
-                { label: "Facebook", val: app.devFacebook, schemePrefix: "" },
-                { label: "TikTok", val: app.devTikTok, schemePrefix: "" }
-            ];
-            
-            contactChannels.forEach(channel => {
-                if(channel.val && channel.val.trim() !== "") {
-                    const anchorLinkDestination = channel.label === "Email" ? `${channel.schemePrefix}${channel.val}` : channel.val;
-                    devLinksBox.innerHTML += `<a href="${anchorLinkDestination}" target="_blank" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">${channel.label}</a>`;
-                }
-            });
+            if(app.devEmail) {
+                devLinksBox.innerHTML += `<a href="mailto:${app.devEmail}" style="padding: 8px 12px; background: #eee; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:#333;">Email</a>`;
+            }
             document.getElementById('devContactSection').style.display = devLinksBox.innerHTML !== '' ? 'block' : 'none';
 
             renderRelatedApps(app);
-
-            // Interface Mode Flip Operations
             document.getElementById('homeView').classList.add('hidden');
             document.getElementById('detailView').classList.remove('hidden');
             window.scrollTo(0, 0);
-            renderReviewsListUI();
         }
 
-        // --- INSTANT DOWNLOAD REDIRECT & AUTO STATS UPDATE MODULE ---
         function triggerInstantDownloadOperation(clickEvent, appId) {
             clickEvent.preventDefault();
             const targetedApp = appRepositoryState.find(element => element.id === appId);
             if(!targetedApp || targetedApp.isSuspended) return;
-
-            // 1. UPDATE DB STATS ARRAY LOGS IN THE BACKGROUND
-            if(window.firebaseEngine && window.firebaseEngine.increment) {
+            
+            if(window.firebaseEngine && window.firebaseEngine.increment && !CONFIG.useMockData) {
                 try {
                     const { db, doc, updateDoc, increment } = window.firebaseEngine;
-                    // Safely triggers atomic increment pipeline node inside Firebase database document
                     updateDoc(doc(db, "live_apps", appId), { downloads: increment(1) });
-                } catch(databaseWriteError) { 
-                    console.warn("Background Firebase stats analytics payload skipped:", databaseWriteError); 
-                }
+                } catch(e) {}
             }
-
-            // Local cache increment fallback for instant interface display speed correction
+            
             targetedApp.downloads = (targetedApp.downloads || 0) + 1;
             document.getElementById('statDownloadCount').innerText = targetedApp.downloads;
-
-            // 2. IMMEDIATE REDIRECT ROUTING EXECUTION
             window.location.href = targetedApp.downloadUrl || "#";
         }
 
-        // --- LIGHTBOX GALLERY VIEWPORT SYSTEMS ---
         function openLightbox(index) {
             currentGalleryIdx = index;
             document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
@@ -787,27 +719,11 @@
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        // --- RELATED APPLICATION LOGIC MATRICES ---
         function renderRelatedApps(currentApp) {
             const container = document.getElementById('relatedAppsContainer');
             container.innerHTML = '';
-            
-            if(!currentApp.tags || !Array.isArray(currentApp.tags) || currentApp.tags.length === 0) {
-                document.getElementById('relatedAppsSection').style.display = 'none';
-                return;
-            }
-
-            const matchingApps = appRepositoryState.filter(item => {
-                if(item.id === currentApp.id || item.isSuspended || !item.tags || !Array.isArray(item.tags)) return false;
-                return item.tags.some(tagElement => currentApp.tags.map(t=>t.toLowerCase()).includes(tagElement.toLowerCase()));
-            });
-            
-            if(matchingApps.length === 0) {
-                document.getElementById('relatedAppsSection').style.display = 'none';
-                return;
-            }
-            document.getElementById('relatedAppsSection').style.display = 'block';
-            
+            if(!currentApp.tags) return;
+            const matchingApps = appRepositoryState.filter(item => item.id !== currentApp.id && !item.isSuspended && item.tags && item.tags.some(t => currentApp.tags.includes(t)));
             matchingApps.slice(0, 5).forEach(relatedAppItem => {
                 container.innerHTML += `
                     <div class="item" onclick="routeToDetails('${relatedAppItem.id}')">
@@ -819,10 +735,8 @@
 
         function routeToHome() {
             currentlySelectedAppId = null;
-            const rootCleanPathUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            window.history.pushState({ path: rootCleanPathUrl }, '', rootCleanPathUrl);
-
-            document.getElementById('appVideoPlayer').src = ""; // Force disconnect active embedded players audio pipelines
+            window.history.pushState(null, '', window.location.pathname);
+            document.getElementById('appVideoPlayer').src = "";
             document.getElementById('detailView').classList.add('hidden');
             document.getElementById('homeView').classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -841,7 +755,6 @@
             }
         }
 
-        // --- OPTIMIZED SEARCH ENGINE LAYERS ---
         function toggleSearchOverlay(visibleState) {
             const overlay = document.getElementById('searchOverlay');
             overlay.style.display = visibleState ? 'block' : 'none';
@@ -849,69 +762,50 @@
                 document.getElementById('liveSearchInput').value = '';
                 evaluateSearchInput(); 
                 document.getElementById('liveSearchInput').focus();
-                renderSearchLogsUI();
             }
+        }
+
+        // --- Optimized Debounce Search Execution ---
+        function triggerDebouncedSearch() {
+            const searchWrapper = document.querySelector('.search-input-wrapper');
+            // Add the glowing animation class
+            searchWrapper.classList.add('shining-active');
+
+            if (searchTimeout) clearTimeout(searchTimeout);
+            
+            // Wait 350ms before executing the search logic to maintain smooth UI performance
+            searchTimeout = setTimeout(() => {
+                evaluateSearchInput();
+                // Remove the glow once search finishes mapping results
+                searchWrapper.classList.remove('shining-active');
+            }, 350); 
         }
 
         function evaluateSearchInput() {
             const queryValue = document.getElementById('liveSearchInput').value.toLowerCase().trim();
             const resultsGrid = document.getElementById('liveSearchResultsGrid');
             const statesBox = document.getElementById('defaultSearchStates');
-
+            
             if (queryValue.length < 2) {
                 resultsGrid.innerHTML = '';
                 statesBox.style.display = 'block';
                 return;
             }
-
+            
             statesBox.style.display = 'none';
             
-            const filteredResults = appRepositoryState.filter(item => {
-                if(item.isSuspended) return false;
-                
-                const nameMatch = item.name.toLowerCase().includes(queryValue);
-                const catMatch = item.category.toLowerCase().includes(queryValue);
-                const collectionMatch = item.collection && item.collection.toLowerCase().includes(queryValue);
-                let tagMatch = false;
-                
-                if(item.tags && Array.isArray(item.tags)) {
-                    tagMatch = item.tags.some(t => t.toLowerCase().includes(queryValue));
-                }
-                
-                return nameMatch || catMatch || tagMatch || collectionMatch;
-            });
-
-            if(filteredResults.length === 0) {
-                resultsGrid.innerHTML = `
-                    <div style="text-align:center; padding: 40px 20px;">
-                        <div style="font-size:40px; margin-bottom:10px;">🔍</div>
-                        <h3 style="color:#1F4E5A; margin:0;">No Apps Found</h3>
-                        <p style="color:#7F949A; font-size:14px;">Try checking related node collection fields.</p>
-                    </div>`;
-                return;
-            }
-
+            const filteredResults = appRepositoryState.filter(item => !item.isSuspended && (item.name.toLowerCase().includes(queryValue) || (item.tags && item.tags.some(t => t.toLowerCase().includes(queryValue)))));
             resultsGrid.innerHTML = filteredResults.map(item => `
-                <div class="live-search-item" onclick="commitLogSearch('${item.name}'); routeToDetails('${item.id}'); toggleSearchOverlay(false);">
+                <div class="live-search-item" onclick="routeToDetails('${item.id}'); toggleSearchOverlay(false);">
                     <img src="${item.logo}">
-                    <div>
-                        <strong style="display:block;">${item.name}</strong>
-                        <span style="font-size:12px; color:#7F949A;">Collection: ${item.collection || 'General Repository'}</span>
-                    </div>
+                    <div><strong>${item.name}</strong></div>
                 </div>
             `).join('');
         }
 
         function injectSearchValue(valueString) {
             document.getElementById('liveSearchInput').value = valueString;
-            evaluateSearchInput();
-        }
-
-        function commitLogSearch(termString) {
-            let logs = JSON.parse(localStorage.getItem('hgtSearchLogs')) || [];
-            logs = logs.filter(item => item !== termString);
-            logs.unshift(termString);
-            localStorage.setItem('hgtSearchLogs', JSON.stringify(logs.slice(0, 5)));
+            triggerDebouncedSearch(); // Routes string selection directly through animation/debounce loop
         }
 
         function renderSearchLogsUI() {
@@ -921,35 +815,20 @@
         }
 
         function executeClipboardCopy() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert("App sharing architecture deep link copied.");
-            });
+            navigator.clipboard.writeText(window.location.href).then(() => alert("Copied!"));
         }
 
         async function executeNativeShare() {
             if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: `HGT Linkdify Store Node - ${document.getElementById('detailAppName').innerText}`,
-                        text: 'Review authenticated application layer module.',
-                        url: window.location.href
-                    });
-                } catch (err) { console.warn("Share operation cancelled safely:", err); }
-            } else {
-                executeClipboardCopy();
-            }
+                try { await navigator.share({ title: 'HGT Store', url: window.location.href }); } catch (err) {}
+            } else { executeClipboardCopy(); }
         }
 
         function filterCategory(categoryTypeKey, uiElementReference) {
             document.querySelectorAll('#categoriesTabRibbon li').forEach(li => li.classList.remove('active'));
             if(uiElementReference) uiElementReference.classList.add('active');
-
-            if(categoryTypeKey === 'all') {
-                renderAppStoreInterfaceContent(appRepositoryState);
-            } else {
-                const segregatedSubset = appRepositoryState.filter(app => app.category.toLowerCase() === categoryTypeKey.toLowerCase());
-                renderAppStoreInterfaceContent(segregatedSubset);
-            }
+            if(categoryTypeKey === 'all') renderAppStoreInterfaceContent(appRepositoryState);
+            else renderAppStoreInterfaceContent(appRepositoryState.filter(app => app.category.toLowerCase() === categoryTypeKey.toLowerCase()));
         }
 
         function triggerDrawerCategory(categoryTypeKey) {
@@ -971,61 +850,7 @@
             contextBodyShellElement.classList.toggle('dark-mode');
             contextIconButtonLabel.innerText = contextBodyShellElement.classList.contains('dark-mode') ? "☀️" : "🌙";
         }
-
-        async function commitAppReview() {
-            const starsValue = document.getElementById('starsInput').value;
-            const headingTitleString = document.getElementById('reviewTitleInput').value.trim();
-            const logContentDescriptionString = document.getElementById('reviewDescriptionInput').value.trim();
-
-            if(!headingTitleString || !logContentDescriptionString) {
-                return alert("Please enter both a title and description for your review.");
-            }
-
-            const payloadReviewDataStructureObject = {
-                appId: currentlySelectedAppId,
-                stars: parseInt(starsValue),
-                title: headingTitleString,
-                description: logContentDescriptionString,
-                timestamp: Date.now()
-            };
-
-            if(window.firebaseEngine) {
-                const { db, collection, addDoc } = window.firebaseEngine;
-                try {
-                    await addDoc(collection(db, "app_reviews"), payloadReviewDataStructureObject);
-                } catch(e) { console.error("Firebase database review write exception:", e); }
-            }
-
-            let internalCacheLogs = JSON.parse(localStorage.getItem(`reviews_${currentlySelectedAppId}`)) || [];
-            internalCacheLogs.unshift(payloadReviewDataStructureObject);
-            localStorage.setItem(`reviews_${currentlySelectedAppId}`, JSON.stringify(internalCacheLogs));
-
-            document.getElementById('reviewTitleInput').value = '';
-            document.getElementById('reviewDescriptionInput').value = '';
-            renderReviewsListUI();
-        }
-
-        function renderReviewsListUI() {
-            const renderBoxContainer = document.getElementById('reviewRenderContainer');
-            renderBoxContainer.innerHTML = '';
-            
-            let databaseFetchedArrayLogs = JSON.parse(localStorage.getItem(`reviews_${currentlySelectedAppId}`)) || [];
-            
-            if(databaseFetchedArrayLogs.length === 0) {
-                renderBoxContainer.innerHTML = `<p style='font-size:13px; color:#7F949A;'>No validated system platform reviews stored.</p>`;
-                return;
-            }
-
-            renderBoxContainer.innerHTML = databaseFetchedArrayLogs.map(item => `
-                <div style="border-bottom: 1px solid rgba(0,0,0,0.05); padding: 12px 0; font-family:'geomanistregular', sans-serif;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                        <strong style="font-size:14px; color:#00aad5;">${item.title}</strong>
-                        <span style="color:#ffc107; font-size:12px;">${'★'.repeat(item.stars)}${'☆'.repeat(5 - item.stars)}</span>
-                    </div>
-                    <p style="margin:0; font-size:13px; color:#7F949A; line-height:1.4;">${item.description}</p>
-                </div>
-            `).join('');
-        }
+        //]]>
     </script>
 </body>
 </html>
