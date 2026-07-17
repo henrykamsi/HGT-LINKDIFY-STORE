@@ -1,0 +1,104 @@
+{
+  "name": "HGT LINKDIFY STORE",
+  "short_name": "HGT Store",
+  "description": "Get The World Best Apps - HGT Linkdify Store",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#00aad5",
+  "theme_color": "#00aad5",
+  "orientation": "portrait",
+  "scope": "/",
+  "categories": ["store", "apps", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "72x72",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "96x96",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "128x128",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "144x144",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "152x152",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "256x256",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "384x384",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "short_name": "Home",
+      "description": "Go to home page",
+      "url": "/",
+      "icons": [
+        {
+          "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "short_name": "Search",
+      "description": "Search for apps",
+      "url": "/?search",
+      "icons": [
+        {
+          "src": "https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
