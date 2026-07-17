@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="google-site-verification" content="ZxvYybyg9963-ltKszRxcviAPkYag5UuGqjlJLMqtww" />
+    <title>HGT LINKDIFY STORE | Get The World Best Apps</title>
+    
+    <!-- ============================================================ -->
+    <!-- MANIFEST.JSON - Add to Home Screen                            -->
+    <!-- ============================================================ -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- ============================================================ -->
+    <!-- THEME COLORS & PWA SETTINGS                                   -->
+    <!-- ============================================================ -->
+    <meta name="theme-color" content="#00aad5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HGT Store">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg">
+    
+    <!-- ============================================================ -->
+    <!-- OPEN GRAPH META TAGS                                           -->
+    <!-- ============================================================ -->
+    <meta property="og:title" content="HGT LINKDIFY STORE" />
+    <meta property="og:description" content="Get The World Best Apps - HGT Linkdify Store" />
+    <meta property="og:image" content="https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg" />
+    <meta property="og:url" content="https://henrykamsi.github.io/HGT-LINKDIFY-STORE/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HGT LINKDIFY STORE" />
+    <meta name="twitter:description" content="Get The World Best Apps" />
+    <meta name="twitter:image" content="https://cdn.phototourl.com/free/2026-07-17-b874fac5-0508-4a4e-8fdc-6dbf329a31ae.jpg" />
+    
+    <!-- ============================================================ -->
+    <!-- PRELOAD FONTS                                                 -->
+    <!-- ============================================================ -->
+    <link rel="preconnect" href="https://img.utdstc.com">
+    <link rel="preconnect" href="https://stc.utdstc.com">
+    <link rel="preload" crossorigin="anonymous" href="https://stc.utdstc.com/fonts/geomanist-medium-webfont.woff2" as="font" type="font/woff2">
+    <link rel="preload" crossorigin="anonymous" href="https://stc.utdstc.com/fonts/geomanist-regular-webfont.woff2" as="font" type="font/woff2">
+    
+    <!-- ============================================================ -->
+    <!-- SERVICE WORKER REGISTRATION                                    -->
+    <!-- ============================================================ -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+                .then(function(registration) {
+                    console.log('✅ Service Worker registered');
+                })
+                .catch(function(err) {
+                    console.log('❌ Service Worker registration failed:', err);
+                });
+        }
+    </script>
+    
+    <style>
+        @font-face {
+            font-family: 'geomanistmedium';
+            src: url('https://stc.utdstc.com/fonts/geomanist-medium-webfont.woff2') format('woff2');
+            font-weight: 500; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'geomanistregular';
+            src: url('https://stc.utdstc.com/fonts/geomanist-regular-webfont.woff2') format('woff2');
+            font-weight: 400; font-style: normal; font-display: swap;
+        }
+
+        /* --- Global Core Styles --- */
+        body { background: #09191d; font-family: 'geomanistregular', Tahoma, sans-serif; margin: 0; padding: 0; transition: background 0.3s; }
+        body.light-mode { background: #eeeeee; }
+        
+        .hidden { display: none !important; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        
+        body > .content { max-width: 1396px; min-height: 100vh; margin: auto; background: #0f292f; position: relative; box-sizing: border-box; padding-bottom: 70px; }
+        body.light-mode > .content { background: white; }
+
+        /* --- Splash Screen --- */
+        #splashScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #00aad5; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.5s ease; }
+        #splashScreen h2 { color: white; font-family: 'geomanistmedium', sans-serif; font-size: 28px; margin: 0; }
+        #splashScreen p { color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 5px; letter-spacing: 2px; }
+
+        /* --- Offline Banner --- */
+        #offlineBanner { display: none; background: #d32f2f; color: white; padding: 10px 15px; text-align: center; font-size: 14px; font-family: 'geomanistmedium', sans-serif; position: sticky; top: 50px; z-index: 99; }
+        #offlineBanner button { background: white; color: #d32f2f; border: none; padding: 5px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-left: 10px; }
+
+        /* --- Header --- */
+        header { display: flex; position: sticky; top: 0; height: 50px; width: 100%; z-index: 100; background: #0f292f; justify-content: space-between; border-bottom: 1px solid #1f4e5a; }
+        body.light-mode header { background: white; border-bottom: 1px solid #eee; }
+        header div, header a { align-items: center; display: inline-flex; justify-content: center; cursor: pointer; }
+        header .menu-button, header .search, header .theme-toggle { height: 50px; width: 50px; }
+        header .menu-button img, header .search img { height: 20px; filter: brightness(0) invert(1); }
+        body.light-mode header .menu-button img, body.light-mode header .search img { filter: none; }
+        header .logo { margin: 0 auto 0 0; padding-left: 10px; }
+        header .logo h3 { color: #00aad5; font-family: 'geomanistmedium', sans-serif; font-size: 18px; }
+
+        /* --- Search --- */
+        #searchOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #09191d; z-index: 500; padding: 15px; box-sizing: border-box; display: none; overflow-y: auto; color: white; }
+        body.light-mode #searchOverlay { background: white; color: #333; }
+        
+        .search-input-wrapper { display: flex; align-items: center; border-bottom: 2px solid #00aad5; padding: 5px; margin-bottom: 20px; position: sticky; top: 0; background: inherit; z-index: 501; transition: all 0.3s ease; }
+        .search-input-wrapper input { width: 100%; border: none; background: transparent; font-size: 18px; outline: none; font-family: 'geomanistregular', sans-serif; color: inherit; }
+        .search-close { font-size: 24px; cursor: pointer; padding: 0 10px; color: #7F949A; }
+        
+        @keyframes shineEffect {
+            0% { box-shadow: 0 0 2px #00aad5; }
+            50% { box-shadow: 0 0 15px #00aad5, 0 0 5px #00aad5 inset; border-color: #00aad5; }
+            100% { box-shadow: 0 0 2px #00aad5; }
+        }
+        .shining-active { animation: shineEffect 1.2s infinite alternate; border-radius: 6px; border: 1px solid #00aad5; }
+
+        .overlay-section { margin-bottom: 25px; }
+        .overlay-section h4 { font-family: 'geomanistmedium', sans-serif; color: #00aad5; margin-bottom: 10px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        .search-tag { display: inline-block; background: #1f4e5a; padding: 6px 14px; border-radius: 20px; margin: 5px; font-size: 13px; cursor: pointer; color: white; }
+        body.light-mode .search-tag { background: #eee; color: #333; }
+        .live-results-list { display: flex; flex-direction: column; gap: 10px; }
+        .live-search-item { display: flex; align-items: center; gap: 15px; padding: 10px; border-radius: 8px; cursor: pointer; border-bottom: 1px solid #1f4e5a; transition: background 0.2s;}
+        .live-search-item:hover { background: #102c33; }
+        body.light-mode .live-search-item { border-bottom: 1px solid #eee; }
+        body.light-mode .live-search-item:hover { background: #f5f5f5; }
+        .live-search-item img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+
+        /* --- Navigation --- */
+        nav.links { position: relative; margin-bottom: 10px; box-shadow: 0 10px 10px 0px rgba(0,0,0,0.03); background: #0f292f; }
+        body.light-mode nav.links { background: white; }
+        nav.links ul { font-family: 'geomanistregular', sans-serif; box-sizing: border-box; height: 40px; overflow-x: auto; padding: 0 10px; text-align: center; margin: 0; white-space: nowrap; width: 100%; -webkit-overflow-scrolling: touch; display: flex; align-items: center; list-style: none; scrollbar-width: none; }
+        nav.links ul li { font-size: 11px; display: inline-block; margin-right: 20px; cursor: pointer; text-transform: uppercase; color: #7F949A; }
+        nav.links ul li.active { font-family: 'geomanistmedium', sans-serif; color: #00aad5; border-bottom: 2px solid #00aad5; }
+
+        /* --- Sidebar --- */
+        .nav-main { position: fixed; top: 0; bottom: 0; left: -260px; width: 260px; height: 100%; z-index: 2000; background: #0f292f; overflow-y: auto; transition: left 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 5px 0 15px rgba(0,0,0,0.3); padding: 20px; box-sizing: border-box; color: white; }
+        body.light-mode .nav-main { background: white; color: #333; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
+        .nav-main.active { left: 0; }
+        .nav-main .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f4e5a; padding-bottom: 15px; margin-bottom: 20px; }
+        body.light-mode .nav-main .drawer-header { border-bottom: 1px solid #eee; }
+        .nav-main ul { list-style: none; padding: 0; margin: 0; }
+        .nav-main ul li { padding: 14px 0; border-bottom: 1px solid #1f4e5a; font-family: 'geomanistregular', sans-serif; font-size: 15px; cursor: pointer; }
+        .nav-main ul li:hover { background: #102c33; padding-left: 10px; transition: 0.2s; }
+        body.light-mode .nav-main ul li { border-bottom: 1px solid #f5f5f5; }
+        body.light-mode .nav-main ul li:hover { background: #f9f9f9; }
+        .nav-main ul li.section-title { font-family: 'geomanistmedium', sans-serif; color: #00aad5; border: none; padding-top: 20px; font-size: 12px; text-transform: uppercase; pointer-events: none; }
+        .nav-main ul li.section-title:hover { background: transparent; padding-left: 0; }
+        
+        .permission-toggle { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
+        .permission-toggle .status { font-size: 12px; padding: 2px 10px; border-radius: 12px; }
+        .permission-toggle .status.granted { background: #2e7d32; color: white; }
+        .permission-toggle .status.denied { background: #d32f2f; color: white; }
+        .permission-toggle .status.pending { background: #ff9800; color: white; }
+
+        /* --- Developer Badge --- */
+        .developer-badge { display: inline-flex; align-items: center; gap: 6px; background: #1f4e5a; padding: 4px 12px 4px 8px; border-radius: 20px; font-size: 11px; color: #7F949A; cursor: pointer; transition: background 0.2s; margin-top: 5px; }
+        .developer-badge:hover { background: #2a5a6a; color: white; }
+        .developer-badge .dev-icon { font-size: 14px; }
+        body.light-mode .developer-badge { background: #eee; color: #555; }
+        body.light-mode .developer-badge:hover { background: #ddd; color: #333; }
+
+        /* --- Layout --- */
+        h1 { padding: 8px 10px; margin: 0; font-size: 10px; text-transform: uppercase; font-weight: 300; color: white; background: #00aad5; text-align: center; font-family: 'geomanistregular', sans-serif; }
+        h1 b { font-family: 'geomanistmedium', sans-serif; }
+        
+        .item-row { padding: 15px 10px; position: relative; }
+        .item-row .title h2 { font-family: 'geomanistmedium', sans-serif; color: white; font-size: 17px; margin: 0 0 12px 0; }
+        body.light-mode .item-row .title h2 { color: #1f4e5a; }
+        
+        .item-row .content { width: 100%; overflow-x: auto; display: flex; gap: 14px; padding-bottom: 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        
+        .item { min-width: 100px; width: 100px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
+        .item figure { width: 100px; height: 100px; margin-bottom: 8px; margin-top: 0; position: relative; }
+        .item figure img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .item .name { font-family: 'geomanistmedium', sans-serif; color: white; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; width: 100%; }
+        body.light-mode .item .name { color: #1f4e5a; }
+        .item .description { font-family: 'geomanistregular', sans-serif; color: #7F949A; font-size: 11px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 3px; }
+
+        .suspended-badge { background: #d32f2f; color: white; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-top: 4px; }
+        .update-badge { background: #ff9800; color: white; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-top: 4px; }
+        
+        /* Carousel */
+        .feature .container { width: 100%; overflow: hidden; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; }
+        .feature .carousel { display: flex; gap: 12px; width: 100%; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .feature .carousel-item { position: relative; width: 85vw; max-width: 600px; height: 180px; border-radius: 14px; overflow: hidden; flex-shrink: 0; cursor: pointer; }
+        .feature .feature-image { width: 100%; height: 100%; object-fit: cover; }
+        .feature .tag-1 { position: absolute; top: 12px; left: 12px; background: #00aad5; color: white; font-family: 'geomanistmedium', sans-serif; font-size: 10px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; z-index: 5; }
+        .feature .text { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); color: white; padding: 15px 12px; box-sizing: border-box; z-index: 5; }
+        .feature .text .title { font-family: 'geomanistmedium', sans-serif; font-size: 16px; margin: 0; }
+
+        .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #555; transition: background 0.3s; cursor: pointer; }
+        .dot.active { background: #00aad5; }
+
+        /* --- Detail View --- */
+        #detailView { background: #0f292f; min-height: 100vh; padding: 20px; box-sizing: border-box; color: white; }
+        body.light-mode #detailView { background: white; color: #333; }
+        .back-btn { background: #1f4e5a; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-family: 'geomanistmedium', sans-serif; margin-bottom: 20px; color: white; }
+        body.light-mode .back-btn { background: #eee; color: #333; }
+        
+        .app-header-block { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; }
+        .app-header-block img { width: 85px; height: 85px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); object-fit: cover;}
+        .app-header-block h2 { margin: 0; font-size: 22px; font-family: 'geomanistmedium', sans-serif; }
+        .app-header-block p { color: #7F949A; margin: 4px 0 0 0; font-size: 14px; }
+        .app-header-block .updated-text { font-size: 11px; color: #00aad5; font-family: 'geomanistmedium', sans-serif; margin-top: 6px; }
+        
+        .action-bar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px; }
+        
+        .action-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .action-row button { flex: 1; min-width: 80px; padding: 12px 15px; border-radius: 12px; border: none; font-family: 'geomanistmedium', sans-serif; font-size: 14px; cursor: pointer; transition: transform 0.2s; }
+        .action-row button:active { transform: scale(0.95); }
+        
+        .download-btn { display: block; background: #00aad5; color: white; text-align: center; padding: 15px; border-radius: 12px; font-family: 'geomanistmedium', sans-serif; font-size: 16px; font-weight: bold; cursor: pointer; position: relative; overflow: hidden; border: none; width: 100%; transition: opacity 0.3s; }
+        .download-btn:disabled { opacity: 0.5; pointer-events: none; }
+        
+        .btn-favorite { background: #1f4e5a; color: white; }
+        .btn-favorite.active { background: #4a1a1a; color: #ef5350; }
+        .btn-share { background: #1a2a4a; color: #64b5f6; }
+        body.light-mode .btn-favorite { background: #f5f5f5; color: #333; }
+        body.light-mode .btn-favorite.active { background: #ffebee; color: #d32f2f; }
+        body.light-mode .btn-share { background: #e3f2fd; color: #0d47a1; }
+
+        .secondary-btns { display: flex; gap: 12px; }
+        .secondary-btns button { flex: 1; padding: 12px; border: 1px solid #1f4e5a; background: #1f4e5a; border-radius: 8px; font-family: 'geomanistmedium', sans-serif; cursor: pointer; color: white; }
+        body.light-mode .secondary-btns button { border: 1px solid #ddd; background: white; color: #333; }
+
+        /* Stats */
+        #statsBar { display: flex; justify-content: space-between; padding: 15px; background: #102c33; border-radius: 8px; margin: 20px 0; border: 1px solid #1f4e5a; }
+        body.light-mode #statsBar { background: #f9f9f9; border-color: #eee; }
+        .stat-block { text-align: center; }
+        .stat-val { font-family: 'geomanistmedium', sans-serif; font-weight: bold; color: white; font-size: 15px; }
+        body.light-mode .stat-val { color: #1f4e5a; }
+        .stat-label { font-size: 10px; color: #7F949A; text-transform: uppercase; margin-top: 4px; }
+
+        .media-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; margin-top: 20px; scrollbar-width: none; }
+        .media-scroll img { height: 200px; border-radius: 12px; flex-shrink: 0; background: #1f4e5a; cursor: pointer; object-fit: cover; }
+        
+        .privacy-section { margin-top: 30px; border-top: 2px solid #1f4e5a; padding-top: 20px; }
+        body.light-mode .privacy-section { border-color: #eee; }
+        .privacy-section h3 { font-family: 'geomanistmedium', sans-serif; color: #00aad5; margin-bottom: 15px; }
+        #descriptionDisplay { margin-bottom: 20px; font-size: 14px; color: #ccc; line-height: 1.6; }
+        body.light-mode #descriptionDisplay { color: #555; }
+        #privacyDataContainer { background: #102c33; padding: 15px; border-radius: 10px; border: 1px solid #1f4e5a; }
+        body.light-mode #privacyDataContainer { background: #fdfdfd; border-color: #eee; }
+        
+        /* Age Popup */
+        .age-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999999; display: none; justify-content: center; align-items: center; }
+        .age-popup-content { background: #0f292f; padding: 40px; border-radius: 20px; max-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.5); animation: popIn 0.3s ease; color: white; }
+        body.light-mode .age-popup-content { background: white; color: #333; }
+        .age-popup-icon { font-size: 60px; margin-bottom: 15px; }
+        .age-popup-content h2 { color: #d32f2f; font-family: 'geomanistmedium', sans-serif; font-size: 24px; margin: 0 0 10px 0; }
+        .age-popup-content p { color: #aaa; font-size: 15px; line-height: 1.6; }
+        body.light-mode .age-popup-content p { color: #555; }
+        .age-popup-sub { font-size: 13px; color: #7F949A; margin-top: 5px; }
+        .age-popup-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+        .age-yes { background: #2e7d32; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+        .age-yes:hover { transform: scale(1.02); }
+        .age-no { background: #d32f2f; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+        .age-no:hover { transform: scale(1.02); }
+
+        /* Cooldown */
+        .cooldown-message { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999998; display: none; justify-content: center; align-items: center; }
+        .cooldown-content { background: #0f292f; padding: 40px; border-radius: 20px; max-width: 400px; text-align: center; color: white; }
+        body.light-mode .cooldown-content { background: white; color: #333; }
+        .cooldown-icon { font-size: 50px; margin-bottom: 15px; }
+        .cooldown-content h3 { color: #d32f2f; font-family: 'geomanistmedium', sans-serif; font-size: 20px; margin: 0 0 10px 0; }
+        .cooldown-timer { font-size: 18px; margin: 20px 0; }
+        .cooldown-timer span { font-weight: bold; color: #00aad5; font-size: 24px; }
+        .cooldown-progress { width: 100%; height: 6px; background: #1f4e5a; border-radius: 3px; overflow: hidden; margin-top: 10px; }
+        .cooldown-progress-bar { height: 100%; background: linear-gradient(90deg, #d32f2f, #ff6b35); width: 100%; transition: width 1s linear; }
+
+        /* Share Modal */
+        .share-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999997; display: none; justify-content: center; align-items: center; }
+        .share-content { background: #0f292f; padding: 30px; border-radius: 20px; max-width: 400px; width: 90%; text-align: center; position: relative; color: white; }
+        body.light-mode .share-content { background: white; color: #333; }
+        .share-close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; background: none; border: none; color: #7F949A; }
+        .share-icons { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 20px 0; }
+        .share-icons button { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 12px; padding: 10px; border-radius: 12px; transition: background 0.2s; color: white; }
+        body.light-mode .share-icons button { color: #333; }
+        .share-icons button:hover { background: #1f4e5a; }
+        body.light-mode .share-icons button:hover { background: #f5f5f5; }
+        .share-icons button img { width: 40px; height: 40px; }
+        .share-link { display: flex; gap: 10px; margin-top: 15px; }
+        .share-link input { flex: 1; padding: 10px; border: 1px solid #1f4e5a; border-radius: 8px; font-size: 12px; background: #102c33; color: white; }
+        body.light-mode .share-link input { background: #f9f9f9; border-color: #ddd; color: #333; }
+        .share-link button { padding: 10px 20px; background: #00aad5; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+        /* Update Modal */
+        .update-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999996; display: none; justify-content: center; align-items: center; }
+        .update-content { background: #0f292f; padding: 30px; border-radius: 20px; max-width: 450px; width: 90%; text-align: center; position: relative; max-height: 80vh; overflow-y: auto; color: white; }
+        body.light-mode .update-content { background: white; color: #333; }
+        .update-changelog { text-align: left; margin: 15px 0; padding: 15px; background: #102c33; border-radius: 8px; }
+        body.light-mode .update-changelog { background: #f9f9f9; }
+        .update-changelog ul { list-style: none; padding: 0; margin: 0; }
+        .update-changelog ul li { padding: 5px 0; font-size: 14px; }
+        .update-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .update-btn { flex: 1; padding: 14px; background: #ff9800; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .later-btn { flex: 1; padding: 14px; background: #1f4e5a; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 16px; }
+        body.light-mode .later-btn { background: #eee; color: #333; }
+
+        /* Favorites */
+        .favorites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; padding: 20px 10px; }
+        .favorite-item { text-align: center; cursor: pointer; padding: 10px; border-radius: 12px; transition: background 0.2s; }
+        .favorite-item:hover { background: #102c33; }
+        body.light-mode .favorite-item:hover { background: #f5f5f5; }
+        .favorite-item img { width: 80px; height: 80px; border-radius: 16px; object-fit: cover; }
+        .favorite-item .name { font-family: 'geomanistmedium', sans-serif; font-size: 13px; margin-top: 5px; color: white; }
+        body.light-mode .favorite-item .name { color: #333; }
+        .favorite-remove { background: none; border: none; color: #d32f2f; cursor: pointer; font-size: 20px; margin-top: 5px; }
+
+        /* Developer Page */
+        .developer-header { display: flex; align-items: center; gap: 20px; padding: 20px; background: #102c33; border-radius: 12px; margin-bottom: 20px; }
+        body.light-mode .developer-header { background: #f5f5f5; }
+        .developer-header .dev-avatar { width: 70px; height: 70px; border-radius: 50%; background: #00aad5; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; }
+        .developer-header .dev-info h2 { margin: 0; font-family: 'geomanistmedium', sans-serif; }
+        .developer-header .dev-info p { margin: 5px 0 0 0; color: #7F949A; }
+
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #0f292f; border-top: 1px solid #1f4e5a; display: flex; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); }
+        body.light-mode .bottom-nav { background: white; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #7F949A; font-size: 11px; font-family: 'geomanistmedium', sans-serif; cursor: pointer; }
+        .bottom-nav-item.active { color: #00aad5; }
+        .bottom-nav-item svg { width: 22px; height: 22px; margin-bottom: 2px; fill: currentColor; }
+
+        /* Footer */
+        footer { background: #1f4e5a; color: white; padding: 30px 20px; text-align: center; font-family: 'geomanistregular', sans-serif; margin-top: 40px; border-radius: 16px 16px 0 0; }
+        footer .footer-brand { font-family: 'geomanistmedium', sans-serif; font-size: 18px; color: #00aad5; margin-bottom: 8px; }
+        footer p { font-size: 13px; color: #cddce0; margin: 0 0 15px 0; }
+        footer .copyright { font-size: 11px; color: #7F949A; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+
+        /* Lightbox */
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999999; align-items: center; justify-content: center; flex-direction: column;}
+        #lightboxImg { max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;}
+        .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px; cursor: pointer; font-size: 20px; border-radius: 50%; z-index: 1000000;}
+        .lb-nav:hover { background: #00aad5; }
+
+        .loading-spinner { text-align: center; padding: 50px 20px; }
+        .loading-spinner .spinner { width: 40px; height: 40px; border: 4px solid #1f4e5a; border-top: 4px solid #00aad5; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- SPLASH SCREEN                                                  -->
+    <!-- ============================================================ -->
+    <div id="splashScreen">
+        <h2>HENRY GLOBAL</h2>
+        <p>LINKDIFY APPS</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- OFFLINE BANNER                                                -->
+    <!-- ============================================================ -->
+    <div id="offlineBanner">
+        ⚠️ You are offline. Please check your connection.
+        <button onclick="location.reload()">🔄 Refresh</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MAIN CONTENT                                                   -->
+    <!-- ============================================================ -->
+    <div class="content">
+        
+        <!-- ========================================================== -->
+        <!-- HEADER                                                       -->
+        <!-- ========================================================== -->
+        <header>
+            <div class="menu-button" onclick="toggleSidebar(true)">
+                <img alt="Menu icon" src="https://stc.utdstc.com/img/icons-nolazy.svg#icon-bar-menu">
+            </div>
+            <a href="#" class="logo" onclick="routeToHome()">
+                <h3>HGT LINKDIFY STORE</h3>
+            </a>
+            <div class="theme-toggle" onclick="toggleThemeMode()">
+                <span id="themeBtnIcon" style="font-size: 18px;">☀️</span>
+            </div>
+            <div class="search" onclick="toggleSearchOverlay(true)">
+                <img alt="Search icon" src="https://stc.utdstc.com/img/icons-nolazy.svg#icon-bar-search">
+            </div>
+        </header>
+
+        <!-- ========================================================== -->
+        <!-- WELCOME BANNER                                              -->
+        <!-- ========================================================== -->
+        <h1><b>WELCOME TO HGT LINKDIFY STORE |</b> Discover and download the best apps Of HGT.</h1>
+
+        <!-- ========================================================== -->
+        <!-- MAIN APP VIEW CONTAINER                                     -->
+        <!-- ========================================================== -->
+        <main id="appViewContainer">
+            
+            <!-- ========================================================== -->
+            <!-- HOME VIEW                                                   -->
+            <!-- ========================================================== -->
+            <div id="homeView">
+                <nav class="links">
+                    <ul id="categoriesTabRibbon">
+                        <li class="active" onclick="filterCategory('all', this)">All Platform</li>
+                        <li onclick="filterCategory('games', this)">Games</li>
+                        <li onclick="filterCategory('utilities', this)">Utilities</li>
+                        <li onclick="filterCategory('finance', this)">Finance</li>
+                    </ul>
+                </nav>
+
+                <div class="feature">
+                    <div class="container">
+                        <div class="carousel" id="featuredAppsContainer"></div>
+                        <div id="carouselDots" class="carousel-dots"></div>
+                    </div>
+                </div>
+
+                <div id="dynamicSectionsWrapper">
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner"></div>
+                        <p style="color:#7F949A;">Loading apps...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- DETAIL VIEW                                                -->
+            <!-- ========================================================== -->
+            <div id="detailView" class="hidden">
+                <button class="back-btn" onclick="routeToHome()">← Back to Store</button>
+                
+                <div class="app-header-block">
+                    <img id="detailAppIcon" src="https://stc.utdstc.com/img/no-img.png" alt="App Icon">
+                    <div>
+                        <h2 id="detailAppName">App Loading...</h2>
+                        <p id="detailAppVersion" style="color: #00aad5; font-family:'geomanistmedium'; margin-bottom: 2px;">Version 1.0.1</p>
+                        <div id="ageRatingDisplay" style="display:inline-block; margin-top:5px; background: #1f4e5a; color: #aaa; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">Age: NR</div>
+                        <div id="detailAppUpdated" class="updated-text">Last Updated: Loading...</div>
+                        <div id="updateBadge" style="display:none; background:#ff9800; color:white; padding:2px 10px; border-radius:4px; font-size:11px; margin-top:5px;">New version available!</div>
+                        <!-- Developer Badge -->
+                        <div id="developerBadgeContainer"></div>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <div id="suspensionNoticeContainer"></div>
+                    <a id="detailDownloadBtn" class="download-btn">
+                        <span id="btnText">Download APK</span>
+                    </a>
+                    
+                    <div class="action-row">
+                        <button id="favoriteBtn" class="btn-favorite" onclick="toggleFavorite()">🤍 Favorite</button>
+                        <button class="btn-share" onclick="shareApp()">📤 Share</button>
+                    </div>
+
+                    <div class="secondary-btns">
+                        <button onclick="executeClipboardCopy()">Copy Link</button>
+                        <button onclick="executeNativeShare()">Share App</button>
+                    </div>
+                </div>
+
+                <div id="statsBar">
+                    <div class="stat-block">
+                        <div class="stat-val" id="statDownloadCount">0</div>
+                        <div class="stat-label">Downloads</div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-val" id="statReviewCount">0</div>
+                        <div class="stat-label">Reviews</div>
+                    </div>
+                    <div class="stat-block">
+                        <div id="securityStatus" class="stat-val" style="color: #2e7d32;">✓ Secured</div>
+                        <div class="stat-label">Security</div>
+                    </div>
+                </div>
+
+                <div style="font-size: 12px; color: #7F949A; margin-bottom: 20px; text-align: center; border-bottom: 1px solid #1f4e5a; padding-bottom: 15px;">
+                    <strong>Linkdify ID:</strong> <span id="linkdifyIdDisplay">HGT_34713471.COM</span>
+                </div>
+
+                <div id="videoContainer" style="margin: 20px 0; display:none;">
+                    <iframe id="appVideoPlayer" width="100%" height="220" style="border-radius:12px;" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="media-scroll" id="detailScreenshotsContainer"></div>
+
+                <div class="privacy-section">
+                    <h3>LINKDIFY PRIVACY DATA</h3>
+                    <div id="descriptionDisplay"></div>
+                    
+                    <div id="privacyDataContainer">
+                        <p style="font-size:13px; font-weight:bold; margin:0 0 10px 0; color:#00aad5;">Data Policy Summary:</p>
+                        <ul id="dataCollectedList" style="list-style:none; padding:0; margin:0; font-size:13px; color:#aaa;"></ul>
+                    </div>
+                </div>
+
+                <div id="devContactSection" style="margin-top: 30px; display: none;">
+                    <h3 style="font-family: 'geomanistmedium'; color: #00aad5;">DEVELOPER CONTACT</h3>
+                    <div id="contactLinks" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;"></div>
+                </div>
+
+                <section class="item-row" id="relatedAppsSection" style="margin-top:20px; border-top: 1px solid #1f4e5a;">
+                    <div class="title" style="font-size:15px; color:#7F949A;">Similar Apps</div>
+                    <div class="content" id="relatedAppsContainer"></div>
+                </section>
+
+                <div class="review-box" style="margin-top: 25px;">
+                    <h3 style="font-family: 'geomanistmedium'; color: #00aad5; margin-bottom: 15px; font-size: 16px;">Technical Compliance Details</h3>
+                    <div style="background: #102c33; padding: 15px; border-radius: 8px; border-left: 4px solid #00aad5;">
+                        <p style="margin: 5px 0; font-size: 13px; color: #aaa;"><strong>Deployment Scope:</strong> Internal Corporate Use Only</p>
+                        <p style="margin: 5px 0; font-size: 13px; color: #aaa;"><strong>Encryption Layer:</strong> HGT Guardian Protected</p>
+                        <p style="margin: 5px 0; font-size: 13px; color: #aaa;"><strong>System Integrity:</strong> Verified Production Build</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- DEVELOPER VIEW                                              -->
+            <!-- ========================================================== -->
+            <div id="developerView" class="hidden">
+                <button class="back-btn" onclick="routeToHome()">← Back to Store</button>
+                <div id="developerContent"></div>
+            </div>
+        </main>
+
+        <!-- ========================================================== -->
+        <!-- SEARCH OVERLAY                                              -->
+        <!-- ========================================================== -->
+        <div id="searchOverlay">
+            <div class="search-input-wrapper">
+                <input type="text" id="liveSearchInput" placeholder="Search verified application nodes..." oninput="triggerDebouncedSearch()">
+                <div class="search-close" onclick="toggleSearchOverlay(false)">✕</div>
+            </div>
+            
+            <div id="defaultSearchStates">
+                <div class="overlay-section">
+                    <h4>Trending Application Nodes</h4>
+                    <span class="search-tag" onclick="injectSearchValue('Velocity')">Velocity Messenger</span>
+                    <span class="search-tag" onclick="injectSearchValue('Guardian')">HGT Security</span>
+                    <span class="search-tag" onclick="injectSearchValue('Ledger')">Wallet Ledger</span>
+                </div>
+                <div class="overlay-section">
+                    <h4>Recent Query Logs</h4>
+                    <div id="recentQueryLogsContainer"></div>
+                </div>
+            </div>
+
+            <div id="liveSearchResultsGrid" class="live-results-list"></div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- AGE VERIFICATION POPUP                                      -->
+        <!-- ========================================================== -->
+        <div id="ageVerificationPopup" class="age-popup">
+            <div class="age-popup-content">
+                <div class="age-popup-icon">🔞</div>
+                <h2>Age Restricted Content</h2>
+                <p>This app is exclusively for users <strong>18 years and older</strong>.</p>
+                <p class="age-popup-sub">Please confirm your age to continue.</p>
+                
+                <div class="age-popup-buttons">
+                    <button class="age-yes" onclick="handleAgeVerified()">✅ I'm 18+</button>
+                    <button class="age-no" onclick="handleAgeNotVerified()">❌ I'm Not 18</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- COOLDOWN MESSAGE                                            -->
+        <!-- ========================================================== -->
+        <div id="cooldownMessage" class="cooldown-message">
+            <div class="cooldown-content">
+                <div class="cooldown-icon">⏳</div>
+                <h3>You Are Not Eligible</h3>
+                <p>You must be 18 years or older to install this app.</p>
+                <div class="cooldown-timer">
+                    Please wait <span id="cooldownTimer">2:00</span> before trying again.
+                </div>
+                <div class="cooldown-progress">
+                    <div class="cooldown-progress-bar" id="cooldownProgressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SHARE MODAL                                                 -->
+        <!-- ========================================================== -->
+        <div id="shareModal" class="share-modal">
+            <div class="share-content">
+                <button class="share-close" onclick="document.getElementById('shareModal').style.display='none'">✕</button>
+                <h3 id="shareTitle">Share App</h3>
+                <div class="share-icons" id="shareIcons">
+                    <button onclick="shareVia('whatsapp')">
+                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" width="40" alt="WhatsApp">
+                        WhatsApp
+                    </button>
+                    <button onclick="shareVia('facebook')">
+                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" width="40" alt="Facebook">
+                        Facebook
+                    </button>
+                    <button onclick="shareVia('twitter')">
+                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" width="40" alt="Twitter">
+                        Twitter
+                    </button>
+                    <button onclick="copyShareLink()">
+                        📋 Copy Link
+                    </button>
+                </div>
+                <div class="share-link">
+                    <input type="text" id="shareLinkInput" readonly>
+                    <button onclick="copyShareLink()">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- UPDATE MODAL                                                -->
+        <!-- ========================================================== -->
+        <div id="updateModal" class="update-modal">
+            <div class="update-content">
+                <h3>🔄 Update Available</h3>
+                <p id="updateAppName">App Name</p>
+                <p><strong>Current:</strong> <span id="updateCurrentVersion">1.0.0</span></p>
+                <p><strong>New:</strong> <span id="updateNewVersion">2.0.0</span></p>
+                <div class="update-changelog">
+                    <h4>What's New:</h4>
+                    <ul id="updateChangelogList">
+                        <li>Bug fixes and performance improvements</li>
+                    </ul>
+                </div>
+                <div class="update-buttons">
+                    <button class="update-btn" onclick="startUpdateDownload()">📥 Download Update</button>
+                    <button class="later-btn" onclick="document.getElementById('updateModal').style.display='none'">Later</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SIDEBAR DRAWER                                              -->
+        <!-- ========================================================== -->
+        <nav id="leftNavigationDrawer" class="nav-main">
+            <div class="drawer-header">
+                <strong style="color:#00aad5;">STORE CONTEXT MENU</strong>
+                <span style="cursor:pointer; font-size: 20px;" onclick="toggleSidebar(false)">✕</span>
+            </div>
+            <ul>
+                <li><a href="#" onclick="routeToHome(); toggleSidebar(false);">🏠 Home Dashboard Node</a></li>
+                <li><a href="#" onclick="showFavorites(); toggleSidebar(false);">⭐ My Favorites</a></li>
+                <li class="section-title">🔐 Permissions</li>
+                <li onclick="requestNotificationPermission(); toggleSidebar(false);">
+                    <div class="permission-toggle">
+                        <span>🔔 Notifications</span>
+                        <span class="status pending" id="permNotif">Tap to Allow</span>
+                    </div>
+                </li>
+                <li onclick="requestStoragePermission(); toggleSidebar(false);">
+                    <div class="permission-toggle">
+                        <span>💾 Storage</span>
+                        <span class="status pending" id="permStorage">Tap to Allow</span>
+                    </div>
+                </li>
+                <li onclick="requestCameraPermission(); toggleSidebar(false);">
+                    <div class="permission-toggle">
+                        <span>📷 Camera</span>
+                        <span class="status pending" id="permCamera">Tap to Allow</span>
+                    </div>
+                </li>
+                <li onclick="requestLocationPermission(); toggleSidebar(false);">
+                    <div class="permission-toggle">
+                        <span>📍 Location</span>
+                        <span class="status pending" id="permLocation">Tap to Allow</span>
+                    </div>
+                </li>
+                <li class="section-title">Application Categories</li>
+                <li><a href="#" onclick="triggerDrawerCategory('games')">🎮 Games Collection</a></li>
+                <li><a href="#" onclick="triggerDrawerCategory('utilities')">⚙️ System Utilities</a></li>
+                <li><a href="#" onclick="triggerDrawerCategory('finance')">💰 Financial Engines</a></li>
+                
+                <li class="section-title">Legal Documentation</li>
+                <li><a href="https://henrykamsi.github.io/HGT-Privacy-Policy-Pro-/?policy=BG80HYdncDKs9G28qj6G" target="_blank">📄 Privacy Policy</a></li>
+                <li><a href="https://henrykamsi.github.io/HGT-ABOUT-US-PAGE/" target="_blank">ℹ️ About Us</a></li>
+                
+                <hr style="border: 0; border-top: 1px solid #1f4e5a; margin: 15px 0;">
+                <li class="section-title">📤 Upload Your App Manually</li>
+                <li><a href="#" style="color: #00aad5; font-weight: bold;" onclick="toggleSidebar(false);">Contact The Team To Upload Your App (kamsih924@gmail.com)</a></li>
+            </ul>
+        </nav>
+
+        <!-- ========================================================== -->
+        <!-- BOTTOM NAVIGATION                                           -->
+        <!-- ========================================================== -->
+        <div class="bottom-nav">
+            <div class="bottom-nav-item active" onclick="routeToHome()">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                Apps
+            </div>
+            <div class="bottom-nav-item" onclick="toggleSearchOverlay(true)">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                Search
+            </div>
+            <div class="bottom-nav-item" onclick="toggleSidebar(true)">
+                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                Menu
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- FOOTER                                                      -->
+        <!-- ========================================================== -->
+        <footer>
+            <div class="footer-brand">HENRY GLOBAL TECH INDUSTRY</div>
+            <p>High-integrity verified decentralized distribution repository platform layer.(A PRIVATE STORE FOR HGT).</p>
+            <div class="copyright">
+                &copy; 2026 Henry Global Tech Industry. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- LIGHTBOX                                                      -->
+    <!-- ============================================================ -->
+    <div id="lightbox">
+        <span onclick="closeLightbox()" style="position:absolute; top:20px; right:20px; color:white; cursor:pointer; font-size:30px; z-index:1000001;">✕</span>
+        <button class="lb-nav" onclick="changeScreenshot(-1)" style="left:10px;">◀</button>
+        <img id="lightboxImg">
+        <button class="lb-nav" onclick="changeScreenshot(1)" style="right:10px;">▶</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FIREBASE MODULE SCRIPT                                        -->
+    <!-- ============================================================ -->
+    <script type="module">
+        //<![CDATA[
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getRemoteConfig, fetchAndActivate, getString } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-remote-config.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBFtAVBpkzjVkkI_Xnu9wfALxDwuG3LXAM",
+            authDomain: "hgt-linkdify.firebaseapp.com",
+            projectId: "hgt-linkdify",
+            storageBucket: "hgt-linkdify.firebasestorage.app",
+            messagingSenderId: "990084898335",
+            appId: "1:990084898335:web:ad1117316a12ca98363f2a",
+            measurementId: "G-G3STNFS21P"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const remoteConfig = getRemoteConfig(app);
+        remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
+        const messaging = getMessaging(app);
+
+        window.firebaseEngine = { 
+            db, remoteConfig, fetchAndActivate, getString, 
+            collection, getDocs, doc, getDoc, addDoc, query, where, updateDoc, increment, onSnapshot,
+            messaging, getToken, onMessage
+        };
+        //]]>
+    </script>
+
+    <!-- ============================================================ -->
+    <!-- MAIN JAVASCRIPT                                               -->
+    <!-- ============================================================ -->
+    <script type="text/javascript">
+        //<![CDATA[
+        
+        const CONFIG = { useMockData: false };
+
+        let appRepositoryState = [];
+        let currentlySelectedAppId = null;
+        let carouselIntervalTimer = null;
+        let currentGalleryImages = [];
+        let currentGalleryIdx = 0;
+        let searchTimeout = null;
+        let currentAppId = null;
+        let ageCooldownTimer = null;
+        let shareAppId = null;
+
+        // =============================================================
+        // THEME SYSTEM - DARK MODE DEFAULT
+        // =============================================================
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('themePreference');
+            if (savedTheme === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                document.getElementById('themeBtnIcon').innerText = "🌙";
+            } else {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                document.getElementById('themeBtnIcon').innerText = "☀️";
+                localStorage.setItem('themePreference', 'dark');
+            }
+        }
+
+        function toggleThemeMode() {
+            const body = document.body;
+            const icon = document.getElementById('themeBtnIcon');
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                icon.innerText = "🌙";
+                localStorage.setItem('themePreference', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                icon.innerText = "☀️";
+                localStorage.setItem('themePreference', 'dark');
+            }
+        }
+
+        // =============================================================
+        // OFFLINE DETECTION
+        // =============================================================
+        function checkOnlineStatus() {
+            const banner = document.getElementById('offlineBanner');
+            banner.style.display = navigator.onLine ? 'none' : 'block';
+        }
+        window.addEventListener('online', checkOnlineStatus);
+        window.addEventListener('offline', checkOnlineStatus);
+
+        // =============================================================
+        // INITIALIZATION
+        // =============================================================
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            checkOnlineStatus();
+            
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                        initializeApp();
+                    }, 500);
+                }
+            }, 1800);
+
+            if (!localStorage.getItem('hgtSearchLogs')) {
+                localStorage.setItem('hgtSearchLogs', JSON.stringify(['Security', 'Messenger', 'Ledger']));
+            }
+            renderSearchLogsUI();
+            checkDynamicDeepLinkRouting();
+            updatePermissionStatusUI();
+        });
+
+        async function initializeApp() {
+            await initializeFirebaseDatabaseConnection();
+            setupAutoInstallPrompt();
+        }
+
+        // =============================================================
+        // FIREBASE DATABASE CONNECTION
+        // =============================================================
+        async function initializeFirebaseDatabaseConnection() {
+            if (!window.firebaseEngine) {
+                showErrorMessage('Firebase not available. Please check your connection.');
+                return;
+            }
+            
+            const { db, remoteConfig, fetchAndActivate, getString, collection, getDocs } = window.firebaseEngine;
+            
+            try {
+                await fetchAndActivate(remoteConfig);
+                const hgtAccentBrandColor = getString(remoteConfig, 'brand_accent_color');
+                if (hgtAccentBrandColor) {
+                    document.querySelectorAll('h1, .download-btn').forEach(el => el.style.backgroundColor = hgtAccentBrandColor);
+                }
+
+                const liveAppsRef = collection(db, "live_apps");
+                const snapshotQuery = await getDocs(liveAppsRef);
+                
+                appRepositoryState = [];
+                snapshotQuery.forEach(record => {
+                    const data = record.data();
+                    if (data.isPublished !== false) {
+                        appRepositoryState.push({ id: record.id, ...data });
+                    }
+                });
+
+                if (appRepositoryState.length === 0) {
+                    showErrorMessage('No apps found in the database.');
+                    return;
+                }
+
+                renderAppStoreInterfaceContent(appRepositoryState);
+                listenForAppUpdates();
+                checkDynamicDeepLinkRouting();
+                
+            } catch(e) {
+                console.error("❌ Firebase error:", e);
+                showErrorMessage('Failed to load apps. Please check your connection.');
+            }
+        }
+
+        function showErrorMessage(message) {
+            const wrapper = document.getElementById('dynamicSectionsWrapper');
+            const spinner = document.getElementById('loadingSpinner');
+            if (spinner) spinner.style.display = 'none';
+            wrapper.innerHTML = `
+                <div style="text-align:center; padding:50px 20px; color:#d32f2f;">
+                    <h2>⚠️ ${message}</h2>
+                    <p style="color:#7F949A; margin-top:10px;">Please refresh the page or try again later.</p>
+                    <button onclick="location.reload()" style="margin-top:20px; padding:12px 30px; background:#00aad5; color:white; border:none; border-radius:8px; cursor:pointer;">Refresh</button>
+                </div>
+            `;
+        }
+
+        function listenForAppUpdates() {
+            if (!window.firebaseEngine) return;
+            const { db, onSnapshot, collection } = window.firebaseEngine;
+            
+            const appsRef = collection(db, "live_apps");
+            onSnapshot(appsRef, (snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === 'modified') {
+                        const data = change.doc.data();
+                        const appIndex = appRepositoryState.findIndex(a => a.id === change.doc.id);
+                        if (appIndex !== -1) {
+                            appRepositoryState[appIndex] = { id: change.doc.id, ...data };
+                            if (currentlySelectedAppId === change.doc.id) {
+                                routeToDetails(change.doc.id);
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // =============================================================
+        // RENDER APP STORE CONTENT
+        // =============================================================
+        function renderAppStoreInterfaceContent(appsList) {
+            const featuredRow = document.getElementById('featuredAppsContainer');
+            const dotsContainer = document.getElementById('carouselDots');
+            const sectionsWrapper = document.getElementById('dynamicSectionsWrapper');
+            const spinner = document.getElementById('loadingSpinner');
+            
+            if (spinner) spinner.style.display = 'none';
+            
+            featuredRow.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            sectionsWrapper.innerHTML = '';
+
+            const featuredApps = appsList.filter(app => app.isSpecial && !app.isSuspended);
+            
+            if (featuredApps.length > 0) {
+                featuredApps.forEach((app, index) => {
+                    const isVideo = app.youtubeEnabled === true && app.youtubeUrl;
+                    
+                    featuredRow.innerHTML += `
+                        <div class="carousel-item" onclick="routeToDetails('${app.id}')">
+                            ${isVideo ? `
+                                <iframe src="${app.youtubeUrl}" style="width:100%; height:100%; pointer-events:none; border:none;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            ` : `
+                                <img class="feature-image" src="${app.screenshots && app.screenshots.length > 0 ? app.screenshots[0] : 'https://stc.utdstc.com/img/no-img.png'}" alt="App Banner">
+                            `}
+                            <span class="tag-1">Featured Node</span>
+                            <div class="text">
+                                <p class="title">${app.name}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    const indicatorDot = document.createElement('div');
+                    indicatorDot.className = `dot ${index === 0 ? 'active' : ''}`;
+                    indicatorDot.onclick = (e) => {
+                        e.stopPropagation();
+                        executeCarouselShift(index, featuredApps.length);
+                    };
+                    dotsContainer.appendChild(indicatorDot);
+                });
+
+                if (carouselIntervalTimer) clearInterval(carouselIntervalTimer);
+                let activeCarouselIdx = 0;
+                if (featuredApps.length > 1) {
+                    carouselIntervalTimer = setInterval(() => {
+                        activeCarouselIdx = (activeCarouselIdx + 1) % featuredApps.length;
+                        executeCarouselShift(activeCarouselIdx, featuredApps.length);
+                    }, 5000);
+                }
+            }
+
+            const groupedCollections = appsList.reduce((accumulator, app) => {
+                const sectionKeyName = (app.collection && app.collection.trim() !== "") ? app.collection : "All Apps";
+                if (!accumulator[sectionKeyName]) accumulator[sectionKeyName] = [];
+                accumulator[sectionKeyName].push(app);
+                return accumulator;
+            }, {});
+
+            for (const sectionTitle in groupedCollections) {
+                groupedCollections[sectionTitle].sort((a, b) => (b.isSuspended ? -1 : 1) - (a.isSuspended ? -1 : 1));
+
+                const sectionStructureHTML = document.createElement('section');
+                sectionStructureHTML.className = 'item-row';
+                sectionStructureHTML.innerHTML = `
+                    <div class="title"><h2>${sectionTitle}</h2></div>
+                    <div class="content"></div>
+                `;
+                
+                const contentTrackRow = sectionStructureHTML.querySelector('.content');
+                
+                groupedCollections[sectionTitle].forEach(app => {
+                    const suspendedBadge = app.isSuspended ? `<div class="suspended-badge">SUSPENDED</div>` : '';
+                    const updateBadge = (app.isUpdate && localStorage.getItem('app_installed_' + app.id) === 'true') ? 
+                        `<div class="update-badge">🔄 UPDATE</div>` : '';
+                    const devBadge = app.developer ? 
+                        `<div class="developer-badge" onclick="event.stopPropagation(); showDeveloperApps('${app.developer}')">
+                            <span class="dev-icon">👤</span> ${app.developer}
+                        </div>` : '';
+                    contentTrackRow.innerHTML += `
+                        <div class="item" onclick="routeToDetails('${app.id}')">
+                            <figure><img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}" alt="App icon"></figure>
+                            <div class="name">${app.name}</div>
+                            <div class="description">${app.description || ''}</div>
+                            ${suspendedBadge}
+                            ${updateBadge}
+                            ${devBadge}
+                        </div>
+                    `;
+                });
+                
+                sectionsWrapper.appendChild(sectionStructureHTML);
+            }
+            
+            if (appsList.length === 0) {
+                sectionsWrapper.innerHTML = `
+                    <div style="text-align:center; padding:50px 20px; color:#7F949A;">
+                        <h2>No apps available</h2>
+                        <p>Check back later for new apps.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function executeCarouselShift(targetIndex, totalSize) {
+            const trackElement = document.getElementById('featuredAppsContainer');
+            const cardItems = trackElement.getElementsByClassName('carousel-item');
+            if (cardItems[targetIndex]) {
+                trackElement.scrollTo({ left: cardItems[targetIndex].offsetLeft, behavior: 'smooth' });
+                document.querySelectorAll('.dot').forEach((dotEl, dotIdx) => {
+                    dotEl.classList.toggle('active', dotIdx === targetIndex);
+                });
+            }
+        }
+
+        // =============================================================
+        // ROUTE TO DETAILS
+        // =============================================================
+        function routeToDetails(applicationId) {
+            currentlySelectedAppId = applicationId;
+            const url = window.location.protocol + "//" + window.location.host + window.location.pathname + `?appId=${applicationId}`;
+            window.history.pushState({ path: url }, '', url);
+            const app = appRepositoryState.find(element => element.id === applicationId);
+            if(!app) return;
+
+            currentAppId = applicationId;
+            document.getElementById('detailAppName').innerText = app.name;
+            document.getElementById('detailAppIcon').src = app.logo || 'https://stc.utdstc.com/img/no-img.png';
+            document.getElementById('detailAppVersion').innerText = `Version: ${app.version || '1.0.1'}`;
+            document.getElementById('ageRatingDisplay').innerText = `Age: ${app.ageRating || 'NR'}`;
+            document.getElementById('descriptionDisplay').innerText = app.description || "No description provided.";
+            document.getElementById('linkdifyIdDisplay').innerText = app.linkdifyId || "N/A";
+            
+            const dateFormatted = app.lastUpdated ? new Date(app.lastUpdated).toLocaleDateString() : new Date().toLocaleDateString();
+            document.getElementById('detailAppUpdated').innerText = `Last Updated: ${dateFormatted}`;
+
+            document.getElementById('statDownloadCount').innerText = app.downloads || 0;
+            document.getElementById('statReviewCount').innerText = app.reviewCount || 0;
+            
+            const secStatus = document.getElementById('securityStatus');
+            if (app.isSecured !== false) {
+                secStatus.innerText = "✓ 100% Secured"; secStatus.style.color = "#2e7d32";
+            } else {
+                secStatus.innerText = "Unverified"; secStatus.style.color = "#d32f2f";
+            }
+
+            // Developer Badge
+            const devContainer = document.getElementById('developerBadgeContainer');
+            if (app.developer) {
+                devContainer.innerHTML = `
+                    <div class="developer-badge" onclick="showDeveloperApps('${app.developer}')">
+                        <span class="dev-icon">👤</span> Developer: ${app.developer}
+                    </div>
+                `;
+            } else {
+                devContainer.innerHTML = '';
+            }
+
+            updateAppButton(app);
+
+            const videoPlayer = document.getElementById('appVideoPlayer');
+            const videoContainer = document.getElementById('videoContainer');
+            if (app.youtubeUrl && app.youtubeUrl.trim() !== "") {
+                videoPlayer.src = app.youtubeUrl;
+                videoContainer.style.display = 'block';
+            } else {
+                videoPlayer.src = "";
+                videoContainer.style.display = 'none';
+            }
+
+            currentGalleryImages = app.screenshots || [];
+            const screenshotsArea = document.getElementById('detailScreenshotsContainer');
+            screenshotsArea.innerHTML = '';
+            if (currentGalleryImages.length > 0) {
+                currentGalleryImages.forEach((srcUrl, idx) => {
+                    const img = document.createElement('img');
+                    img.src = srcUrl;
+                    img.onerror = () => { img.src = 'https://stc.utdstc.com/img/no-img.png'; };
+                    img.onclick = () => openLightbox(idx);
+                    screenshotsArea.appendChild(img);
+                });
+            } else {
+                screenshotsArea.innerHTML = '<p style="color:#7F949A; font-size:13px;">No screenshots available</p>';
+            }
+
+            const privacyListContainer = document.getElementById('dataCollectedList');
+            privacyListContainer.innerHTML = '';
+            if (app.privacyData && Array.isArray(app.privacyData) && app.privacyData.length > 0) {
+                app.privacyData.forEach(policyItem => {
+                    privacyListContainer.innerHTML += `<li style="margin-bottom:6px;">✅ ${policyItem}</li>`;
+                });
+            } else {
+                privacyListContainer.innerHTML = "<li>No operational data privacy disclosure tracking logs mapped to this node.</li>";
+            }
+
+            const devLinksBox = document.getElementById('contactLinks');
+            devLinksBox.innerHTML = '';
+            if(app.devEmail) {
+                devLinksBox.innerHTML += `<a href="mailto:${app.devEmail}" style="padding: 8px 12px; background: #1f4e5a; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:white; text-decoration:none;">📧 Email Developer</a>`;
+            }
+            if(app.devWebsite) {
+                devLinksBox.innerHTML += `<a href="${app.devWebsite}" target="_blank" style="padding: 8px 12px; background: #1f4e5a; border-radius: 5px; font-size: 12px; font-family:'geomanistmedium'; color:white; text-decoration:none;">🌐 Developer Website</a>`;
+            }
+            document.getElementById('devContactSection').style.display = devLinksBox.innerHTML !== '' ? 'block' : 'none';
+
+            updateFavoriteButton(app.id);
+            renderRelatedApps(app);
+            
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('detailView').classList.remove('hidden');
+            document.getElementById('developerView').classList.add('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // =============================================================
+        // DEVELOPER APPS VIEW
+        // =============================================================
+        function showDeveloperApps(developerName) {
+            const developerApps = appRepositoryState.filter(app => 
+                app.developer === developerName && !app.isSuspended
+            );
+            
+            const container = document.getElementById('developerContent');
+            container.innerHTML = `
+                <div class="developer-header">
+                    <div class="dev-avatar">👤</div>
+                    <div class="dev-info">
+                        <h2>${developerName}</h2>
+                        <p>${developerApps.length} apps developed</p>
+                    </div>
+                </div>
+                <h3 style="font-family:'geomanistmedium',sans-serif; color:#00aad5; margin-bottom:15px;">All Apps by ${developerName}</h3>
+                <div class="favorites-grid">
+                    ${developerApps.map(app => `
+                        <div class="favorite-item" onclick="routeToDetails('${app.id}')">
+                            <img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}" alt="${app.name}">
+                            <div class="name">${app.name}</div>
+                            <div style="font-size:11px; color:#7F949A;">${app.version || '1.0.0'}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            document.getElementById('homeView').classList.add('hidden');
+            document.getElementById('detailView').classList.add('hidden');
+            document.getElementById('developerView').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // =============================================================
+        // UPDATE APP BUTTON - SIMPLE DOWNLOAD
+        // =============================================================
+        function updateAppButton(app) {
+            const btn = document.getElementById('detailDownloadBtn');
+            const btnText = document.getElementById('btnText');
+            const noticeBox = document.getElementById('suspensionNoticeContainer');
+            const updateBadge = document.getElementById('updateBadge');
+            
+            noticeBox.innerHTML = '';
+            btn.style.display = 'block';
+            btn.style.pointerEvents = 'auto';
+            btn.style.opacity = '1';
+
+            if (app.isSuspended) {
+                btnText.innerText = "⛔ MAINTENANCE MODE";
+                btn.style.backgroundColor = "#d32f2f";
+                btn.style.pointerEvents = "none";
+                noticeBox.innerHTML = `<div style="color: #d32f2f; font-weight: bold; margin-bottom: 10px; font-size: 13px;">⚠️ ${app.suspensionReason || 'This app is currently under maintenance.'}</div>`;
+                updateBadge.style.display = 'none';
+                return;
+            }
+
+            const isInstalled = localStorage.getItem('app_installed_' + app.id) === 'true';
+            const isUpdateAvailable = app.isUpdate === true && isInstalled;
+
+            if (isUpdateAvailable) {
+                btnText.innerText = "🔄 UPDATE APP";
+                btn.style.backgroundColor = "#ff9800";
+                btn.style.pointerEvents = "auto";
+                btn.onclick = () => showUpdateModal(app);
+                updateBadge.style.display = 'block';
+                updateBadge.textContent = '🔄 New version available!';
+                return;
+            }
+
+            if (isInstalled) {
+                btnText.innerText = "OPEN APP";
+                btn.style.backgroundColor = "#2e7d32";
+                btn.style.pointerEvents = "auto";
+                btn.onclick = () => openInstalledApp(app.id);
+                updateBadge.style.display = 'none';
+                return;
+            }
+
+            btnText.innerText = "Download APK";
+            btn.style.backgroundColor = "#00aad5";
+            btn.style.pointerEvents = "auto";
+            btn.onclick = () => startDownload(app.id);
+            updateBadge.style.display = 'none';
+        }
+
+        // =============================================================
+        // DOWNLOAD - OPENS LINK IMMEDIATELY
+        // =============================================================
+        function startDownload(appId) {
+            const app = appRepositoryState.find(a => a.id === appId);
+            if (!app) return;
+            
+            // Check age restriction
+            if (app.ageRating === '18+' || app.isAdult === true) {
+                const isVerified = localStorage.getItem('age_verified_' + appId) === 'true';
+                const verifiedDate = localStorage.getItem('age_verified_date_' + appId);
+                const shouldReverify = verifiedDate && 
+                    (Date.now() - new Date(verifiedDate).getTime() > 24 * 60 * 60 * 1000);
+                
+                if (!isVerified || shouldReverify) {
+                    showAgeVerificationPopup(appId);
+                    return;
+                }
+            }
+            
+            // OPEN LINK IMMEDIATELY - NO PROGRESS BAR
+            if (app.downloadUrl) {
+                window.open(app.downloadUrl, '_blank');
+                incrementFirestoreDownload(appId);
+            }
+        }
+
+        async function incrementFirestoreDownload(appId) {
+            if (!window.firebaseEngine) return;
+            try {
+                const { db, doc, updateDoc, increment } = window.firebaseEngine;
+                await updateDoc(doc(db, "live_apps", appId), { downloads: increment(1) });
+            } catch(e) {
+                console.error('Failed to increment download:', e);
+            }
+        }
+
+        function openInstalledApp(appId) {
+            const app = appRepositoryState.find(a => a.id === appId);
+            if (!app) return;
+            
+            if (app.appScheme) {
+                window.location = app.appScheme + '://';
+            } else if (app.packageName) {
+                window.location = `intent://${app.packageName}/#Intent;scheme=;end`;
+            } else {
+                window.location = appId.replace(/-/g, '') + '://';
+            }
+        }
+
+        // =============================================================
+        // AGE VERIFICATION
+        // =============================================================
+        function showAgeVerificationPopup(appId) {
+            const popup = document.getElementById('ageVerificationPopup');
+            popup.style.display = 'flex';
+            popup.dataset.appId = appId;
+        }
+
+        function handleAgeVerified() {
+            const popup = document.getElementById('ageVerificationPopup');
+            const appId = popup.dataset.appId;
+            popup.style.display = 'none';
+            
+            localStorage.setItem('age_verified_' + appId, 'true');
+            localStorage.setItem('age_verified_date_' + appId, new Date().toISOString());
+            
+            const app = appRepositoryState.find(a => a.id === appId);
+            if (app && app.downloadUrl) {
+                window.open(app.downloadUrl, '_blank');
+                incrementFirestoreDownload(appId);
+            }
+        }
+
+        function handleAgeNotVerified() {
+            const popup = document.getElementById('ageVerificationPopup');
+            const appId = popup.dataset.appId;
+            popup.style.display = 'none';
+            startCooldown(appId);
+        }
+
+        function startCooldown(appId) {
+            const cooldownDuration = 120;
+            const endTime = Date.now() + (cooldownDuration * 1000);
+            
+            localStorage.setItem('age_cooldown_' + appId, endTime.toString());
+            
+            const message = document.getElementById('cooldownMessage');
+            const timer = document.getElementById('cooldownTimer');
+            const progressBar = document.getElementById('cooldownProgressBar');
+            
+            message.style.display = 'flex';
+            
+            if (ageCooldownTimer) clearInterval(ageCooldownTimer);
+            
+            ageCooldownTimer = setInterval(() => {
+                const remaining = getCooldownRemaining(appId);
+                if (remaining <= 0) {
+                    clearInterval(ageCooldownTimer);
+                    message.style.display = 'none';
+                    localStorage.removeItem('age_cooldown_' + appId);
+                    showAgeVerificationPopup(appId);
+                } else {
+                    const mins = Math.floor(remaining / 60);
+                    const secs = remaining % 60;
+                    timer.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                    progressBar.style.width = ((remaining / cooldownDuration) * 100) + '%';
+                }
+            }, 1000);
+        }
+
+        function getCooldownRemaining(appId) {
+            const storedEndTime = localStorage.getItem('age_cooldown_' + appId);
+            if (!storedEndTime) return 0;
+            const remaining = Math.floor((parseInt(storedEndTime) - Date.now()) / 1000);
+            return remaining > 0 ? remaining : 0;
+        }
+
+        // =============================================================
+        // FAVORITES
+        // =============================================================
+        function toggleFavorite() {
+            if (!currentAppId) return;
+            let favorites = JSON.parse(localStorage.getItem('favoriteApps') || '[]');
+            
+            if (favorites.includes(currentAppId)) {
+                favorites = favorites.filter(id => id !== currentAppId);
+            } else {
+                favorites.push(currentAppId);
+            }
+            
+            localStorage.setItem('favoriteApps', JSON.stringify(favorites));
+            updateFavoriteButton(currentAppId);
+        }
+
+        function updateFavoriteButton(appId) {
+            const btn = document.getElementById('favoriteBtn');
+            const favorites = JSON.parse(localStorage.getItem('favoriteApps') || '[]');
+            if (favorites.includes(appId)) {
+                btn.textContent = '❤️ Favorited';
+                btn.classList.add('active');
+            } else {
+                btn.textContent = '🤍 Favorite';
+                btn.classList.remove('active');
+            }
+        }
+
+        function showFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favoriteApps') || '[]');
+            const wrapper = document.getElementById('dynamicSectionsWrapper');
+            const spinner = document.getElementById('loadingSpinner');
+            if (spinner) spinner.style.display = 'none';
+            
+            if (favorites.length === 0) {
+                wrapper.innerHTML = `
+                    <div style="text-align:center; padding:50px 20px; color:white;">
+                        <h2 style="font-family:'geomanistmedium',sans-serif;">⭐ No Favorites Yet</h2>
+                        <p style="color:#7F949A;">Start saving apps you love by clicking the ❤️ button!</p>
+                    </div>
+                `;
+            } else {
+                const favoriteApps = appRepositoryState.filter(app => favorites.includes(app.id));
+                wrapper.innerHTML = `
+                    <div style="padding:20px 10px;">
+                        <h2 style="font-family:'geomanistmedium',sans-serif; color:#00aad5;">⭐ My Favorites</h2>
+                        <div class="favorites-grid">
+                            ${favoriteApps.map(app => `
+                                <div class="favorite-item" onclick="routeToDetails('${app.id}')">
+                                    <img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}" alt="${app.name}">
+                                    <div class="name">${app.name}</div>
+                                    <button class="favorite-remove" onclick="event.stopPropagation(); removeFavorite('${app.id}')">✕</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('homeView').classList.remove('hidden');
+            document.getElementById('detailView').classList.add('hidden');
+            document.getElementById('developerView').classList.add('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function removeFavorite(appId) {
+            let favorites = JSON.parse(localStorage.getItem('favoriteApps') || '[]');
+            favorites = favorites.filter(id => id !== appId);
+            localStorage.setItem('favoriteApps', JSON.stringify(favorites));
+            showFavorites();
+        }
+
+        // =============================================================
+        // SHARE
+        // =============================================================
+        function shareApp() {
+            if (!currentAppId) return;
+            const app = appRepositoryState.find(a => a.id === currentAppId);
+            if (!app) return;
+            
+            shareAppId = currentAppId;
+            const url = window.location.origin + '/?appId=' + app.id;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: app.name + ' - HGT Store',
+                    text: `Check out ${app.name}! ${app.description}`,
+                    url: url
+                }).catch(() => {});
+            } else {
+                const modal = document.getElementById('shareModal');
+                document.getElementById('shareTitle').textContent = 'Share ' + app.name;
+                document.getElementById('shareLinkInput').value = url;
+                modal.style.display = 'flex';
+            }
+        }
+
+        function shareVia(platform) {
+            const app = appRepositoryState.find(a => a.id === shareAppId);
+            if (!app) return;
+            const url = window.location.origin + '/?appId=' + app.id;
+            const text = `Check out ${app.name} on HGT Store!`;
+            
+            const shareUrls = {
+                whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + url)}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`,
+                twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
+            };
+            
+            if (shareUrls[platform]) {
+                window.open(shareUrls[platform], '_blank', 'width=600,height=500');
+            }
+        }
+
+        function copyShareLink() {
+            const input = document.getElementById('shareLinkInput');
+            navigator.clipboard.writeText(input.value).then(() => {
+                alert('✅ Link copied to clipboard!');
+            });
+        }
+
+        function executeClipboardCopy() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('✅ Link copied to clipboard!');
+            });
+        }
+
+        async function executeNativeShare() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: 'HGT Store', url: window.location.href });
+                } catch (err) {}
+            } else {
+                executeClipboardCopy();
+            }
+        }
+
+        // =============================================================
+        // UPDATE SYSTEM
+        // =============================================================
+        function showUpdateModal(app) {
+            const modal = document.getElementById('updateModal');
+            document.getElementById('updateAppName').textContent = app.name;
+            document.getElementById('updateCurrentVersion').textContent = localStorage.getItem('app_version_' + app.id) || '1.0.0';
+            document.getElementById('updateNewVersion').textContent = app.version || '1.0.0';
+            
+            const changelogList = document.getElementById('updateChangelogList');
+            changelogList.innerHTML = '';
+            if (app.changelog && Array.isArray(app.changelog)) {
+                app.changelog.forEach(item => {
+                    changelogList.innerHTML += `<li>✅ ${item}</li>`;
+                });
+            } else {
+                changelogList.innerHTML = '<li>Bug fixes and performance improvements</li>';
+            }
+            
+            modal.dataset.appId = app.id;
+            modal.style.display = 'flex';
+        }
+
+        function startUpdateDownload() {
+            const modal = document.getElementById('updateModal');
+            const appId = modal.dataset.appId;
+            modal.style.display = 'none';
+            const app = appRepositoryState.find(a => a.id === appId);
+            if (app && app.downloadUrl) {
+                window.open(app.downloadUrl, '_blank');
+                incrementFirestoreDownload(appId);
+            }
+        }
+
+        // =============================================================
+        // PERMISSIONS
+        // =============================================================
+        function updatePermissionStatusUI() {
+            if ('Notification' in window) {
+                const el = document.getElementById('permNotif');
+                if (Notification.permission === 'granted') {
+                    el.textContent = '✅ Granted';
+                    el.className = 'status granted';
+                } else if (Notification.permission === 'denied') {
+                    el.textContent = '❌ Denied';
+                    el.className = 'status denied';
+                } else {
+                    el.textContent = 'Tap to Allow';
+                    el.className = 'status pending';
+                }
+            }
+        }
+
+        function requestNotificationPermission() {
+            if (!('Notification' in window)) {
+                alert('Notifications not supported in this browser.');
+                return;
+            }
+            
+            if (Notification.permission === 'granted') {
+                alert('✅ Notifications already granted!');
+                updatePermissionStatusUI();
+                return;
+            }
+            
+            if (Notification.permission === 'denied') {
+                alert('❌ Notifications blocked. Please enable in browser settings.');
+                return;
+            }
+            
+            Notification.requestPermission().then(result => {
+                if (result === 'granted') {
+                    alert('✅ Notifications granted!');
+                    if (window.firebaseEngine) {
+                        const { getToken, messaging } = window.firebaseEngine;
+                        const VAPID_KEY = "BP_1-tT4GKpiYqhoqygDh-JUt2wvpN3YDZ-8B1PJfv33LsQepg3Y3wGYr0p25biAmuWlwxAadZuwkAWUVyVHqRw";
+                        getToken(messaging, { vapidKey: VAPID_KEY })
+                            .then(token => {
+                                console.log('✅ FCM Token:', token);
+                                localStorage.setItem('fcmToken', token);
+                            })
+                            .catch(err => console.error('FCM error:', err));
+                    }
+                } else {
+                    alert('❌ Notifications denied.');
+                }
+                updatePermissionStatusUI();
+            });
+        }
+
+        function requestStoragePermission() {
+            if (navigator.storage && navigator.storage.persist) {
+                navigator.storage.persist().then(isPersisted => {
+                    const el = document.getElementById('permStorage');
+                    if (isPersisted) {
+                        el.textContent = '✅ Granted';
+                        el.className = 'status granted';
+                        alert('✅ Storage permission granted!');
+                    } else {
+                        el.textContent = '❌ Denied';
+                        el.className = 'status denied';
+                        alert('❌ Storage permission denied.');
+                    }
+                });
+            } else {
+                alert('Storage API not supported.');
+            }
+        }
+
+        function requestCameraPermission() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        stream.getTracks().forEach(track => track.stop());
+                        const el = document.getElementById('permCamera');
+                        el.textContent = '✅ Granted';
+                        el.className = 'status granted';
+                        alert('✅ Camera permission granted!');
+                    })
+                    .catch(() => {
+                        const el = document.getElementById('permCamera');
+                        el.textContent = '❌ Denied';
+                        el.className = 'status denied';
+                        alert('❌ Camera permission denied.');
+                    });
+            } else {
+                alert('Camera API not supported.');
+            }
+        }
+
+        function requestLocationPermission() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    () => {
+                        const el = document.getElementById('permLocation');
+                        el.textContent = '✅ Granted';
+                        el.className = 'status granted';
+                        alert('✅ Location permission granted!');
+                    },
+                    () => {
+                        const el = document.getElementById('permLocation');
+                        el.textContent = '❌ Denied';
+                        el.className = 'status denied';
+                        alert('❌ Location permission denied.');
+                    }
+                );
+            } else {
+                alert('Location API not supported.');
+            }
+        }
+
+        // =============================================================
+        // AUTO-INSTALL PROMPT (PWA)
+        // =============================================================
+        let deferredPrompt;
+
+        function setupAutoInstallPrompt() {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                setTimeout(() => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        deferredPrompt.userChoice.then(() => {
+                            deferredPrompt = null;
+                        });
+                    }
+                }, 3000);
+            });
+        }
+
+        // =============================================================
+        // SEARCH
+        // =============================================================
+        function triggerDebouncedSearch() {
+            const searchWrapper = document.querySelector('.search-input-wrapper');
+            searchWrapper.classList.add('shining-active');
+
+            if (searchTimeout) clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                evaluateSearchInput();
+                searchWrapper.classList.remove('shining-active');
+            }, 350);
+        }
+
+        function evaluateSearchInput() {
+            const queryValue = document.getElementById('liveSearchInput').value.toLowerCase().trim();
+            const resultsGrid = document.getElementById('liveSearchResultsGrid');
+            const statesBox = document.getElementById('defaultSearchStates');
+            
+            if (queryValue.length < 2) {
+                resultsGrid.innerHTML = '';
+                statesBox.style.display = 'block';
+                return;
+            }
+            
+            statesBox.style.display = 'none';
+            
+            const filteredResults = appRepositoryState.filter(item => 
+                !item.isSuspended && 
+                (item.name.toLowerCase().includes(queryValue) || 
+                (item.tags && item.tags.some(t => t.toLowerCase().includes(queryValue))))
+            );
+            
+            resultsGrid.innerHTML = filteredResults.map(item => `
+                <div class="live-search-item" onclick="routeToDetails('${item.id}'); toggleSearchOverlay(false);">
+                    <img src="${item.logo || 'https://stc.utdstc.com/img/no-img.png'}">
+                    <div><strong>${item.name}</strong></div>
+                </div>
+            `).join('');
+        }
+
+        function injectSearchValue(valueString) {
+            document.getElementById('liveSearchInput').value = valueString;
+            triggerDebouncedSearch();
+        }
+
+        function toggleSearchOverlay(visibleState) {
+            const overlay = document.getElementById('searchOverlay');
+            overlay.style.display = visibleState ? 'block' : 'none';
+            if (visibleState) {
+                document.getElementById('liveSearchInput').value = '';
+                evaluateSearchInput();
+                document.getElementById('liveSearchInput').focus();
+            }
+        }
+
+        function renderSearchLogsUI() {
+            const container = document.getElementById('recentQueryLogsContainer');
+            const logs = JSON.parse(localStorage.getItem('hgtSearchLogs')) || [];
+            container.innerHTML = logs.map(log => `<span class="search-tag" onclick="injectSearchValue('${log}')">${log}</span>`).join('');
+        }
+
+        // =============================================================
+        // RELATED APPS
+        // =============================================================
+        function renderRelatedApps(currentApp) {
+            const container = document.getElementById('relatedAppsContainer');
+            container.innerHTML = '';
+            if (!currentApp.tags || !Array.isArray(currentApp.tags)) return;
+            
+            const matchingApps = appRepositoryState.filter(item => 
+                item.id !== currentApp.id && 
+                !item.isSuspended && 
+                item.tags && 
+                Array.isArray(item.tags) &&
+                item.tags.some(t => currentApp.tags.includes(t))
+            );
+            
+            matchingApps.slice(0, 5).forEach(relatedAppItem => {
+                container.innerHTML += `
+                    <div class="item" onclick="routeToDetails('${relatedAppItem.id}')">
+                        <figure><img src="${relatedAppItem.logo || 'https://stc.utdstc.com/img/no-img.png'}"></figure>
+                        <div class="name">${relatedAppItem.name}</div>
+                    </div>`;
+            });
+            
+            if (container.innerHTML === '') {
+                container.innerHTML = '<p style="color:#7F949A; font-size:13px; padding:10px;">No similar apps found</p>';
+            }
+        }
+
+        // =============================================================
+        // LIGHTBOX
+        // =============================================================
+        function openLightbox(index) {
+            currentGalleryIdx = index;
+            document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function changeScreenshot(direction) {
+            if (!currentGalleryImages || currentGalleryImages.length === 0) return;
+            currentGalleryIdx = (currentGalleryIdx + direction + currentGalleryImages.length) % currentGalleryImages.length;
+            document.getElementById('lightboxImg').src = currentGalleryImages[currentGalleryIdx];
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // =============================================================
+        // ROUTING
+        // =============================================================
+        function routeToHome() {
+            currentlySelectedAppId = null;
+            window.history.pushState(null, '', window.location.pathname);
+            document.getElementById('appVideoPlayer').src = "";
+            document.getElementById('detailView').classList.add('hidden');
+            document.getElementById('developerView').classList.add('hidden');
+            document.getElementById('homeView').classList.remove('hidden');
+            window.scrollTo(0, 0);
+            
+            if (appRepositoryState.length > 0) {
+                renderAppStoreInterfaceContent(appRepositoryState);
+            }
+        }
+
+        function checkDynamicDeepLinkRouting() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const appId = urlParams.get('appId');
+            
+            if (appId) {
+                const checkLoop = setInterval(() => {
+                    if (appRepositoryState.length > 0) {
+                        routeToDetails(appId);
+                        clearInterval(checkLoop);
+                    }
+                }, 200);
+            }
+        }
+
+        // =============================================================
+        // CATEGORY FILTER
+        // =============================================================
+        function filterCategory(categoryTypeKey, uiElementReference) {
+            document.querySelectorAll('#categoriesTabRibbon li').forEach(li => li.classList.remove('active'));
+            if (uiElementReference) uiElementReference.classList.add('active');
+            
+            if (categoryTypeKey === 'all') {
+                renderAppStoreInterfaceContent(appRepositoryState);
+            } else {
+                renderAppStoreInterfaceContent(appRepositoryState.filter(app => 
+                    app.category && app.category.toLowerCase() === categoryTypeKey.toLowerCase()
+                ));
+            }
+        }
+
+        function triggerDrawerCategory(categoryTypeKey) {
+            routeToHome();
+            toggleSidebar(false);
+            const targetRibbonElement = Array.from(document.querySelectorAll('#categoriesTabRibbon li')).find(li => 
+                li.innerText.toLowerCase().includes(categoryTypeKey.toLowerCase())
+            );
+            filterCategory(categoryTypeKey, targetRibbonElement);
+        }
+
+        // =============================================================
+        // SIDEBAR
+        // =============================================================
+        function toggleSidebar(openDrawerStateFlag) {
+            const drawer = document.getElementById('leftNavigationDrawer');
+            if (openDrawerStateFlag) drawer.classList.add('active');
+            else drawer.classList.remove('active');
+        }
+
+        // =============================================================
+        // EXPOSE FUNCTIONS GLOBALLY
+        // =============================================================
+        window.routeToDetails = routeToDetails;
+        window.routeToHome = routeToHome;
+        window.toggleSidebar = toggleSidebar;
+        window.toggleThemeMode = toggleThemeMode;
+        window.toggleSearchOverlay = toggleSearchOverlay;
+        window.triggerDebouncedSearch = triggerDebouncedSearch;
+        window.injectSearchValue = injectSearchValue;
+        window.filterCategory = filterCategory;
+        window.triggerDrawerCategory = triggerDrawerCategory;
+        window.startDownload = startDownload;
+        window.openInstalledApp = openInstalledApp;
+        window.toggleFavorite = toggleFavorite;
+        window.shareApp = shareApp;
+        window.shareVia = shareVia;
+        window.copyShareLink = copyShareLink;
+        window.executeClipboardCopy = executeClipboardCopy;
+        window.executeNativeShare = executeNativeShare;
+        window.showFavorites = showFavorites;
+        window.removeFavorite = removeFavorite;
+        window.handleAgeVerified = handleAgeVerified;
+        window.handleAgeNotVerified = handleAgeNotVerified;
+        window.startUpdateDownload = startUpdateDownload;
+        window.openLightbox = openLightbox;
+        window.changeScreenshot = changeScreenshot;
+        window.closeLightbox = closeLightbox;
+        window.requestNotificationPermission = requestNotificationPermission;
+        window.requestStoragePermission = requestStoragePermission;
+        window.requestCameraPermission = requestCameraPermission;
+        window.requestLocationPermission = requestLocationPermission;
+        window.showDeveloperApps = showDeveloperApps;
+
+        console.log('✅ HGT LINKDIFY STORE loaded successfully!');
+        console.log('📱 Apps loaded:', appRepositoryState.length);
+        //]]>
+    </script>
+</body>
+</html>
