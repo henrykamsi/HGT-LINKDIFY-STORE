@@ -1282,7 +1282,51 @@ function toggleThemeMode() {
    OFFLINE
    ============================================================ */
 function checkOnlineStatus() {
-    document.getElementById('offlineBanner').style.display = navigator.onLine ? 'none' : 'block';
+    const online = navigator.onLine;
+    document.getElementById('offlineBanner').style.display = online ? 'none' : 'block';
+
+    const existing = document.getElementById('noInternetOverlay');
+    if (online) {
+        if (existing) existing.remove();
+    } else {
+        if (existing) return;
+        const overlay = document.createElement('div');
+        overlay.id = 'noInternetOverlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:var(--hgt-bg-darker);z-index:9999999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;color:white;';
+        overlay.innerHTML = `
+            <div style="font-size:80px;line-height:1;margin-bottom:20px;">📵</div>
+            <h2 style="font-family:'geomanistmedium',sans-serif;font-size:24px;margin:0 0 10px 0;color:var(--hgt-blue);">Oops!</h2>
+            <p style="font-size:15px;color:var(--hgt-text-dim);line-height:1.6;margin:0 0 26px 0;max-width:320px;">
+                You don't have any internet connection. Please check your data or WiFi and try again.
+            </p>
+            <button id="retryBtn"
+                style="padding:14px 40px;background:var(--hgt-blue);color:white;border:none;border-radius:28px;font-family:'geomanistmedium',sans-serif;font-size:16px;font-weight:bold;cursor:pointer;margin-bottom:12px;">
+                🔄 Retry
+            </button>
+            <button id="settingsBtn"
+                style="padding:12px 32px;background:transparent;color:var(--hgt-blue);border:2px solid var(--hgt-blue);border-radius:28px;font-family:'geomanistmedium',sans-serif;font-size:14px;cursor:pointer;">
+                ⚙️ Open Settings
+            </button>
+        `;
+        document.body.appendChild(overlay);
+
+        document.getElementById('retryBtn').onclick = function () {
+            if (navigator.onLine) {
+                overlay.remove();
+                location.reload();
+            } else {
+                alert('Still no internet. Please check your connection.');
+            }
+        };
+
+        document.getElementById('settingsBtn').onclick = function () {
+            if (window.Suzuki && window.Suzuki.openInstallSettings) {
+                window.Suzuki.openInstallSettings();
+            } else {
+                alert('Open Settings from your phone:\\nSettings → Connections → WiFi / Mobile Data');
+            }
+        };
+    }
 }
 window.addEventListener('online', checkOnlineStatus);
 window.addEventListener('offline', checkOnlineStatus);
@@ -1734,11 +1778,44 @@ function handleUninstall() {
         alert('Uninstall only works inside the HGT Store app.');
         return;
     }
-    if (!confirm('Uninstall ' + app.name + '?')) return;
-    window.Suzuki.uninstall(app.packageName);
-    setTimeout(() => {
-        if (typeof updateInstallButton === 'function') updateInstallButton(app);
-    }, 800);
+
+    const existing = document.getElementById('customUninstallPopup');
+    if (existing) existing.remove();
+
+    const popup = document.createElement('div');
+    popup.id = 'customUninstallPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+
+    popup.innerHTML = `
+        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:28px 24px;max-width:360px;width:100%;text-align:center;color:white;">
+            <img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}"
+                 style="width:80px;height:80px;border-radius:20px;object-fit:cover;margin-bottom:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+            <h3 style="font-family:'geomanistmedium',sans-serif;font-size:19px;margin:0 0 8px 0;">Uninstall ${escapeHtml(app.name)}?</h3>
+            <p style="font-size:13px;color:var(--hgt-text-dim);margin:0 0 22px 0;line-height:1.5;">This will remove the app from your phone. You can reinstall it from the store anytime.</p>
+            <button id="uninstallAgreeBtn"
+                style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-family:'geomanistmedium',sans-serif;font-size:15px;font-weight:bold;cursor:pointer;margin-bottom:10px;">
+                Yes, Uninstall
+            </button>
+            <button id="uninstallDisagreeBtn"
+                style="width:100%;padding:14px;background:transparent;color:var(--hgt-text-dim);border:1px solid var(--hgt-border);border-radius:12px;font-family:'geomanistmedium',sans-serif;font-size:15px;cursor:pointer;">
+                Cancel
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    document.getElementById('uninstallAgreeBtn').onclick = function () {
+        popup.remove();
+        window.Suzuki.uninstall(app.packageName);
+        setTimeout(() => {
+            if (typeof updateInstallButton === 'function') updateInstallButton(app);
+        }, 1000);
+    };
+
+    document.getElementById('uninstallDisagreeBtn').onclick = function () {
+        popup.remove();
+    };
 }
 
 document.addEventListener('visibilitychange', function() {
@@ -2519,7 +2596,14 @@ function openAppBottomSheet(appId, opts = {}) {
     currentAppId = appId;
     currentlySelectedAppId = appId;
 
-    const installed = localStorage.getItem('app_downloaded_' + app.id) === 'true';
+    let actuallyInstalled = false;
+    if (window.Suzuki && window.Suzuki.isInstalled && app.packageName) {
+        try {
+            actuallyInstalled = window.Suzuki.isInstalled(app.packageName);
+        } catch (e) { actuallyInstalled = false; }
+    }
+    const downloaded = localStorage.getItem('app_downloaded_' + app.id) === 'true';
+    const installed = actuallyInstalled || (downloaded && !window.Suzuki);
     const purchased = isPurchased(app.id);
     let btnLabel = 'Install', btnClass = '';
     if (app.isSuspended) { btnLabel = '⛔ Not Available'; btnClass = 'suspended-state'; }
@@ -3190,7 +3274,7 @@ Object.assign(window, {
     requestStoragePermission, requestCameraPermission, requestLocationPermission, showMyPurchases,
     openDeveloperSheet, openDeveloperContactInfo, closeBottomSheet, copyToClipboard, handleInstallClick,
     closeApkReadyPopup, submitReview, expandAllReviews, openAuthPage, doLogin, doSignup, doGoogle, doLogout,
-    cancelInstall, openAppBottomSheet, handleUninstall, handleUninstall,
+    cancelInstall, openAppBottomSheet, handleUninstall, formatBytes, handleUninstall, formatBytes, handleUninstall, handleUninstall,
     openAiChat, closeAiChat, sendAiMessage, checkAiLimit, loadAiSearchSummary, startAiButtonSideSwitch,
     clearRecentSearches
 });
