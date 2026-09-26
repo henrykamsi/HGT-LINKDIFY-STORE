@@ -722,6 +722,10 @@ body.light-mode #aiSummaryBox { color: #333; }
 <div id="splashScreen"><h2>HENRY GLOBAL</h2><p>LINKDIFY APPS</p></div>
 <div id="offlineBanner">⚠️ You are offline. <button onclick="location.reload()">🔄 Refresh</button></div>
 
+<div id="ad-banner-container" style="position:fixed;bottom:60px;left:0;right:0;z-index:998;background:#0f292f;height:55px;display:flex;align-items:center;justify-content:center;border-top:1px solid #1f4e5a;">
+    <div id="ad-banner-slot" style="color:#7F949A;font-size:12px;">Loading ad…</div>
+</div>
+
 <div class="content">
     <header>
         <div class="menu-button" onclick="toggleSidebar(true)"><img alt="Menu" src="https://stc.utdstc.com/img/icons-nolazy.svg#icon-bar-menu"></div>
@@ -1075,6 +1079,28 @@ let reviewsExpanded = false;
 let currentUser = null;
 const REDIRECT_DURATION_MS = 1500;
 
+/* ==== AD TRIGGERS ==== */
+function triggerInterstitialAd() {
+    if (window.Suzuki && window.Suzuki.showInterstitial) window.Suzuki.showInterstitial();
+}
+function triggerRewardedAd(callback) {
+    if (window.Suzuki && window.Suzuki.showRewarded) {
+        window.onRewardedClosed = function(success) { if (callback) callback(success); };
+        window.Suzuki.showRewarded();
+    } else {
+        if (callback) callback(true);
+    }
+}
+let __tapCount = 0;
+document.addEventListener('click', function(e) {
+    var t = e.target;
+    if (!t) return;
+    if (t.tagName === 'BUTTON' || t.tagName === 'A' || (t.closest && t.closest('a,button'))) {
+        __tapCount++;
+        if (__tapCount % 5 === 0) triggerInterstitialAd();
+    }
+}, true);
+
 /* ==== Suzuki Shell callbacks ==== */
 window.onSuzukiStart = function (pkg) {
   const pctEl = document.getElementById('installPct');
@@ -1204,6 +1230,14 @@ window.onSuzukiInstalling = function (pkg) {
 window.onSuzukiInstalled = function (pkg) {
   window.__suzukiActive = false;
   localStorage.setItem('app_downloaded_' + pkg, 'true');
+
+  // Show overlay via Android
+  if (window.Suzuki && window.Suzuki.showInstallOverlay) {
+      const app = appRepositoryState.find(a => a.packageName === pkg);
+      const name = app ? app.name : pkg;
+      const logo = app ? (app.logo || '') : '';
+      window.Suzuki.showInstallOverlay(pkg, name, logo);
+  }
   const app = appRepositoryState.find(a => a.packageName === pkg);
   if (app) {
     localStorage.setItem('app_downloaded_' + app.id, 'true');
@@ -1713,6 +1747,87 @@ function handleInstallClick() {
     const app = appRepositoryState.find(a => a.id === currentAppId);
     if (!app) return;
     if (app.isSuspended) return;
+    if (!navigator.onLine) { alert('⚠️ No internet.'); return; }
+
+    if (app.isPaid && !isPurchased(app.id)) { startPurchaseFlow(app); return; }
+
+    if (window.Suzuki && window.Suzuki.isInstalled && app.packageName) {
+        if (window.Suzuki.isInstalled(app.packageName)) {
+            window.Suzuki.launch(app.packageName);
+            return;
+        }
+    }
+
+    if (app.ageRating === '18+' || app.isAdult === true) {
+        const verified = localStorage.getItem('age_verified_' + app.id) === 'true';
+        const verifiedAt = localStorage.getItem('age_verified_date_' + app.id);
+        const stale = verifiedAt && (Date.now() - new Date(verifiedAt).getTime() > 24*60*60*1000);
+        if (!verified || stale) { showAgeVerificationPopup(app.id); return; }
+    }
+
+    // NEW: show install popup with countdown + rewarded
+    const popup = document.createElement('div');
+    popup.id = 'installPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.innerHTML = `
+        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
+            <div id="ad-install-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <h3 style="margin:0 0 10px 0;font-size:18px;">Watch ad to install?</h3>
+            <p style="font-size:13px;color:#7F949A;margin:0 0 14px 0;">Watch an ad to install now, or wait <span id="cdTimer">20</span>s to skip.</p>
+            <button id="watchAdBtn" style="width:100%;padding:14px;background:var(--hgt-blue);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Watch Ad to Install</button>
+            <button id="skipAdBtn" disabled style="width:100%;padding:14px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Wait <span id="cdTimer2">20</span>s to skip</button>
+        </div>`;
+    document.body.appendChild(popup);
+
+    let sec = 20;
+    const timer = setInterval(() => {
+        sec--;
+        const t1 = document.getElementById('cdTimer');
+        const t2 = document.getElementById('cdTimer2');
+        if (t1) t1.innerText = sec;
+        if (t2) t2.innerText = sec;
+        if (sec <= 0) {
+            clearInterval(timer);
+            const skip = document.getElementById('skipAdBtn');
+            if (skip) {
+                skip.disabled = false;
+                skip.style.background = 'var(--hgt-green)';
+                skip.style.color = 'white';
+                skip.innerText = 'Install Now';
+            }
+        }
+    }, 1000);
+
+    document.getElementById('watchAdBtn').onclick = () => {
+        popup.remove();
+        triggerRewardedAd(() => {
+            const btn = document.getElementById('detailInstallBtn');
+            const ringLogo = document.getElementById('installRingLogo');
+            if (ringLogo) ringLogo.src = app.logo || '';
+            if (btn) btn.classList.add('installing');
+            setRingProgress(0);
+            if (window.Suzuki && window.Suzuki.install) {
+                window.Suzuki.install(app.downloadUrl, app.packageName);
+            }
+        });
+    };
+    document.getElementById('skipAdBtn').onclick = () => {
+        if (sec <= 0) {
+            popup.remove();
+            const btn = document.getElementById('detailInstallBtn');
+            const ringLogo = document.getElementById('installRingLogo');
+            if (ringLogo) ringLogo.src = app.logo || '';
+            if (btn) btn.classList.add('installing');
+            setRingProgress(0);
+            if (window.Suzuki && window.Suzuki.install) {
+                window.Suzuki.install(app.downloadUrl, app.packageName);
+            }
+        }
+    };
+}
+    const app = appRepositoryState.find(a => a.id === currentAppId);
+    if (!app) return;
+    if (app.isSuspended) return;
     if (!navigator.onLine) {
         alert('⚠️ You are offline. Please connect to the internet to install this app.');
         return;
@@ -1772,6 +1887,30 @@ function handleInstallClick() {
 }
 
 function handleUninstall() {
+    const app = appRepositoryState.find(a => a.id === currentAppId);
+    if (!app || !app.packageName) return;
+    if (!window.Suzuki || !window.Suzuki.uninstall) { alert('Uninstall only works inside the HGT Store app.'); return; }
+
+    const popup = document.createElement('div');
+    popup.id = 'uninstallPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.innerHTML = `
+        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:360px;width:100%;text-align:center;color:white;">
+            <img src="${app.logo || ''}" style="width:80px;height:80px;border-radius:20px;margin-bottom:14px;">
+            <h3 style="margin:0 0 10px 0;font-size:19px;">Uninstall ${escapeHtml(app.name)}?</h3>
+            <div id="ad-uninstall-native" style="margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <button id="uninstallYes" style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Yes, Uninstall</button>
+            <button id="uninstallNo" style="width:100%;padding:14px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Cancel</button>
+        </div>`;
+    document.body.appendChild(popup);
+
+    document.getElementById('uninstallYes').onclick = () => {
+        popup.remove();
+        window.Suzuki.uninstall(app.packageName);
+        setTimeout(() => { if (typeof updateInstallButton === 'function') updateInstallButton(app); }, 1000);
+    };
+    document.getElementById('uninstallNo').onclick = () => popup.remove();
+}
     const app = appRepositoryState.find(a => a.id === currentAppId);
     if (!app || !app.packageName) return;
     if (!window.Suzuki || !window.Suzuki.uninstall) {
@@ -3163,6 +3302,135 @@ function openAiChat() {
         if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
         return;
     }
+
+    const freeChats = parseInt(localStorage.getItem('hgtFreeChats') || '0', 10);
+    if (freeChats < 3) {
+        localStorage.setItem('hgtFreeChats', (freeChats + 1) + '');
+        document.getElementById('aiChatOverlay').classList.add('show');
+        checkAiLimit();
+        setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
+        return;
+    }
+
+    const popup = document.createElement('div');
+    popup.id = 'aiUnlockPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.innerHTML = `
+        <div style="background:linear-gradient(135deg,#7c4dff 0%,#4a148c 100%);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
+            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
+            <h3 style="margin:0 0 10px 0;font-size:20px;">Watch ads to unlock AI Chat</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0 0 16px 0;">Watch 3 short ads to unlock 3 free chats.</p>
+            <button id="aiWatchBtn" style="width:100%;padding:14px;background:white;color:#4a148c;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-size:15px;">Watch Ads to Chat</button>
+        </div>`;
+    document.body.appendChild(popup);
+
+    document.getElementById('aiWatchBtn').onclick = () => {
+        popup.remove();
+        runRewardedSequence(3, () => {
+            localStorage.setItem('hgtFreeChats', '0');
+            document.getElementById('aiChatOverlay').classList.add('show');
+            checkAiLimit();
+            setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
+        });
+    };
+}
+
+function runRewardedSequence(count, done) {
+    if (count <= 0) { done(); return; }
+    triggerRewardedAd(() => {
+        setTimeout(() => runRewardedSequence(count - 1, done), 600);
+    });
+}
+    if (!currentUser) {
+        if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
+        return;
+    }
+
+    const freeChats = parseInt(localStorage.getItem('hgtFreeChats') || '0', 10);
+    if (freeChats < 3) {
+        localStorage.setItem('hgtFreeChats', (freeChats + 1) + '');
+        document.getElementById('aiChatOverlay').classList.add('show');
+        checkAiLimit();
+        setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
+        return;
+    }
+
+    const popup = document.createElement('div');
+    popup.id = 'aiUnlockPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.innerHTML = `
+        <div style="background:linear-gradient(135deg,#7c4dff 0%,#4a148c 100%);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
+            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
+            <h3 style="margin:0 0 10px 0;font-size:20px;">Watch ads to unlock AI Chat</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0 0 16px 0;">Watch 3 short ads to unlock 3 free chats.</p>
+            <button id="aiWatchBtn" style="width:100%;padding:14px;background:white;color:#4a148c;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-size:15px;">Watch Ads to Chat</button>
+        </div>`;
+    document.body.appendChild(popup);
+
+    document.getElementById('aiWatchBtn').onclick = () => {
+        popup.remove();
+        runRewardedSequence(3, () => {
+            localStorage.setItem('hgtFreeChats', '0');
+            document.getElementById('aiChatOverlay').classList.add('show');
+            checkAiLimit();
+            setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
+        });
+    };
+}
+
+function runRewardedSequence(count, done) {
+    if (count <= 0) { done(); return; }
+    triggerRewardedAd(() => {
+        setTimeout(() => runRewardedSequence(count - 1, done), 600);
+    });
+}
+    if (!currentUser) {
+        if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
+        return;
+    }
+
+    const freeChats = parseInt(localStorage.getItem('hgtFreeChats') || '0', 10);
+    if (freeChats < 3) {
+        localStorage.setItem('hgtFreeChats', (freeChats + 1) + '');
+        document.getElementById('aiChatOverlay').classList.add('show');
+        checkAiLimit();
+        setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
+        return;
+    }
+
+    const popup = document.createElement('div');
+    popup.id = 'aiUnlockPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.innerHTML = `
+        <div style="background:linear-gradient(135deg,#7c4dff 0%,#4a148c 100%);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
+            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
+            <h3 style="margin:0 0 10px 0;font-size:20px;">Watch ads to unlock AI Chat</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0 0 16px 0;">Watch 3 short ads to unlock 3 free chats.</p>
+            <button id="aiWatchBtn" style="width:100%;padding:14px;background:white;color:#4a148c;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-size:15px;">Watch Ads to Chat</button>
+        </div>`;
+    document.body.appendChild(popup);
+
+    document.getElementById('aiWatchBtn').onclick = () => {
+        popup.remove();
+        runRewardedSequence(3, () => {
+            localStorage.setItem('hgtFreeChats', '0');
+            document.getElementById('aiChatOverlay').classList.add('show');
+            checkAiLimit();
+            setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
+        });
+    };
+}
+
+function runRewardedSequence(count, done) {
+    if (count <= 0) { done(); return; }
+    triggerRewardedAd(() => {
+        setTimeout(() => runRewardedSequence(count - 1, done), 600);
+    });
+}
+    if (!currentUser) {
+        if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
+        return;
+    }
     document.getElementById('aiChatOverlay').classList.add('show');
     checkAiLimit();
     setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
@@ -3278,6 +3546,28 @@ Object.assign(window, {
     openAiChat, closeAiChat, sendAiMessage, checkAiLimit, loadAiSearchSummary, startAiButtonSideSwitch,
     clearRecentSearches
 });
+
+window.onBackPressed = function() {
+    const popup = document.createElement('div');
+    popup.id = 'closeAppPopup';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.innerHTML = `
+        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:340px;width:100%;text-align:center;color:white;">
+            <div id="ad-close-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <h3 style="margin:0 0 10px 0;font-size:19px;">Close HGT Store?</h3>
+            <p style="font-size:13px;color:#7F949A;">Are you sure you want to exit?</p>
+            <button id="closeYes" style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Yes, Close</button>
+            <button id="closeNo" style="width:100%;padding:14px;background:var(--hgt-blue);color:white;border:none;border-radius:12px;cursor:pointer;">Stay</button>
+        </div>`;
+    document.body.appendChild(popup);
+
+    document.getElementById('closeYes').onclick = () => {
+        if (window.Suzuki && window.Suzuki.closeApp) window.Suzuki.closeApp();
+    };
+    document.getElementById('closeNo').onclick = () => popup.remove();
+};
+
+Object.assign(window, { handleUninstall, handleInstallClick, openAiChat, formatBytes });
 
 console.log('✅ HGT LINKDIFY STORE loaded.');
 </script>
