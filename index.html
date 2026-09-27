@@ -1271,6 +1271,84 @@ document.addEventListener('click', function(e) {
    NATIVE AD BRIDGE — tells Android to draw an AdMob native ad
    on top of a given HTML slot.
    ============================================================ */
+/* ==== GLOBAL POPUP SCROLLABLE FIXER ==== */
+(function ensurePopupScrollable() {
+    function patch(el) {
+        if (!el || el.dataset.hgtScrollPatched) return;
+        el.dataset.hgtScrollPatched = '1';
+        var cs = el.style.cssText || '';
+        // Make popup a scroll container
+        el.style.alignItems = 'flex-start';
+        el.style.overflowY = 'auto';
+        el.style.webkitOverflowScrolling = 'touch';
+        // Make the inner card stay centered but scrollable
+        var card = el.querySelector('div');
+        if (card) {
+            card.style.margin = 'auto 0';
+            card.style.maxWidth = '420px';
+        }
+    }
+    var ids = ['installPopup', 'uninstallPopup', 'aiUnlockPopup', 'installSuccessOverlay', 'closeAppPopup'];
+    var mo = new MutationObserver(function (ms) {
+        ms.forEach(function (m) {
+            m.addedNodes.forEach(function (n) {
+                if (n && n.nodeType === 1 && ids.indexOf(n.id) !== -1) {
+                    setTimeout(function(){ patch(n); }, 30);
+                }
+            });
+        });
+    });
+    mo.observe(document.body, { childList: true });
+})();
+
+/* ==== SCROLL-SYNC FOR NATIVE ADS ==== */
+window.__adScrollWatchers = window.__adScrollWatchers || {};
+
+function startAdScrollSync(slotId) {
+    if (window.__adScrollWatchers[slotId]) return;
+    var el = document.getElementById(slotId);
+    if (!el) return;
+
+    function push() {
+        if (!document.body.contains(el)) { stopAdScrollSync(slotId); return; }
+        var r = el.getBoundingClientRect();
+        // If the slot is off-screen, hide the ad; else push new coords.
+        if (r.bottom < 0 || r.top > window.innerHeight) {
+            if (window.Suzuki && window.Suzuki.hideNativeAd) {
+                try { window.Suzuki.hideNativeAd(slotId); } catch(e){}
+            }
+            return;
+        }
+        var payload = { id: slotId, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) };
+        if (window.Suzuki && window.Suzuki.relayoutNativeAd) {
+            try { window.Suzuki.relayoutNativeAd(JSON.stringify(payload)); } catch(e){}
+        }
+    }
+
+    var rafPending = false;
+    function onScroll() {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(function(){ rafPending = false; push(); });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    window.__adScrollWatchers[slotId] = { onScroll: onScroll };
+    push();
+}
+
+function stopAdScrollSync(slotId) {
+    var w = window.__adScrollWatchers[slotId];
+    if (!w) return;
+    window.removeEventListener('scroll', w.onScroll, { capture: true });
+    document.removeEventListener('scroll', w.onScroll, { capture: true });
+    window.removeEventListener('resize', w.onScroll);
+    delete window.__adScrollWatchers[slotId];
+}
+
 function loadNativeAd(slotId) {
     const el = document.getElementById(slotId);
     if (!el) { console.warn('Native ad slot not found:', slotId); return; }
@@ -1281,6 +1359,7 @@ function loadNativeAd(slotId) {
             try {
                 window.Suzuki.showNativeAd(JSON.stringify(payload));
                 el.style.visibility = 'hidden';
+                startAdScrollSync(slotId);
             } catch (e) { console.warn('showNativeAd bridge failed:', e); }
         } else {
             el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#7F949A;font-size:12px;">Ad</div>';
@@ -1289,6 +1368,7 @@ function loadNativeAd(slotId) {
 }
 
 function hideNativeAd(slotId) {
+    stopAdScrollSync(slotId);
     if (window.Suzuki && window.Suzuki.hideNativeAd) {
         try { window.Suzuki.hideNativeAd(slotId); } catch(e) {}
     }
@@ -1300,6 +1380,55 @@ function hideNativeAd(slotId) {
    NATIVE AD BRIDGE — tells Android to draw an AdMob native ad
    on top of a given HTML slot.
    ============================================================ */
+/* ==== SCROLL-SYNC FOR NATIVE ADS ==== */
+window.__adScrollWatchers = window.__adScrollWatchers || {};
+
+function startAdScrollSync(slotId) {
+    if (window.__adScrollWatchers[slotId]) return;
+    var el = document.getElementById(slotId);
+    if (!el) return;
+
+    function push() {
+        if (!document.body.contains(el)) { stopAdScrollSync(slotId); return; }
+        var r = el.getBoundingClientRect();
+        // Off-screen → hide the ad so it doesn't appear floating
+        if (r.bottom < 0 || r.top > window.innerHeight || r.width === 0 || r.height === 0) {
+            if (window.Suzuki && window.Suzuki.hideNativeAd) {
+                try { window.Suzuki.hideNativeAd(slotId); } catch(e){}
+            }
+            return;
+        }
+        var payload = { id: slotId, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) };
+        if (window.Suzuki && window.Suzuki.relayoutNativeAd) {
+            try { window.Suzuki.relayoutNativeAd(JSON.stringify(payload)); } catch(e){}
+        }
+    }
+
+    var rafPending = false;
+    function onScroll() {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(function(){ rafPending = false; push(); });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    window.__adScrollWatchers[slotId] = { onScroll: onScroll };
+    // Start pushing immediately
+    push();
+}
+
+function stopAdScrollSync(slotId) {
+    var w = window.__adScrollWatchers[slotId];
+    if (!w) return;
+    window.removeEventListener('scroll', w.onScroll, { capture: true });
+    document.removeEventListener('scroll', w.onScroll, { capture: true });
+    window.removeEventListener('resize', w.onScroll);
+    delete window.__adScrollWatchers[slotId];
+}
+
 function loadNativeAd(slotId) {
     const el = document.getElementById(slotId);
     if (!el) { console.warn('Native ad slot not found:', slotId); return; }
@@ -1310,6 +1439,7 @@ function loadNativeAd(slotId) {
             try {
                 window.Suzuki.showNativeAd(JSON.stringify(payload));
                 el.style.visibility = 'hidden';
+                startAdScrollSync(slotId);
             } catch (e) { console.warn('showNativeAd bridge failed:', e); }
         } else {
             el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#7F949A;font-size:12px;">Ad</div>';
@@ -1318,12 +1448,62 @@ function loadNativeAd(slotId) {
 }
 
 function hideNativeAd(slotId) {
+    stopAdScrollSync(slotId);
     if (window.Suzuki && window.Suzuki.hideNativeAd) {
         try { window.Suzuki.hideNativeAd(slotId); } catch(e) {}
     }
     const el = document.getElementById(slotId);
     if (el) el.style.visibility = 'visible';
 }
+
+/* ==== POPUP-BOUND SCROLL SYNC ==== */
+/* For every popup, attach a scroll listener to the popup element itself
+   and push new coordinates for every native ad inside it. */
+function bindPopupScrollSync(popupEl) {
+    if (!popupEl) return;
+    function pushAll() {
+        popupEl.querySelectorAll('[id$="-native"]').forEach(function (slot) {
+            if (!slot.id) return;
+            var r = slot.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > window.innerHeight || r.width === 0 || r.height === 0) {
+                if (window.Suzuki && window.Suzuki.hideNativeAd) {
+                    try { window.Suzuki.hideNativeAd(slot.id); } catch (e) {}
+                }
+                return;
+            }
+            var payload = { id: slot.id, x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) };
+            if (window.Suzuki && window.Suzuki.relayoutNativeAd) {
+                try { window.Suzuki.relayoutNativeAd(JSON.stringify(payload)); } catch (e) {}
+            }
+        });
+    }
+    var raf = false;
+    function onScroll() {
+        if (raf) return;
+        raf = true;
+        requestAnimationFrame(function () { raf = false; pushAll(); });
+    }
+    popupEl.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    // Push once immediately
+    setTimeout(pushAll, 400);
+}
+
+/* Watches the DOM: whenever a popup appears, bind scroll sync to it */
+(function setupPopupScrollWatcher() {
+    var popupIds = ['installPopup', 'uninstallPopup', 'aiUnlockPopup', 'installSuccessOverlay', 'closeAppPopup'];
+    var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+            m.addedNodes.forEach(function (node) {
+                if (node.nodeType !== 1) return;
+                if (popupIds.indexOf(node.id) !== -1) {
+                    bindPopupScrollSync(node);
+                }
+            });
+        });
+    });
+    observer.observe(document.body, { childList: true });
+})();
 
 /* ============================================================
    SUZUKI BRIDGE HOOKS — called by the Android Shell app
