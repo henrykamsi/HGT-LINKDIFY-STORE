@@ -1145,23 +1145,69 @@ function stopInstallRing() {
     ringAnimPct = 0;
 }
 
+/* ==== GLOBAL POPUP DECORATOR — adds close X + scrollable ad slots ==== */
+function decoratePopup(popupEl) {
+    if (!popupEl) return;
+    // Make every ad slot inside the popup scrollable
+    popupEl.querySelectorAll('[id$="-native"]').forEach(function(slot) {
+        slot.style.overflowY = 'auto';
+        slot.style.overflowX = 'hidden';
+        slot.style.webkitOverflowScrolling = 'touch';
+        slot.style.maxHeight = '60vh';
+        slot.style.touchAction = 'pan-y';
+    });
+    // Find the outer card (first element child) and add a close button if missing
+    var card = popupEl.querySelector('div');
+    if (!card) return;
+    if (card.querySelector(':scope > .hgt-popup-close')) return;
+    card.style.position = 'relative';
+    var btn = document.createElement('button');
+    btn.className = 'hgt-popup-close';
+    btn.innerHTML = '✕';
+    btn.style.cssText = 'position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:white;font-size:22px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;z-index:10;';
+    btn.onclick = function(e) {
+        e.stopPropagation();
+        // Hide any native ads in this popup
+        popupEl.querySelectorAll('[id$="-native"]').forEach(function(slot) {
+            hideNativeAd(slot.id);
+        });
+        popupEl.remove();
+    };
+    card.insertBefore(btn, card.firstChild);
+}
+
+/* Watches the DOM and decorates every popup the app generates */
+(function setupPopupWatcher() {
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+            m.addedNodes.forEach(function(node) {
+                if (node.nodeType !== 1) return;
+                if (node.id === 'installPopup' || node.id === 'uninstallPopup' || node.id === 'aiUnlockPopup' || node.id === 'installSuccessOverlay' || node.id === 'closeAppPopup') {
+                    setTimeout(function(){ decoratePopup(node); }, 60);
+                }
+            });
+        });
+    });
+    observer.observe(document.body, { childList: true });
+})();
+
 function showInstallSuccessOverlay(app) {
     const popup = document.createElement('div');
     popup.id = 'installSuccessOverlay';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch;';
     popup.innerHTML = `
-        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:420px;width:100%;text-align:center;color:white;max-height:92vh;overflow-y:auto;">
+        <div style="position:relative;background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:420px;width:100%;text-align:center;color:white;max-height:92vh;display:flex;flex-direction:column;">
             <div style="font-size:56px;margin-bottom:8px;">✅</div>
             <h3 style="margin:0 0 10px 0;font-size:22px;font-family:'geomanistmedium',sans-serif;color:var(--hgt-green);">Installed Successfully</h3>
             <img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}"
                  style="width:80px;height:80px;border-radius:18px;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
             <p style="font-size:16px;font-family:'geomanistmedium',sans-serif;margin:0 0 16px 0;">${escapeHtml(app.name)}</p>
-            <div id="ad-success-native" style="margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <div id="ad-success-native" style="flex:1;min-height:0;margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:480px;max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
             <button id="successOpenBtn" style="width:100%;padding:16px;background:var(--hgt-green);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;font-family:'geomanistmedium',sans-serif;font-size:16px;">▶ Open App</button>
             <button id="successCloseBtn" style="width:100%;padding:12px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Close</button>
         </div>`;
     document.body.appendChild(popup);
-    loadNativeAd('ad-success-native');
+    setTimeout(function(){ loadNativeAd('ad-success-native'); }, 300);
     document.getElementById('successOpenBtn').onclick = () => {
         hideNativeAd('ad-success-native');
         popup.remove();
@@ -1677,7 +1723,9 @@ function routeToDetails(applicationId, silent) {
     if (app.youtubeUrl && app.youtubeUrl.trim()) { vp.src = app.youtubeUrl; vc.style.display = 'block'; }
     else { vp.src = ''; vc.style.display = 'none'; }
 
+    setTimeout(function() {
     if (document.getElementById('detailMidNativeAd')) loadNativeAd('detailMidNativeAd');
+}, 500);
 
     currentGalleryImages = app.screenshots || [];
     const shots = document.getElementById('detailScreenshotsContainer');
@@ -1794,6 +1842,35 @@ function updateInstallButton(app) {
     label.innerText = 'Install' + sizeLabel;
 }
 
+/* ==== SCROLL-AWARE NATIVE AD SLOT ==== */
+/* Keeps the Android native ad view locked to the HTML slot's screen
+   coordinates, so when the popup scrolls the ad scrolls with it. */
+function attachAdScrollSync(popupEl, slotId) {
+    if (!popupEl || !slotId) return;
+    var slot = popupEl.querySelector('#' + slotId);
+    if (!slot) return;
+    var scrollingParent = popupEl; // the popup itself is the scroll container
+    var rafId = null;
+    function relayout() {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(function () {
+            if (!document.body.contains(slot)) return;
+            loadNativeAd(slotId); // re-measure and re-tell Android the new x/y
+        });
+    }
+    scrollingParent.addEventListener('scroll', relayout, { passive: true });
+    window.addEventListener('resize', relayout, { passive: true });
+    // Also stop syncing when the popup is closed
+    var mo = new MutationObserver(function () {
+        if (!document.body.contains(slot)) {
+            scrollingParent.removeEventListener('scroll', relayout);
+            window.removeEventListener('resize', relayout);
+            mo.disconnect();
+        }
+    });
+    mo.observe(document.body, { childList: true });
+}
+
 function handleInstallClick() {
     const app = appRepositoryState.find(a => a.id === currentAppId);
     if (!app) return;
@@ -1818,17 +1895,24 @@ function handleInstallClick() {
 
     const popup = document.createElement('div');
     popup.id = 'installPopup';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch;';
     popup.innerHTML = `
-        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
-            <div id="ad-install-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+        <div style="position:relative;background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:420px;width:100%;text-align:center;color:white;margin:auto 0;">
+            <button id="installPopupClose" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:white;font-size:22px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;z-index:10;">✕</button>
+            <div id="ad-install-native" style="margin:8px 0 14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
             <h3 style="margin:0 0 10px 0;font-size:18px;">Watch ad to install?</h3>
             <p style="font-size:13px;color:#7F949A;margin:0 0 14px 0;">Watch an ad to install now, or wait <span id="cdTimer">20</span>s to skip.</p>
             <button id="watchAdBtn" style="width:100%;padding:14px;background:var(--hgt-blue);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Watch Ad to Install</button>
             <button id="skipAdBtn" disabled style="width:100%;padding:14px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Wait <span id="cdTimer2">20</span>s to skip</button>
         </div>`;
     document.body.appendChild(popup);
-    loadNativeAd('ad-install-native');
+    setTimeout(function(){ loadNativeAd('ad-install-native'); }, 300);
+    attachAdScrollSync(popup, 'ad-install-native');
+
+    document.getElementById('installPopupClose').onclick = function() {
+        hideNativeAd('ad-install-native');
+        popup.remove();
+    };
 
     let sec = 20;
     const timer = setInterval(() => {
@@ -3160,7 +3244,9 @@ function triggerDrawerCategory(key) {
 function toggleSidebar(open) {
     document.getElementById('leftNavigationDrawer').classList.toggle('active', open);
     if (open) {
-        if (document.getElementById('ad-sidebar-native')) loadNativeAd('ad-sidebar-native');
+        setTimeout(function() {
+            if (document.getElementById('ad-sidebar-native')) loadNativeAd('ad-sidebar-native');
+        }, 400);
     } else {
         if (document.getElementById('ad-sidebar-native')) hideNativeAd('ad-sidebar-native');
     }
@@ -3380,26 +3466,41 @@ Object.assign(window, {
     clearRecentSearches, loadNativeAd, hideNativeAd, showInstallSuccessOverlay
 });
 
+/* ==== SCROLLABLE NATIVE AD WRAPPER ==== */
+function makeAdScrollable(slotId) {
+    var el = document.getElementById(slotId);
+    if (!el) return;
+    el.style.overflowY = 'auto';
+    el.style.overflowX = 'hidden';
+    el.style.webkitOverflowScrolling = 'touch';
+    el.style.maxHeight = '85vh';
+    el.style.touchAction = 'pan-y';
+}
+
 window.onBackPressed = function() {
     const popup = document.createElement('div');
     popup.id = 'closeAppPopup';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch;';
     popup.innerHTML = `
-        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:340px;width:100%;text-align:center;color:white;">
-            <div id="ad-close-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+        <div style="position:relative;background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:420px;width:100%;text-align:center;color:white;max-height:92vh;display:flex;flex-direction:column;">
+            <button onclick="hideNativeAd('ad-close-native');this.closest('div').parentElement.remove();" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:white;font-size:22px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;z-index:10;">✕</button>
+            <div id="ad-close-native" style="flex:1;min-height:0;margin:8px 0 14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:480px;max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
             <h3 style="margin:0 0 10px 0;font-size:19px;">Close HGT Store?</h3>
             <p style="font-size:13px;color:#7F949A;">Are you sure you want to exit?</p>
             <button id="closeYes" style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Yes, Close</button>
             <button id="closeNo" style="width:100%;padding:14px;background:var(--hgt-blue);color:white;border:none;border-radius:12px;cursor:pointer;">Stay</button>
         </div>`;
     document.body.appendChild(popup);
-    loadNativeAd('ad-close-native');
+    setTimeout(function(){ loadNativeAd('ad-close-native'); }, 300);
 
     document.getElementById('closeYes').onclick = () => {
         hideNativeAd('ad-close-native');
         if (window.Suzuki && window.Suzuki.closeApp) window.Suzuki.closeApp();
     };
-    document.getElementById('closeNo').onclick = () => popup.remove();
+    document.getElementById('closeNo').onclick = () => {
+        hideNativeAd('ad-close-native');
+        popup.remove();
+    };
 };
 
 Object.assign(window, { handleUninstall, handleInstallClick, openAiChat, formatBytes });
