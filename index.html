@@ -211,7 +211,7 @@ body.light-mode .btn-share { background: #e3f2fd; color: #0d47a1; }
     gap: 10px;
 }
 .install-btn-wrap > .install-btn { width: 100%; }
-.install-btn-wrap > .install-btn.installing { width: 72px; }
+.install-btn-wrap > .install-btn.installing { width: 100px; }
 
 .install-btn {
     width: 100%;
@@ -235,14 +235,14 @@ body.light-mode .btn-share { background: #e3f2fd; color: #0d47a1; }
 }
 .install-btn:hover { background: var(--hgt-blue-dark); }
 
-/* When installing: pill morphs into a 72x72 circular target */
+/* When installing: pill morphs into a 100x100 circular bubble */
 .install-btn.installing {
-    width: 72px;
-    height: 72px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: transparent;
     pointer-events: none;
-    margin: -8px 0; /* recenter since it grew */
+    margin: -22px 0;
 }
 .install-btn.installing .install-btn-label { display: none; }
 
@@ -250,12 +250,12 @@ body.light-mode .btn-share { background: #e3f2fd; color: #0d47a1; }
 .install-btn.downloaded-state { background: var(--hgt-border); color: var(--hgt-text-dim); }
 .install-btn.suspended-state { background: var(--hgt-red); cursor: not-allowed; }
 
-/* The ring lives INSIDE the button */
+/* Ring wraps the app logo in a circular bubble (Play Store style) */
 .install-ring {
     display: none;
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 100px;
+    height: 100px;
 }
 .install-btn.installing .install-ring { display: block; }
 
@@ -268,14 +268,13 @@ body.light-mode .btn-share { background: #e3f2fd; color: #0d47a1; }
 }
 .install-ring .ring-bg {
     fill: none;
-    stroke: #ffffff;
-    stroke-width: 3.5;
-    opacity: 0.9;
+    stroke: rgba(255,255,255,0.25);
+    stroke-width: 4;
 }
 .install-ring .ring-fg {
     fill: none;
     stroke: var(--hgt-blue);
-    stroke-width: 3.5;
+    stroke-width: 4;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.15s linear;
 }
@@ -284,9 +283,9 @@ body.light-mode .btn-share { background: #e3f2fd; color: #0d47a1; }
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
@@ -779,8 +778,8 @@ body.light-mode #aiSummaryBox { color: #333; }
                     <button id="detailInstallBtn" class="install-btn" onclick="handleInstallClick()">
                         <span class="install-btn-label" id="installBtnLabel">Install</span>
                         <span class="install-ring" id="installRingWrap">
-                            <svg viewBox="0 0 72 72">
-                                <circle class="ring-bg" cx="36" cy="36" r="32"></circle>
+                            <svg viewBox="0 0 100 100">
+                                <circle class="ring-bg" cx="50" cy="50" r="46"></circle>
                                 <circle class="ring-fg" id="installRingFg" cx="36" cy="36" r="32"></circle>
                             </svg>
                             <img class="install-logo" id="installRingLogo" src="https://stc.utdstc.com/img/no-img.png" alt="">
@@ -816,7 +815,7 @@ body.light-mode #aiSummaryBox { color: #333; }
                 <iframe id="appVideoPlayer" width="100%" height="220" style="border-radius:12px;" src="" frameborder="0" allowfullscreen></iframe>
             </div>
 
-            <div id="detailMidNativeAd" style="width:100%;min-height:100px;margin:15px 0;background:#102c33;border:1px solid var(--hgt-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <div id="detailMidNativeAd" style="width:100%;min-height:480px;margin:15px 0;background:#102c33;border:1px solid var(--hgt-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
 
             <div class="media-scroll" id="detailScreenshotsContainer"></div>
 
@@ -882,7 +881,7 @@ body.light-mode #aiSummaryBox { color: #333; }
     <div id="trendingTagsContainer"><span style="color:var(--hgt-text-dim);font-size:12px;">Loading trending...</span></div>
 </div>
             <div class="overlay-section"><h4 style="display:flex;justify-content:space-between;align-items:center;">Recent Searches <span onclick="clearRecentSearches()" style="cursor:pointer;color:var(--hgt-red);font-size:11px;text-transform:none;letter-spacing:0;font-family:'geomanistregular',sans-serif;">Clear</span></h4><div id="recentQueryLogsContainer"></div></div>
-            <div id="ad-search-native" style="width:100%;min-height:100px;margin:15px 0;background:#102c33;border:1px solid var(--hgt-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <div id="ad-search-native" style="width:100%;min-height:480px;margin:15px 0;background:#102c33;border:1px solid var(--hgt-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
         </div>
         <div id="liveSearchResultsGrid" class="live-results-list"></div>
     </div>
@@ -1005,6 +1004,9 @@ body.light-mode #aiSummaryBox { color: #333; }
             <li><a href="https://henrykamsi.github.io/HGT-ABOUT-US-PAGE/" target="_blank">ℹ️ About Us</a></li>
             <li class="section-title">Upload</li>
             <li><a href="mailto:kamsih924@gmail.com" style="color:var(--hgt-blue);font-weight:bold;">Contact Team To Upload Your App</a></li>
+            <li style="list-style:none;padding:0;border:none;">
+                <div id="ad-sidebar-native" style="width:100%;min-height:480px;margin-top:15px;background:#102c33;border:1px solid var(--hgt-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            </li>
         </ul>
     </nav>
 
@@ -1086,6 +1088,121 @@ const REDIRECT_DURATION_MS = 1500;
 function triggerInterstitialAd() {
     if (window.Suzuki && window.Suzuki.showInterstitial) window.Suzuki.showInterstitial();
 }
+
+/* ==== INSTALL RING STATE ==== */
+let ringAnimTimer = null;
+let ringRealPct = 0;
+let ringAnimPct = 0;
+let ringStartTime = 0;
+let ringFinished = false;
+
+function startInstallRing(app) {
+    ringRealPct = 0;
+    ringAnimPct = 0;
+    ringStartTime = Date.now();
+    ringFinished = false;
+    if (ringAnimTimer) clearInterval(ringAnimTimer);
+    ringAnimTimer = setInterval(() => {
+        if (ringFinished) return;
+        const elapsed = Date.now() - ringStartTime;
+        const animatedPct = Math.min(100, (elapsed / 20000) * 100);
+        const displayPct = Math.max(animatedPct, ringAnimPct, ringRealPct);
+        ringAnimPct = displayPct;
+        setRingProgress(displayPct);
+        if (displayPct >= 100) {
+            ringFinished = true;
+            clearInterval(ringAnimTimer);
+            ringAnimTimer = null;
+            showInstallingSpinner();
+        }
+    }, 100);
+}
+
+function showInstallingSpinner() {
+    const label = document.getElementById('installBtnLabel');
+    const pctEl = document.getElementById('installPct');
+    if (pctEl) pctEl.innerText = 'Installing...';
+    if (label) label.innerText = 'Installing...';
+    const circle = document.getElementById('installRingFg');
+    if (circle) {
+        circle.style.transition = 'none';
+        circle.style.strokeDasharray = '60 229';
+        let rot = 0;
+        if (window.__installSpinTimer) clearInterval(window.__installSpinTimer);
+        window.__installSpinTimer = setInterval(() => {
+            rot = (rot + 6) % 360;
+            circle.style.transform = 'rotate(' + rot + 'deg)';
+            circle.style.transformOrigin = '50px 50px';
+        }, 30);
+    }
+}
+
+function stopInstallRing() {
+    if (ringAnimTimer) { clearInterval(ringAnimTimer); ringAnimTimer = null; }
+    if (window.__installSpinTimer) { clearInterval(window.__installSpinTimer); window.__installSpinTimer = null; }
+    ringFinished = false;
+    ringRealPct = 0;
+    ringAnimPct = 0;
+}
+
+function showInstallSuccessOverlay(app) {
+    const popup = document.createElement('div');
+    popup.id = 'installSuccessOverlay';
+    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
+    popup.innerHTML = `
+        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:420px;width:100%;text-align:center;color:white;max-height:92vh;overflow-y:auto;">
+            <div style="font-size:56px;margin-bottom:8px;">✅</div>
+            <h3 style="margin:0 0 10px 0;font-size:22px;font-family:'geomanistmedium',sans-serif;color:var(--hgt-green);">Installed Successfully</h3>
+            <img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}"
+                 style="width:80px;height:80px;border-radius:18px;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+            <p style="font-size:16px;font-family:'geomanistmedium',sans-serif;margin:0 0 16px 0;">${escapeHtml(app.name)}</p>
+            <div id="ad-success-native" style="margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <button id="successOpenBtn" style="width:100%;padding:16px;background:var(--hgt-green);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;font-family:'geomanistmedium',sans-serif;font-size:16px;">▶ Open App</button>
+            <button id="successCloseBtn" style="width:100%;padding:12px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Close</button>
+        </div>`;
+    document.body.appendChild(popup);
+    loadNativeAd('ad-success-native');
+    document.getElementById('successOpenBtn').onclick = () => {
+        hideNativeAd('ad-success-native');
+        popup.remove();
+        if (window.Suzuki && window.Suzuki.launch && app.packageName) {
+            window.Suzuki.launch(app.packageName);
+        }
+    };
+    document.getElementById('successCloseBtn').onclick = () => {
+        hideNativeAd('ad-success-native');
+        popup.remove();
+    };
+}
+
+window.onSuzukiProgress = function (pkg, bytes, total, pct) {
+  window.__suzukiProgressMap[pkg] = { bytes, total, pct };
+  ringRealPct = Math.max(ringRealPct, pct || 0);
+  if (typeof currentlySelectedAppId !== 'undefined' && currentlySelectedAppId) {
+    const app = appRepositoryState.find(a => a.id === currentlySelectedAppId);
+    if (app && app.packageName === pkg) {
+      setRingProgress(ringRealPct);
+    }
+  }
+};
+
+window.onSuzukiInstalled = function (pkg) {
+  window.__suzukiActive = false;
+  localStorage.setItem('app_downloaded_' + pkg, 'true');
+  stopInstallRing();
+  const app = appRepositoryState.find(a => a.packageName === pkg);
+  if (app) {
+    localStorage.setItem('app_downloaded_' + app.id, 'true');
+    if (currentlySelectedAppId === app.id) {
+      const btn = document.getElementById('detailInstallBtn');
+      const label = document.getElementById('installBtnLabel');
+      if (btn) { btn.classList.remove('installing'); btn.classList.add('open-state'); btn.style.background = 'var(--hgt-green)'; }
+      if (label) label.innerText = 'Open';
+    }
+    updateInstallButtonStoreWide(app, true);
+    showInstallSuccessOverlay(app);
+  }
+};
 function triggerRewardedAd(callback) {
     if (window.Suzuki && window.Suzuki.showRewarded) {
         window.onRewardedClosed = function(success) { if (callback) callback(success); };
@@ -1174,21 +1291,7 @@ window.onSuzukiStart = function (pkg) {
 };
 
 // Called by Shell every 500ms with real bytes
-window.onSuzukiProgress = function (pkg, bytes, total, pct) {
-  window.__suzukiProgressMap[pkg] = { bytes, total, pct };
-  if (typeof currentlySelectedAppId !== 'undefined' && currentlySelectedAppId) {
-    const app = appRepositoryState.find(a => a.id === currentlySelectedAppId);
-    if (app && app.packageName === pkg) {
-      setRingProgress(pct);
-      const pctEl = document.getElementById('installPct');
-      if (pctEl) {
-        const mb = (bytes / 1024 / 1024).toFixed(1);
-        const totalMb = total > 0 ? (total / 1024 / 1024).toFixed(1) : '?';
-        pctEl.innerText = mb + ' MB / ' + totalMb + ' MB';
-      }
-    }
-  }
-};
+/* onSuzukiProgress is defined above alongside the ring */
 
 // Called by Shell when Android's installer is shown
 window.onSuzukiInstalling = function (pkg) {
@@ -1198,61 +1301,7 @@ window.onSuzukiInstalling = function (pkg) {
 };
 
 // Called by Shell when install completed (from InstallReceiver)
-window.onSuzukiInstalled = function (pkg) {
-  window.__suzukiActive = false;
-  localStorage.setItem('app_downloaded_' + pkg, 'true');
-
-  // Show overlay via Android
-  if (window.Suzuki && window.Suzuki.showInstallOverlay) {
-      const app = appRepositoryState.find(a => a.packageName === pkg);
-      const name = app ? app.name : pkg;
-      const logo = app ? (app.logo || '') : '';
-      window.Suzuki.showInstallOverlay(pkg, name, logo);
-  }
-  const app = appRepositoryState.find(a => a.packageName === pkg);
-  if (app) {
-    localStorage.setItem('app_downloaded_' + app.id, 'true');
-    if (currentlySelectedAppId === app.id) {
-      updateInstallButton(app);
-      updateInstallButtonStoreWide(app, true);
-    }
-    showInstallSuccessOverlay(app);
-  }
-};
-
-/* ============================================================
-   INSTALL SUCCESS OVERLAY WITH NATIVE AD
-   ============================================================ */
-function showInstallSuccessOverlay(app) {
-    const popup = document.createElement('div');
-    popup.id = 'installSuccessOverlay';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
-    popup.innerHTML = `
-        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
-            <div style="font-size:56px;margin-bottom:10px;">✅</div>
-            <h3 style="margin:0 0 6px 0;font-size:20px;font-family:'geomanistmedium',sans-serif;color:var(--hgt-green);">Installed!</h3>
-            <p style="font-size:13px;color:#7F949A;margin:0 0 14px 0;">${escapeHtml(app.name)} is now on your device.</p>
-
-            <div id="ad-success-native" style="margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:100px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
-
-            <button id="successOpenBtn" style="width:100%;padding:14px;background:var(--hgt-green);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;font-family:'geomanistmedium',sans-serif;font-size:15px;">Open App</button>
-            <button id="successCloseBtn" style="width:100%;padding:12px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Close</button>
-        </div>`;
-    document.body.appendChild(popup);
-    loadNativeAd('ad-success-native');
-
-    document.getElementById('successOpenBtn').onclick = () => {
-        hideNativeAd('ad-success-native');
-        popup.remove();
-        if (window.Suzuki && window.Suzuki.launch && app.packageName) {
-            window.Suzuki.launch(app.packageName);
-        }
-    };
-    document.getElementById('successCloseBtn').onclick = () => {
-        hideNativeAd('ad-success-native');
-        popup.remove();
-    };
-}
+/* onSuzukiInstalled and showInstallSuccessOverlay are defined above */
 
 // Called by Shell when install is removed
 window.onSuzukiRemoved = function (pkg) {
@@ -1665,7 +1714,7 @@ function routeToDetails(applicationId, silent) {
    ============================================================ */
 function setRingProgress(pct) {
     const circle = document.getElementById('installRingFg');
-    const r = 32;
+    const r = 46; // matches r="46" in the SVG
     const c = 2 * Math.PI * r;
     circle.style.strokeDasharray = c;
     circle.style.strokeDashoffset = c - (pct / 100) * c;
@@ -1772,7 +1821,7 @@ function handleInstallClick() {
     popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
     popup.innerHTML = `
         <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
-            <div id="ad-install-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <div id="ad-install-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
             <h3 style="margin:0 0 10px 0;font-size:18px;">Watch ad to install?</h3>
             <p style="font-size:13px;color:#7F949A;margin:0 0 14px 0;">Watch an ad to install now, or wait <span id="cdTimer">20</span>s to skip.</p>
             <button id="watchAdBtn" style="width:100%;padding:14px;background:var(--hgt-blue);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Watch Ad to Install</button>
@@ -1809,6 +1858,7 @@ function handleInstallClick() {
             if (ringLogo) ringLogo.src = app.logo || '';
             if (btn) btn.classList.add('installing');
             setRingProgress(0);
+            startInstallRing(app);
             if (window.Suzuki && window.Suzuki.install) {
                 window.Suzuki.install(app.downloadUrl, app.packageName);
             }
@@ -1823,6 +1873,7 @@ function handleInstallClick() {
             if (ringLogo) ringLogo.src = app.logo || '';
             if (btn) btn.classList.add('installing');
             setRingProgress(0);
+            startInstallRing(app);
             if (window.Suzuki && window.Suzuki.install) {
                 window.Suzuki.install(app.downloadUrl, app.packageName);
             }
@@ -1842,7 +1893,7 @@ function handleUninstall() {
         <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:360px;width:100%;text-align:center;color:white;">
             <img src="${app.logo || ''}" style="width:80px;height:80px;border-radius:20px;margin-bottom:14px;">
             <h3 style="margin:0 0 10px 0;font-size:19px;">Uninstall ${escapeHtml(app.name)}?</h3>
-            <div id="ad-uninstall-native" style="margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <div id="ad-uninstall-native" style="margin:14px 0;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
             <button id="uninstallYes" style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Yes, Uninstall</button>
             <button id="uninstallNo" style="width:100%;padding:14px;background:transparent;color:#7F949A;border:1px solid var(--hgt-border);border-radius:12px;cursor:pointer;">Cancel</button>
         </div>`;
@@ -3108,6 +3159,11 @@ function triggerDrawerCategory(key) {
 }
 function toggleSidebar(open) {
     document.getElementById('leftNavigationDrawer').classList.toggle('active', open);
+    if (open) {
+        if (document.getElementById('ad-sidebar-native')) loadNativeAd('ad-sidebar-native');
+    } else {
+        if (document.getElementById('ad-sidebar-native')) hideNativeAd('ad-sidebar-native');
+    }
 }
 function updatePermissionStatusUI() {
     if (!('Notification' in window)) return;
@@ -3186,7 +3242,7 @@ function openAiChat() {
     popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
     popup.innerHTML = `
         <div style="background:linear-gradient(135deg,#7c4dff 0%,#4a148c 100%);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
-            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
+            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
             <h3 style="margin:0 0 10px 0;font-size:20px;">Watch ads to unlock AI Chat</h3>
             <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0 0 16px 0;">Watch 3 short ads to unlock 3 free chats.</p>
             <button id="aiWatchBtn" style="width:100%;padding:14px;background:white;color:#4a148c;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-size:15px;">Watch Ads to Chat</button>
@@ -3330,7 +3386,7 @@ window.onBackPressed = function() {
     popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
     popup.innerHTML = `
         <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:24px;max-width:340px;width:100%;text-align:center;color:white;">
-            <div id="ad-close-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
+            <div id="ad-close-native" style="margin-bottom:14px;background:#102c33;border-radius:12px;padding:12px;min-height:480px;display:flex;align-items:center;justify-content:center;color:#7F949A;font-size:12px;">Advertisement</div>
             <h3 style="margin:0 0 10px 0;font-size:19px;">Close HGT Store?</h3>
             <p style="font-size:13px;color:#7F949A;">Are you sure you want to exit?</p>
             <button id="closeYes" style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-bottom:8px;">Yes, Close</button>
