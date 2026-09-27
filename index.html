@@ -1101,96 +1101,6 @@ document.addEventListener('click', function(e) {
     }
 }, true);
 
-/* ==== Suzuki Shell callbacks ==== */
-window.onSuzukiStart = function (pkg) {
-  const pctEl = document.getElementById('installPct');
-  if (pctEl) pctEl.innerText = 'Starting…';
-};
-
-window.onSuzukiProgress = function (pkg, bytes, total, pct) {
-  if (typeof setRingProgress === 'function') setRingProgress(pct);
-  const pctEl = document.getElementById('installPct');
-  if (pctEl) {
-    const mb = (bytes / 1024 / 1024).toFixed(1);
-    const totMb = total > 0 ? (total / 1024 / 1024).toFixed(1) : '?';
-    pctEl.innerText = mb + ' MB / ' + totMb + ' MB';
-  }
-};
-
-window.onSuzukiInstalling = function (pkg) {
-  const label = document.getElementById('installBtnLabel');
-  if (label) label.innerText = 'Installing…';
-};
-
-window.onSuzukiInstalled = function (pkg) {
-  const app = appRepositoryState.find(a => a.packageName === pkg);
-  if (app) {
-    localStorage.setItem('app_downloaded_' + app.id, 'true');
-    if (currentlySelectedAppId === app.id) updateInstallButton(app);
-  }
-};
-
-window.onSuzukiRemoved = function (pkg) {
-  const app = appRepositoryState.find(a => a.packageName === pkg);
-  if (app) {
-    localStorage.removeItem('app_downloaded_' + app.id);
-    if (currentlySelectedAppId === app.id) updateInstallButton(app);
-  }
-};
-
-window.onSuzukiError = function (pkg, reason) {
-  alert('Install failed: ' + reason);
-  const btn = document.getElementById('detailInstallBtn');
-  if (btn) btn.classList.remove('installing');
-  const label = document.getElementById('installBtnLabel');
-  if (label) label.innerText = 'Install';
-};
-
-/* ==== Suzuki Shell callbacks ==== */
-window.onSuzukiStart = function (pkg) {
-  const pctEl = document.getElementById('installPct');
-  if (pctEl) pctEl.innerText = 'Starting…';
-};
-
-window.onSuzukiProgress = function (pkg, bytes, total, pct) {
-  if (typeof setRingProgress === 'function') setRingProgress(pct);
-  const pctEl = document.getElementById('installPct');
-  if (pctEl) {
-    const mb = (bytes / 1024 / 1024).toFixed(1);
-    const totMb = total > 0 ? (total / 1024 / 1024).toFixed(1) : '?';
-    pctEl.innerText = mb + ' MB / ' + totMb + ' MB';
-  }
-};
-
-window.onSuzukiInstalling = function (pkg) {
-  const label = document.getElementById('installBtnLabel');
-  if (label) label.innerText = 'Installing…';
-};
-
-window.onSuzukiInstalled = function (pkg) {
-  const app = appRepositoryState.find(a => a.packageName === pkg);
-  if (app) {
-    localStorage.setItem('app_downloaded_' + app.id, 'true');
-    if (currentlySelectedAppId === app.id) updateInstallButton(app);
-  }
-};
-
-window.onSuzukiRemoved = function (pkg) {
-  const app = appRepositoryState.find(a => a.packageName === pkg);
-  if (app) {
-    localStorage.removeItem('app_downloaded_' + app.id);
-    if (currentlySelectedAppId === app.id) updateInstallButton(app);
-  }
-};
-
-window.onSuzukiError = function (pkg, reason) {
-  alert('Install failed: ' + reason);
-  const btn = document.getElementById('detailInstallBtn');
-  if (btn) btn.classList.remove('installing');
-  const label = document.getElementById('installBtnLabel');
-  if (label) label.innerText = 'Install';
-};
-
 /* ============================================================
    SUZUKI BRIDGE HOOKS — called by the Android Shell app
    ============================================================ */
@@ -1825,66 +1735,6 @@ function handleInstallClick() {
         }
     };
 }
-    const app = appRepositoryState.find(a => a.id === currentAppId);
-    if (!app) return;
-    if (app.isSuspended) return;
-    if (!navigator.onLine) {
-        alert('⚠️ You are offline. Please connect to the internet to install this app.');
-        return;
-    }
-
-    if (app.isPaid && !isPurchased(app.id)) {
-        startPurchaseFlow(app);
-        return;
-    }
-
-    // If already installed, launch it
-    if (window.Suzuki && window.Suzuki.isInstalled && app.packageName) {
-        if (window.Suzuki.isInstalled(app.packageName)) {
-            window.Suzuki.launch(app.packageName);
-            return;
-        }
-    }
-
-    if (app.ageRating === '18+' || app.isAdult === true) {
-        const verified = localStorage.getItem('age_verified_' + app.id) === 'true';
-        const verifiedAt = localStorage.getItem('age_verified_date_' + app.id);
-        const stale = verifiedAt && (Date.now() - new Date(verifiedAt).getTime() > 24*60*60*1000);
-        if (!verified || stale) { showAgeVerificationPopup(app.id); return; }
-    }
-
-    // SUZUKI PATH: inside the Android Shell app
-    if (window.Suzuki && window.Suzuki.install && app.downloadUrl && app.packageName) {
-        const btn = document.getElementById('detailInstallBtn');
-        const ringLogo = document.getElementById('installRingLogo');
-        if (ringLogo) {
-            ringLogo.src = app.logo || 'https://stc.utdstc.com/img/no-img.png';
-        }
-        btn.classList.add('installing');
-        setRingProgress(0);
-        const pctEl = document.getElementById('installPct');
-        if (pctEl) pctEl.innerText = 'Starting…';
-
-        window.Suzuki.install(app.downloadUrl, app.packageName);
-        return;
-    }
-
-    // BROWSER FALLBACK: try deep link to Shell, else normal download
-    if (app.downloadUrl) {
-        const deepLink = 'suzuki://install?pkg=' + encodeURIComponent(app.packageName) +
-                         '&url=' + encodeURIComponent(app.downloadUrl) +
-                         '&name=' + encodeURIComponent(app.name);
-        window.location.href = deepLink;
-        setTimeout(() => {
-            if (document.visibilityState === 'visible') {
-                window.open(app.downloadUrl, '_blank');
-            }
-        }, 1500);
-        return;
-    }
-
-    beginSimulatedInstall(app);
-}
 
 function handleUninstall() {
     const app = appRepositoryState.find(a => a.id === currentAppId);
@@ -1910,51 +1760,6 @@ function handleUninstall() {
         setTimeout(() => { if (typeof updateInstallButton === 'function') updateInstallButton(app); }, 1000);
     };
     document.getElementById('uninstallNo').onclick = () => popup.remove();
-}
-    const app = appRepositoryState.find(a => a.id === currentAppId);
-    if (!app || !app.packageName) return;
-    if (!window.Suzuki || !window.Suzuki.uninstall) {
-        alert('Uninstall only works inside the HGT Store app.');
-        return;
-    }
-
-    const existing = document.getElementById('customUninstallPopup');
-    if (existing) existing.remove();
-
-    const popup = document.createElement('div');
-    popup.id = 'customUninstallPopup';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
-
-    popup.innerHTML = `
-        <div style="background:var(--hgt-bg-dark);border:1px solid var(--hgt-border);border-radius:20px;padding:28px 24px;max-width:360px;width:100%;text-align:center;color:white;">
-            <img src="${app.logo || 'https://stc.utdstc.com/img/no-img.png'}"
-                 style="width:80px;height:80px;border-radius:20px;object-fit:cover;margin-bottom:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-            <h3 style="font-family:'geomanistmedium',sans-serif;font-size:19px;margin:0 0 8px 0;">Uninstall ${escapeHtml(app.name)}?</h3>
-            <p style="font-size:13px;color:var(--hgt-text-dim);margin:0 0 22px 0;line-height:1.5;">This will remove the app from your phone. You can reinstall it from the store anytime.</p>
-            <button id="uninstallAgreeBtn"
-                style="width:100%;padding:14px;background:var(--hgt-red);color:white;border:none;border-radius:12px;font-family:'geomanistmedium',sans-serif;font-size:15px;font-weight:bold;cursor:pointer;margin-bottom:10px;">
-                Yes, Uninstall
-            </button>
-            <button id="uninstallDisagreeBtn"
-                style="width:100%;padding:14px;background:transparent;color:var(--hgt-text-dim);border:1px solid var(--hgt-border);border-radius:12px;font-family:'geomanistmedium',sans-serif;font-size:15px;cursor:pointer;">
-                Cancel
-            </button>
-        </div>
-    `;
-
-    document.body.appendChild(popup);
-
-    document.getElementById('uninstallAgreeBtn').onclick = function () {
-        popup.remove();
-        window.Suzuki.uninstall(app.packageName);
-        setTimeout(() => {
-            if (typeof updateInstallButton === 'function') updateInstallButton(app);
-        }, 1000);
-    };
-
-    document.getElementById('uninstallDisagreeBtn').onclick = function () {
-        popup.remove();
-    };
 }
 
 document.addEventListener('visibilitychange', function() {
@@ -3341,100 +3146,6 @@ function runRewardedSequence(count, done) {
         setTimeout(() => runRewardedSequence(count - 1, done), 600);
     });
 }
-    if (!currentUser) {
-        if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
-        return;
-    }
-
-    const freeChats = parseInt(localStorage.getItem('hgtFreeChats') || '0', 10);
-    if (freeChats < 3) {
-        localStorage.setItem('hgtFreeChats', (freeChats + 1) + '');
-        document.getElementById('aiChatOverlay').classList.add('show');
-        checkAiLimit();
-        setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
-        return;
-    }
-
-    const popup = document.createElement('div');
-    popup.id = 'aiUnlockPopup';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
-    popup.innerHTML = `
-        <div style="background:linear-gradient(135deg,#7c4dff 0%,#4a148c 100%);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
-            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
-            <h3 style="margin:0 0 10px 0;font-size:20px;">Watch ads to unlock AI Chat</h3>
-            <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0 0 16px 0;">Watch 3 short ads to unlock 3 free chats.</p>
-            <button id="aiWatchBtn" style="width:100%;padding:14px;background:white;color:#4a148c;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-size:15px;">Watch Ads to Chat</button>
-        </div>`;
-    document.body.appendChild(popup);
-
-    document.getElementById('aiWatchBtn').onclick = () => {
-        popup.remove();
-        runRewardedSequence(3, () => {
-            localStorage.setItem('hgtFreeChats', '0');
-            document.getElementById('aiChatOverlay').classList.add('show');
-            checkAiLimit();
-            setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
-        });
-    };
-}
-
-function runRewardedSequence(count, done) {
-    if (count <= 0) { done(); return; }
-    triggerRewardedAd(() => {
-        setTimeout(() => runRewardedSequence(count - 1, done), 600);
-    });
-}
-    if (!currentUser) {
-        if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
-        return;
-    }
-
-    const freeChats = parseInt(localStorage.getItem('hgtFreeChats') || '0', 10);
-    if (freeChats < 3) {
-        localStorage.setItem('hgtFreeChats', (freeChats + 1) + '');
-        document.getElementById('aiChatOverlay').classList.add('show');
-        checkAiLimit();
-        setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
-        return;
-    }
-
-    const popup = document.createElement('div');
-    popup.id = 'aiUnlockPopup';
-    popup.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999999;display:flex;align-items:center;justify-content:center;padding:20px;';
-    popup.innerHTML = `
-        <div style="background:linear-gradient(135deg,#7c4dff 0%,#4a148c 100%);border-radius:20px;padding:24px;max-width:380px;width:100%;text-align:center;color:white;">
-            <div id="ad-ai-native" style="margin-bottom:14px;background:rgba(0,0,0,0.3);border-radius:12px;padding:12px;min-height:80px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:12px;">Advertisement</div>
-            <h3 style="margin:0 0 10px 0;font-size:20px;">Watch ads to unlock AI Chat</h3>
-            <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0 0 16px 0;">Watch 3 short ads to unlock 3 free chats.</p>
-            <button id="aiWatchBtn" style="width:100%;padding:14px;background:white;color:#4a148c;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-size:15px;">Watch Ads to Chat</button>
-        </div>`;
-    document.body.appendChild(popup);
-
-    document.getElementById('aiWatchBtn').onclick = () => {
-        popup.remove();
-        runRewardedSequence(3, () => {
-            localStorage.setItem('hgtFreeChats', '0');
-            document.getElementById('aiChatOverlay').classList.add('show');
-            checkAiLimit();
-            setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
-        });
-    };
-}
-
-function runRewardedSequence(count, done) {
-    if (count <= 0) { done(); return; }
-    triggerRewardedAd(() => {
-        setTimeout(() => runRewardedSequence(count - 1, done), 600);
-    });
-}
-    if (!currentUser) {
-        if (confirm('🔐 Log in to chat with the AI.\n\nTap OK to log in.')) openAuthPage('login');
-        return;
-    }
-    document.getElementById('aiChatOverlay').classList.add('show');
-    checkAiLimit();
-    setTimeout(() => document.getElementById('aiChatInput').focus(), 200);
-}
 
 function closeAiChat() {
     document.getElementById('aiChatOverlay').classList.remove('show');
@@ -3542,7 +3253,7 @@ Object.assign(window, {
     requestStoragePermission, requestCameraPermission, requestLocationPermission, showMyPurchases,
     openDeveloperSheet, openDeveloperContactInfo, closeBottomSheet, copyToClipboard, handleInstallClick,
     closeApkReadyPopup, submitReview, expandAllReviews, openAuthPage, doLogin, doSignup, doGoogle, doLogout,
-    cancelInstall, openAppBottomSheet, handleUninstall, formatBytes, handleUninstall, formatBytes, handleUninstall, handleUninstall,
+    cancelInstall, openAppBottomSheet, handleUninstall, formatBytes,
     openAiChat, closeAiChat, sendAiMessage, checkAiLimit, loadAiSearchSummary, startAiButtonSideSwitch,
     clearRecentSearches
 });
@@ -3568,6 +3279,13 @@ window.onBackPressed = function() {
 };
 
 Object.assign(window, { handleUninstall, handleInstallClick, openAiChat, formatBytes });
+
+/* Force-hide splash and start */
+setTimeout(function() {
+    var sp = document.getElementById('splashScreen');
+    if (sp) { sp.style.opacity = '0'; sp.style.display = 'none'; }
+    if (typeof initializeApp === 'function') { try { initializeApp(); } catch(e) { console.error(e); } }
+}, 1200);
 
 console.log('✅ HGT LINKDIFY STORE loaded.');
 </script>
